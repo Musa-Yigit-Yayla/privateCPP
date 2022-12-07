@@ -12,7 +12,7 @@ public:
     void setItem(ItemType newItem);
 private:
     Node<ItemType>* nextPtr = nullptr;
-    ItemType item;
+    ItemType* item = nullptr; // convert pointer to normal var
 };
 
 #endif // NODE_H

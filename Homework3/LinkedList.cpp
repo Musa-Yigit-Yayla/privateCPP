@@ -15,11 +15,14 @@ Node<ItemType> LinkedList<ItemType>::getNodeAt(int position) const{
         }
         else{
             Node<ItemType>* curr = this->headPtr;
+            Node<ItemType>* prevCurr;
+            //Traverse the list until we hit the null pointer, return the prevCurr e.g the searched element
             while(position > 0){
+                prevCurr = curr;
                 curr = curr->getNextPointer();
                 position--;
             }
-            returnValue = *curr;
+            returnValue = *prevCurr;
         }
         return returnValue;
     }
@@ -86,9 +89,16 @@ template <class ItemType>
         //}
         Node<ItemType> newNode;
         newNode.setItem(newEntry);
-        //get the last node of the list
-        Node<ItemType> lastNode = (this->getNodeAt(this->itemCount));
-        lastNode.setNextPointer(&newNode);
+        if(this->itemCount == 0){
+            this->headPtr = &newNode;
+            this->itemCount++;
+        }
+        else{
+            //get the last node of the list
+            Node<ItemType> lastNode = (this->getNodeAt(this->itemCount));
+            lastNode.setNextPointer(&newNode);
+            this->itemCount++;
+        }
         return true;
     }
 template <class ItemType>

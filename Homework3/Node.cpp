@@ -4,6 +4,10 @@ Musa Yiğit Yayla
 */
 
 #include "Node.h"
+#include <cstddef>
+#include <iostream>
+
+using namespace std;
 
 template<class ItemType>
     Node<ItemType>::Node(){
@@ -18,14 +22,20 @@ template<class ItemType>
         return this->nextPtr;
     }
 template<class ItemType>
-    ItemType Node<ItemType>::getItem() const{
-        return this->item;
+    ItemType Node<ItemType>::getItem() const{ // Remove pointer from return type if necessary
+        return *this->item;
     }
 template<class ItemType>
     void Node<ItemType>::setItem(ItemType newItem){
-        delete &this->item; // redundant ?
-        this->item = newItem;
+        ItemType* itemPtr;
+        itemPtr = (this->item);
+        //std::cout << itemPtr;
+        //If the start of the itemCopyPtr is 0 we have a null element
+        if(itemPtr){
+            delete itemPtr; // redundant ?
+        }
+        this->item = &newItem;
 
-    };
+    }
 template class Node<int>;
 
