@@ -13,10 +13,13 @@ template<class ItemType>
     Node<ItemType>::Node(){
 
     } // maybe remove ?
+    //Sets the nextPointer of this node
 template<class ItemType>
     void Node<ItemType>::setNextPointer(Node<ItemType>* nextElt){
-        this->nextPtr = nextPtr;
+        this->nextPtr = nextElt;
     }
+    //Returns the next pointer of this node
+    //returns null if there is no next node
 template<class ItemType>
     Node<ItemType>* Node<ItemType>::getNextPointer() const{
         return this->nextPtr;

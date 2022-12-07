@@ -19,7 +19,9 @@ Node<ItemType> LinkedList<ItemType>::getNodeAt(int position) const{
             //Traverse the list until we hit the null pointer, return the prevCurr e.g the searched element
             while(position > 0){
                 prevCurr = curr;
-                curr = curr->getNextPointer();
+                if(curr != NULL){
+                    curr = curr->getNextPointer();
+                }
                 position--;
             }
             returnValue = *prevCurr;
