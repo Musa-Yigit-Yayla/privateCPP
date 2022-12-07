@@ -3,7 +3,6 @@ Musa Yiğit Yayla
 22003108
 */
 #include "LinkedList.h"
-#include "Node.h"
 #include <string>
 
 using namespace std;
@@ -13,41 +12,46 @@ template <class ItemType>
     Node<ItemType> LinkedList<ItemType>::getNodeAt(int position) const{
         return headPtr + position; // ?????
     }
-
+template <class ItemType>
 //public:
-    LinkedList<ItemType>::LinkedList<ItemType>(){
+    LinkedList<ItemType>::LinkedList(){
         this->headPtr =  nullptr;
         this->itemCount = 0;
     }
+template <class ItemType>
     LinkedList<ItemType>::LinkedList(const LinkedList<ItemType>& aList){
         this->headPtr = aList.headPtr;
         this->itemCount = aList.itemCount;
     }
+template <class ItemType>
     //Delete linked list elements one by one
     LinkedList<ItemType>::~LinkedList<ItemType>(){
-        Node* start = this->headPtr;
+        Node<ItemType>* start = this->headPtr;
         int deleteCount = 0;
         while(deleteCount < this->itemCount){
-            Node* currStart = start;
+            Node<ItemType>* currStart = start;
             start = currStart.nextPtr;
             delete start;                           // MIGHT BE PROBLEMATICCCCCCCC !!!!!!!!!!!!!!!!!!!
             deleteCount++;
         }
         this->itemCount = 0;
     }
+template <class ItemType>
     bool LinkedList<ItemType>::isEmpty() const{
         return this->itemCount == 0;
     }
-    int LinkedList<ItemType>::getLength() cons{
+template <class ItemType>
+    int LinkedList<ItemType>::getLength() const{
         return this->itemCount;
-    };
+    }
+template <class ItemType>
     bool LinkedList<ItemType>::insert(int newPosition, const ItemType& newEntry){
         Node<ItemType> newNode(newEntry);
-        if(newPosition < 0 || > this->itemCount){
+        if(newPosition < 0 || newPosition > this->itemCount){
             return false;
         }
         else if(newPosition == 1){
-            Node<ItemType> prevHead* = this->headPtr;
+            Node<ItemType>* prevHead = this->headPtr;
             this->headPtr = newNode;
             newNode.setNextPointer(newNode);
             this->itemCount++;
@@ -61,6 +65,7 @@ template <class ItemType>
             return true;
         }
     }
+template <class ItemType>
     bool LinkedList<ItemType>::append(const ItemType& newEntry){
         if(newEntry == NULL){
             return false;
@@ -71,6 +76,7 @@ template <class ItemType>
         lastNode.setNextPointer(newNode);
         return true;
     }
+template <class ItemType>
     bool LinkedList<ItemType>::remove(int position){
         if(position < 0 || position > this->itemCount){
             return false;
@@ -100,13 +106,14 @@ template <class ItemType>
             this->itemCount--; // decrement the item count
         }
     }
+template <class ItemType>
     void LinkedList<ItemType>::clear(){
         while(this->itemCount != 0){
             this.remove(1);
             this->itemCount--;
         }
     }
-
+template <class ItemType>
     ItemType LinkedList<ItemType>::getEntry(int position) const{
         int count = 0;
         Node<ItemType> curr = this.headPtr;
@@ -116,7 +123,7 @@ template <class ItemType>
         }
         return curr.getItemType();
     }
-
+template <class ItemType>
     void LinkedList<ItemType>::setEntry(int position, const ItemType& newEntry){
         int count = 0;
         Node<ItemType> curr = this.headPtr;

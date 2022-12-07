@@ -5,11 +5,11 @@ using namespace std;
 template<class ItemType>
 class Node{
 public:
-    Node(ItemType elt); // maybe remove ?
+    Node<ItemType>(ItemType elt); // maybe remove ?
     void setNextPointer(Node<ItemType>* nextElt);
     Node<ItemType>* getNextPointer() const;
-    ItemType getItemType() const;
-    void setItemType(ItemType newItem);
+    ItemType getItem() const;
+    void setItem(ItemType newItem);
 private:
     Node<ItemType>* nextPtr = nullptr;
     ItemType item;
