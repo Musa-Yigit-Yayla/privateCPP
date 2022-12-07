@@ -2,15 +2,18 @@
 Musa Yiğit Yayla
 22003108
 */
-#include "LinkedList.h"
+/*#ifndef LINKEDLIST_IMP_H
+#define LINKEDlIST_IMP_H
+#endif // LINKEDLIST_IMP_H
 //#include <string>
 #include <cstddef>
-
+//#include "Node_imp.h"
+#include "LinkedList.h"
 using namespace std;
 template <class ItemType>
 //class LinkedList<ItemType>{
 //private:
-    Node<ItemType>& LinkedList<ItemType>::getNodeAt(int position) const{
+    Node<ItemType> LinkedList<ItemType>::getNodeAt(int position) const{
         Node<ItemType> returnValue;
         if(position == 0){
             returnValue = *this->headPtr;
@@ -72,7 +75,8 @@ template <class ItemType>
             return true;
         }
         else{
-            newNode.setNextPointer(&(this->getNodeAt(newPosition)));
+            Node<ItemType> futureNext = this->getNodeAt(newPosition);
+            newNode.setNextPointer(&(futureNext));
             Node<ItemType> prevNode = this->getNodeAt(newPosition - 1);
             prevNode.setNextPointer(&newNode);
             this->itemCount++;
@@ -81,13 +85,13 @@ template <class ItemType>
     }
 template <class ItemType>
     bool LinkedList<ItemType>::append(const ItemType& newEntry){
-        if(newEntry == NULL){
+        /*if(&newEntry == NULL){
             return false;
         }
         Node<ItemType> newNode;
         newNode.setItem(newEntry);
         //get the last node of the list
-        Node<ItemType> lastNode = this->getNodeAt(this->itemCount);
+        Node<ItemType> lastNode = (this->getNodeAt(this->itemCount));
         lastNode.setNextPointer(&newNode);
         return true;
     }
@@ -148,3 +152,5 @@ template <class ItemType>
         }
         curr.setItemType(newEntry);
     }
+#include "LinkedList.h"
+*/

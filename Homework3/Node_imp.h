@@ -1,3 +1,8 @@
+/*
+#ifndef NODE_IMP_H
+#define NODE_IMP_H
+
+
 #include <cstddef>
 #include "Node.h"
 
@@ -24,3 +29,5 @@ template<class ItemType>
         this->item = newItem;
 
     };
+#endif // NODE_IMP_H
+*/

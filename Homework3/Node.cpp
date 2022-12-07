@@ -2,6 +2,7 @@
 Musa Yiğit Yayla
 22003108
 */
+
 #include "Node.h"
 
 template<class ItemType>
@@ -26,6 +27,5 @@ template<class ItemType>
         this->item = newItem;
 
     };
-
-
+template class Node<int>;
 
