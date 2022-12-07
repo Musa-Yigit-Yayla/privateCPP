@@ -5,12 +5,14 @@
 using namespace std;
 
 template<class ItemType>
+
+
 class LinkedList{
 private:
     Node<ItemType>* headPtr;
     int itemCount;
 
-    Node<ItemType> getNodeAt(int position) const;
+    Node<ItemType>& getNodeAt(int position) const; // MIGHT BE PROBLEMATIC !!1
 public:
     LinkedList<ItemType>();
     LinkedList<ItemType>(const LinkedList<ItemType>& aList);
@@ -18,10 +20,10 @@ public:
 
     bool isEmpty() const;
     int getLength() const;
-    bool insert(int newPosition, const ItemType& newEntry);
+    bool insertElt(int newPosition, const ItemType& newEntry);
     bool append(const ItemType& newEntry);
-    bool remove(int position);
-    void clear();
+    bool removeElt(int position);
+    void clearElts();
 
     ItemType getEntry(int position) const;
 

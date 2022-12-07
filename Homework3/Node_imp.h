@@ -1,8 +1,6 @@
-/*
-Musa Yiğit Yayla
-22003108
-*/
+#include <cstddef>
 #include "Node.h"
+
 
 template<class ItemType>
     Node<ItemType>::Node(){
@@ -26,6 +24,3 @@ template<class ItemType>
         this->item = newItem;
 
     };
-
-
-
