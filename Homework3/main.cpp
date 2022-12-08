@@ -6,33 +6,33 @@ using namespace std;
 int main()
 {
     LinkedList<int> list1;
-    cout << "hah" << endl;
+    cout << "hah1" << endl;
     list1.append(3);
-    cout << "hah" << endl;
+    cout << "hah2" << endl;
     list1.append(5);
-    cout << "hah" << endl;
+    cout << "hah3" << endl;
     /*Node<int> node1;
     Node<int> node2;
     Node<int> node3;*/
 
     list1.append(4);
-    cout << "hah" << endl;
-
-    for(int i = 1; i <= 4; i++){
-        std::cout<< list1.getEntry(i) << endl;
-    }
-    list1.removeElt(0); // Should exit the program or display error msg
-    list1.removeElt(1);
-    cout << "hah" << endl;
+    cout << "hah4" << endl;
+    std::cout << list1.getLength();
+    /*for(int i = 1; i <= 3; i++){
+        std::cout<< to_string(list1.getEntry(i)) << endl;
+    }*/
+    //list1.removeElt(0); // Should exit the program or display error msg
     list1.removeElt(2);
-    cout << "hah" << endl;
+    cout << "hah5" << endl;
+    list1.removeElt(3);
+    cout << "hah6" << endl;
     list1.append(5);
-    cout << "hah" << endl;
+    cout << "hah7" << endl;
     list1.insertElt(1, 5);
-    cout << "hah" << endl;
+    cout << "hah8" << endl;
     cout << list1.getLength();
-    cout << "hah" << endl;
+    cout << "hah9" << endl;
     list1.clearElts();
-    cout << "hah" << endl;
+    cout << "hah10" << endl;
     return 0;
 }

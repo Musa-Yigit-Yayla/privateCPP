@@ -12,6 +12,10 @@ using namespace std;
 template<class ItemType>
     Node<ItemType>::Node(){
 
+    }
+template<class ItemType>
+    Node<ItemType>::~Node(){
+        //delete this->item;
     } // maybe remove ?
     //Sets the nextPointer of this node
 template<class ItemType>
@@ -24,8 +28,15 @@ template<class ItemType>
     Node<ItemType>* Node<ItemType>::getNextPointer() const{
         return this->nextPtr;
     }
+
+//Returns the item of this Node
+//Display warning msg if there exist no item in the node
 template<class ItemType>
     ItemType Node<ItemType>::getItem() const{ // Remove pointer from return type if necessary
+        std::cout << "Hey" << to_string(*item) << endl;
+        if((this->item) != 0){
+            std::cout << "Cannot return the item. Item doesn't exist. " << endl;
+        }
         return *(this->item);
     }
 template<class ItemType>

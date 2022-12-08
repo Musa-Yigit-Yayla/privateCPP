@@ -115,6 +115,7 @@ template <class ItemType>
 template <class ItemType>
     bool LinkedList<ItemType>::removeElt(int position){
         if(position < 1 || position > this->itemCount){
+            std::cout <<    "Cannot remove the element at position" << position;
             return false;
         }
         Node<ItemType> eltToRemoved = this->getNodeAt(position);
@@ -124,7 +125,7 @@ template <class ItemType>
             this->headPtr = newHead;
             this->itemCount--;
         }
-        /*else if(position == this->itemCount){
+        else if(position == this->itemCount){
             //find the prev pointer
             Node<ItemType>* curr = this->headPtr;
             Node<ItemType>* prev = this->headPtr;
@@ -136,18 +137,24 @@ template <class ItemType>
                 curr = curr->getNextPointer();
             }
 
-        }*/
+        }
         else{
             //find the prev pointer
             Node<ItemType>* curr = this->headPtr;
-            Node<ItemType>* prev = this->headPtr;
-            while(true){
+            Node<ItemType>* prev;
+            /*while(true){
                 if(curr->getNextPointer() == &eltToRemoved){
                     prev = curr;
                     break;
                 }
                 curr = curr->getNextPointer();
+            }*/
+
+            for(int i = 1; i < position; i++){
+                prev = curr;
+                curr = curr->getNextPointer();
             }
+
             Node<ItemType>* midHead = eltToRemoved.getNextPointer();
             delete &eltToRemoved;
             prev->setNextPointer(midHead);
@@ -165,7 +172,7 @@ template <class ItemType>
     }
 template <class ItemType>
     ItemType LinkedList<ItemType>::getEntry(int position) const{
-        int count1 = 0;
+        int count1 = 1;
         Node<ItemType>* curr = this->headPtr;
         while(count1 < position){
             curr = curr->getNextPointer();
@@ -175,7 +182,7 @@ template <class ItemType>
     }
 template <class ItemType>
     void LinkedList<ItemType>::setEntry(int position, const ItemType& newEntry){
-        int count1 = 0;
+        int count1 = 1;
         Node<ItemType>* curr = this->headPtr;
         while(count1 < position){
             curr = curr->getNextPointer();

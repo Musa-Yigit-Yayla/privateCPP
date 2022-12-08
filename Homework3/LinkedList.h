@@ -1,3 +1,8 @@
+/*
+Musa Yiğit Yayla
+22003108
+*/
+
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
