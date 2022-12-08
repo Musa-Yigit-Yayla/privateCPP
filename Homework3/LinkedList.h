@@ -18,7 +18,7 @@ private:
     Node<ItemType>* headPtr;
     int itemCount;
 
-    Node<ItemType> getNodeAt(int position) const; // MIGHT BE PROBLEMATIC !!1
+    Node<ItemType>& getNodeAt(int position) const; // MIGHT BE PROBLEMATIC !!1
 public:
     LinkedList<ItemType>();
     LinkedList<ItemType>(const LinkedList<ItemType>& aList);

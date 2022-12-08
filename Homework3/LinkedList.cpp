@@ -12,18 +12,17 @@ using namespace std;
 //Returns the node at the given position, displays a warning message if the given position is invalid
 //Position should be given from 1 to list length inclusive
 template <class ItemType>
-Node<ItemType> LinkedList<ItemType>::getNodeAt(int position) const{
-        Node<ItemType> returnValue;
+Node<ItemType>& LinkedList<ItemType>::getNodeAt(int position) const{
         if(position < 1 || position > this->itemCount){
             cout << "Given position is invalid, cannot get the node at position " << position << ".";
             exit(1); // Exit the program
         }
         else if(position == 1){
-            returnValue = *this->headPtr;
+            return *this->headPtr;
         }
         else{
-            Node<ItemType>* curr = this->headPtr;
-            Node<ItemType>* prevCurr;
+            Node<ItemType>* curr = this->headPtr->getNextPointer();
+            Node<ItemType>* prevCurr = this->headPtr;
             //Traverse the list until we hit the null pointer, return the prevCurr e.g the searched element
             while(position > 1){ // change back to 0 ?
                 prevCurr = curr;
@@ -32,9 +31,8 @@ Node<ItemType> LinkedList<ItemType>::getNodeAt(int position) const{
                 }
                 position--;
             }
-            returnValue = *prevCurr;
+            return *prevCurr;
         }
-        return returnValue;
     }
 template <class ItemType>
 //public:
@@ -50,7 +48,7 @@ template <class ItemType>
 template <class ItemType>
     //Delete linked list elements one by one
     LinkedList<ItemType>::~LinkedList<ItemType>(){
-        Node<ItemType>* start = this->headPtr;
+        /*Node<ItemType>* start = this->headPtr;
         int deleteCount = 0;
         while(deleteCount < this->itemCount){
             Node<ItemType>* currStart = start;
@@ -58,7 +56,7 @@ template <class ItemType>
             delete start;                           // MIGHT BE PROBLEMATICCCCCCCC !!!!!!!!!!!!!!!!!!!
             deleteCount++;
         }
-        this->itemCount = 0;
+        this->itemCount = 0;*/
     }
 template <class ItemType>
     bool LinkedList<ItemType>::isEmpty() const{
@@ -70,23 +68,27 @@ template <class ItemType>
     }
 template <class ItemType>
     bool LinkedList<ItemType>::insertElt(int newPosition, const ItemType& newEntry){
-        Node<ItemType> newNode;
-        newNode.setItem(newEntry);
-        if(newPosition < 0 || newPosition > this->itemCount){
-            return false;
-        }
-        else if(newPosition == 1){
+        Node<ItemType>* newNode = new Node<ItemType>();
+        newNode->setItem(newEntry);
+        if(newPosition == 1 || newPosition == this->itemCount + 1){
             //Node<ItemType>* prevHead = this->headPtr;
-            this->headPtr = &newNode;
-            newNode.setNextPointer(&newNode);
+            Node<ItemType>* prevHead = this->headPtr;
+            newNode->setNextPointer(prevHead);
+            this->headPtr = newNode;
             this->itemCount++;
             return true;
         }
+
+        else if(newPosition < 0 || newPosition > this->itemCount + 1){ // itemCount -1 is to satisfy the insertion if list has no elts
+            return false;
+        }
+
         else{
-            Node<ItemType> futureNext = this->getNodeAt(newPosition);
-            newNode.setNextPointer(&(futureNext));
-            Node<ItemType> prevNode = this->getNodeAt(newPosition - 1);
-            prevNode.setNextPointer(&newNode);
+            Node<ItemType>* futureNext = &(this->getNodeAt(newPosition));
+            Node<ItemType>* prevNode = &(this->getNodeAt(newPosition - 1));
+            prevNode->setNextPointer(newNode);
+            newNode->setNextPointer((futureNext));
+
             this->itemCount++;
             return true;
         }
@@ -115,10 +117,11 @@ template <class ItemType>
 template <class ItemType>
     bool LinkedList<ItemType>::removeElt(int position){
         if(position < 1 || position > this->itemCount){
-            std::cout <<    "Cannot remove the element at position" << position;
+            std::cout <<    "Cannot remove the element at position" << position << endl;
             return false;
         }
-        Node<ItemType> eltToRemoved = this->getNodeAt(position);
+
+        Node<ItemType> eltToRemoved = this->getNodeAt(position);; // CHANGE BACK TO OBJECT TYPE MAYBE
         if(position == 1){
             Node<ItemType>* newHead = eltToRemoved.getNextPointer();
             delete this->headPtr;
@@ -136,7 +139,10 @@ template <class ItemType>
                 }
                 curr = curr->getNextPointer();
             }
-
+            Node<ItemType>* midHead = eltToRemoved.getNextPointer();
+        //delete eltToRemoved;
+        prev->setNextPointer(midHead);
+        this->itemCount--; // decrement the item count
         }
         else{
             //find the prev pointer
@@ -156,9 +162,9 @@ template <class ItemType>
             }
 
             Node<ItemType>* midHead = eltToRemoved.getNextPointer();
-            delete &eltToRemoved;
-            prev->setNextPointer(midHead);
-            this->itemCount--; // decrement the item count
+        //delete eltToRemoved;
+        prev->setNextPointer(midHead);
+        this->itemCount--; // decrement the item count
         }
         return true;
     }
