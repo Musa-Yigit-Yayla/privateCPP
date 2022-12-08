@@ -4,23 +4,25 @@
 
 1670332060 source:c:\users\yigit\documents\cs201\homework3\node.cpp
 
-1670414714 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\main.cpp
+1670487082 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\main.cpp
 	<iostream>
 	"LinkedList.h"
 
-1670422426 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\node.cpp
+1670424314 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\node.cpp
 	"Node.h"
 	<cstddef>
 	<iostream>
 
-1670423722 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist.cpp
+1670487272 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist.cpp
 	"LinkedList.h"
 	<cstddef>
+	<iostream>
 
-1670412308 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist.h
+1670487082 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist.h
 	"Node.h"
+	<string>
 
-1670422182 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\node.h
+1670489671 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\node.h
 
 1670414090 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist_imp.h
 	<cstddef>

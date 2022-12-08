@@ -2,6 +2,7 @@
 #define LINKED_LIST_H
 
 #include "Node.h"
+#include <string>
 using namespace std;
 
 template<class ItemType>
@@ -24,9 +25,7 @@ public:
     bool append(const ItemType& newEntry);
     bool removeElt(int position);
     void clearElts();
-
     ItemType getEntry(int position) const;
-
     void setEntry(int position, const ItemType& newEntry);
 };
 #endif // _LINKED_LIST

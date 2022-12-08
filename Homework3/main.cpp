@@ -17,9 +17,14 @@ int main()
 
     list1.append(4);
     cout << "hah" << endl;
-    list1.removeElt(2);
+
+    for(int i = 1; i <= 4; i++){
+        std::cout<< list1.getEntry(i) << endl;
+    }
+    list1.removeElt(0); // Should exit the program or display error msg
+    list1.removeElt(1);
     cout << "hah" << endl;
-    list1.removeElt(3);
+    list1.removeElt(2);
     cout << "hah" << endl;
     list1.append(5);
     cout << "hah" << endl;

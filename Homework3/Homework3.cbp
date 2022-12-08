@@ -35,6 +35,7 @@
 		<Unit filename="LinkedList.cpp" />
 		<Unit filename="LinkedList.h" />
 		<Unit filename="LinkedList_imp.h" />
+		<Unit filename="MovieRentalSystem.cpp" />
 		<Unit filename="MovieRentalSystem.h" />
 		<Unit filename="Node.cpp" />
 		<Unit filename="Node.h" />

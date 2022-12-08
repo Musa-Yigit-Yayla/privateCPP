@@ -26,7 +26,7 @@ template<class ItemType>
     }
 template<class ItemType>
     ItemType Node<ItemType>::getItem() const{ // Remove pointer from return type if necessary
-        return *this->item;
+        return *(this->item);
     }
 template<class ItemType>
     void Node<ItemType>::setItem(ItemType newItem){

@@ -4,20 +4,28 @@ Musa Yiğit Yayla
 */
 #include "LinkedList.h"
 #include <cstddef>
+#include <iostream>
 //#include <string>
 
 using namespace std;
+
+//Returns the node at the given position, displays a warning message if the given position is invalid
+//Position should be given from 1 to list length inclusive
 template <class ItemType>
 Node<ItemType> LinkedList<ItemType>::getNodeAt(int position) const{
         Node<ItemType> returnValue;
-        if(position == 0){
+        if(position < 1 || position > this->itemCount){
+            cout << "Given position is invalid, cannot get the node at position " << position << ".";
+            exit(1); // Exit the program
+        }
+        else if(position == 1){
             returnValue = *this->headPtr;
         }
         else{
             Node<ItemType>* curr = this->headPtr;
             Node<ItemType>* prevCurr;
             //Traverse the list until we hit the null pointer, return the prevCurr e.g the searched element
-            while(position > 0){
+            while(position > 1){ // change back to 0 ?
                 prevCurr = curr;
                 if(curr != NULL){
                     curr = curr->getNextPointer();
@@ -103,9 +111,10 @@ template <class ItemType>
         }
         return true;
     }
+    //Removes an element at the given position
 template <class ItemType>
     bool LinkedList<ItemType>::removeElt(int position){
-        if(position < 0 || position > this->itemCount){
+        if(position < 1 || position > this->itemCount){
             return false;
         }
         Node<ItemType> eltToRemoved = this->getNodeAt(position);
@@ -115,24 +124,38 @@ template <class ItemType>
             this->headPtr = newHead;
             this->itemCount--;
         }
+        /*else if(position == this->itemCount){
+            //find the prev pointer
+            Node<ItemType>* curr = this->headPtr;
+            Node<ItemType>* prev = this->headPtr;
+            while(true){
+                if(curr->getNextPointer() == &eltToRemoved){
+                    prev = curr;
+                    break;
+                }
+                curr = curr->getNextPointer();
+            }
+
+        }*/
         else{
             //find the prev pointer
             Node<ItemType>* curr = this->headPtr;
-            Node<ItemType> prev;
+            Node<ItemType>* prev = this->headPtr;
             while(true){
                 if(curr->getNextPointer() == &eltToRemoved){
-                    prev = *curr;
+                    prev = curr;
                     break;
                 }
                 curr = curr->getNextPointer();
             }
             Node<ItemType>* midHead = eltToRemoved.getNextPointer();
             delete &eltToRemoved;
-            prev.setNextPointer(midHead);
+            prev->setNextPointer(midHead);
             this->itemCount--; // decrement the item count
         }
         return true;
     }
+    //Clears the whole list
 template <class ItemType>
     void LinkedList<ItemType>::clearElts(){
         while(this->itemCount != 0){
@@ -142,24 +165,24 @@ template <class ItemType>
     }
 template <class ItemType>
     ItemType LinkedList<ItemType>::getEntry(int position) const{
-        int count = 0;
+        int count1 = 0;
         Node<ItemType>* curr = this->headPtr;
-        while(count < position){
+        while(count1 < position){
             curr = curr->getNextPointer();
-            count++;
+            count1++;
         }
         return curr->getItem();
     }
 template <class ItemType>
     void LinkedList<ItemType>::setEntry(int position, const ItemType& newEntry){
-        int count = 0;
+        int count1 = 0;
         Node<ItemType>* curr = this->headPtr;
-        while(count < position){
+        while(count1 < position){
             curr = curr->getNextPointer();
-            count++;
+            count1++;
         }
         curr->setItem(newEntry);
     }
+
     //instantiate templates for testing
     template class LinkedList<int>;
-
