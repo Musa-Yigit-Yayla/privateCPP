@@ -24,6 +24,7 @@ int main()
     }*/
     //list1.removeElt(1); // Should exit the program or display error msg
     list1.removeElt(2);
+    list1.removeElt(15);
     cout << "hah5" << endl;
     list1.removeElt(3);
     cout << "hah6" << endl;

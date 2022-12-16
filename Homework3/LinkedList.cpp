@@ -116,7 +116,7 @@ template <class ItemType>
     //Removes an element at the given position
 template <class ItemType>
     bool LinkedList<ItemType>::removeElt(int position){
-        if(position < 1 || position > this->itemCount){
+        if(position < 1 || position > this->itemCount + 1){
             std::cout <<    "Cannot remove the element at position" << position << endl;
             return false;
         }
@@ -128,17 +128,18 @@ template <class ItemType>
             this->headPtr = newHead;
             this->itemCount--;
         }
-        else if(position == this->itemCount){
+        else if(position == this->itemCount){ // removal of the last elt
             //find the prev pointer
             Node<ItemType>* curr = this->headPtr;
             Node<ItemType>* prev = this->headPtr;
-            while(true){
-                if(curr->getNextPointer() == &eltToRemoved){
-                    prev = curr;
-                    break;
-                }
+            //find the prev pointer and last elt pointer
+            for(int i = 1; i < position; i++){
+                prev = curr;
                 curr = curr->getNextPointer();
             }
+            //delete curr set nextpr null
+            delete curr;
+            prev->setNextPointer(nullptr);
             Node<ItemType>* midHead = eltToRemoved.getNextPointer();
         //delete eltToRemoved;
         prev->setNextPointer(midHead);
