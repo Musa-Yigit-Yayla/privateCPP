@@ -1,6 +1,10 @@
 #ifndef MOVIERENTALSYSTEM_H
 #define MOVIERENTALSYSTEM_H
 #include <string>
+#include "LinkedList.h"
+#include "Subscriber.h"
+#include "Movie.h"
+#include "Transaction.h"
 
 using namespace std;
 
@@ -18,6 +22,10 @@ void showMoviesRentedBy( const int subscriberId ) const;
 void showSubscribersWhoRentedMovie( const int movieId ) const;
 void showAllMovies() const;
 void showAllSubscribers() const;
+private:
+    LinkedList<Subscriber> subs;
+    LinkedList<Movie> movies;
+    LinkedList<Transaction> transactions;
 };
 
 #endif
