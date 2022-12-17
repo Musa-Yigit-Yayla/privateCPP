@@ -15,7 +15,11 @@ MovieRentalSystem::MovieRentalSystem( const string movieInfoFileName, const stri
     string str;
     ifstream movieFile(movieInfoFileName);
     int count = 0;
+<<<<<<< Updated upstream
     while(getline(movieFile, str)){
+=======
+    while(getline(movieInfoFileName, str)){
+>>>>>>> Stashed changes
         //discard first line
         if(count == 0){
             count++;
@@ -77,6 +81,7 @@ void MovieRentalSystem::removeMovie( const int movieId ){
     //search each element until a match occurs in id and retrieve the position
 
 }
+<<<<<<< Updated upstream
 void MovieRentalSystem::addMovie( const int movieId, const int numCopies );
 void MovieRentalSystem::removeSubscriber( const int subscriberId );
 void MovieRentalSystem::rentMovie( const int subscriberId, const int movieId );
@@ -85,4 +90,14 @@ void MovieRentalSystem::showMoviesRentedBy( const int subscriberId ) const;
 void MovieRentalSystem::showSubscribersWhoRentedMovie( const int movieId ) const;
 void MovieRentalSystem::showAllMovies() const;
 void MovieRentalSystem::showAllSubscribers() const;
+=======
+void addMovie( const int movieId, const int numCopies );
+void removeSubscriber( const int subscriberId );
+void rentMovie( const int subscriberId, const int movieId );
+void returnMovie( const int subscriberId, const int movieId );
+void showMoviesRentedBy( const int subscriberId ) const;
+void showSubscribersWhoRentedMovie( const int movieId ) const;
+void showAllMovies() const;
+void showAllSubscribers() const;
+>>>>>>> Stashed changes
 
