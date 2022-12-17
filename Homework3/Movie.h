@@ -4,14 +4,15 @@
 class Movie{
 private:
     int movieID;
-    static int copyCount;
+    int copyCount;
 
 public:
-    Movie(int movieID){
-        this->movieID = movieID;
-    }
-    inline void incrementCopyCount(){
-        this->copyCount++;
-    }
+    Movie(int movieID, int copyCount);
+    ~Movie();
+    void incrementCopyCount();
+    void decrementCopyCount();
+    void setMovieID(int);
+    int getMovieID() const;
+    int getCopyCount() const;
 };
 #endif // MOVIE_H
