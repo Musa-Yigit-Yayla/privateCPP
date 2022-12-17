@@ -3,6 +3,9 @@ Musa Yiğit Yayla
 22003108
 */
 #include "LinkedList.h"
+//#include "Subscriber.h"
+//#include "Movie.h"
+//#include "Transaction.h"
 #include <cstddef>
 #include <iostream>
 //#include <string>
@@ -149,13 +152,6 @@ template <class ItemType>
             //find the prev pointer
             Node<ItemType>* curr = this->headPtr;
             Node<ItemType>* prev;
-            /*while(true){
-                if(curr->getNextPointer() == &eltToRemoved){
-                    prev = curr;
-                    break;
-                }
-                curr = curr->getNextPointer();
-            }*/
 
             for(int i = 1; i < position; i++){
                 prev = curr;
@@ -200,3 +196,6 @@ template <class ItemType>
 
     //instantiate templates for testing
     template class LinkedList<int>;
+    template class LinkedList<Subscriber>;
+    template class LinkedList<Transaction>;
+    template class LinkedList<Movie>;

@@ -34,13 +34,13 @@
 		</Compiler>
 		<Unit filename="LinkedList.cpp" />
 		<Unit filename="LinkedList.h" />
-		<Unit filename="LinkedList_imp.h" />
+		<Unit filename="Movie.cpp" />
 		<Unit filename="Movie.h" />
 		<Unit filename="MovieRentalSystem.cpp" />
 		<Unit filename="MovieRentalSystem.h" />
 		<Unit filename="Node.cpp" />
 		<Unit filename="Node.h" />
-		<Unit filename="Node_imp.h" />
+		<Unit filename="Subscriber.cpp" />
 		<Unit filename="Subscriber.h" />
 		<Unit filename="Transaction.h" />
 		<Unit filename="main.cpp" />
