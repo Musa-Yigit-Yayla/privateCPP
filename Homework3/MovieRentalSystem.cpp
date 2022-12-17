@@ -75,7 +75,48 @@ MovieRentalSystem::~MovieRentalSystem(){
 }
 void MovieRentalSystem::removeMovie( const int movieId ){
     //search each element until a match occurs in id and retrieve the position
-    for()
+    int position = -1;
+    Movie* currMovie;
+    for(int i = 1; i < this->movies.getLength(); i++){
+        currMovie = &(this->movies.getEntry(i));
+        if(i == currMovie->getMovieID()){
+            position = i;
+            break;
+        }
+    }
+    if(position == -1){
+        //display warning msg
+        cout << "Warning no such movie exists with given ID " << movieId << endl;
+    }
+
+    bool isRented = false;
+    //check subs if movie is rented by anyone
+
+    for(int i = 1; i <= this->subs.getLength(); i++){
+        Subscriber curr = ((static_cast<Subscriber>)(this->subs.getEntry(i)));
+        for(int j = 1; j <= curr.getCopyCount; j++){
+            //check each element to find whether we have the movie itself
+            currMovie = curr.getMovieAt(j);
+            if(currMovie->getMovieID() == movieId){
+                isRented = true;
+                break;
+            }
+        }
+    }
+    else if(isRented){
+        cout << "Cannot remove the movie the movie is rented by subscriber(s)." << endl;
+    }
+    else{
+        //Remove the movie
+        for(int i = 1; i <= this->movies.getLength(); i++){
+            Movie curr = ((static_cast<Movie>)(this->movies.getEntry(i)));
+            if(curr.getMovieID() == movieId){
+                this->movies.removeElt(i);
+                std::cout << "Movie " << movieId << "has been removed.";
+                break;
+            }
+        }
+    }
 }
 void MovieRentalSystem::addMovie( const int movieId, const int numCopies );
 void MovieRentalSystem::removeSubscriber( const int subscriberId );
