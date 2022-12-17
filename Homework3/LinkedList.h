@@ -7,9 +7,6 @@ Musa Yiğit Yayla
 #define LINKED_LIST_H
 
 #include "Node.h"
-#include "Subscriber.h"
-#include "Movie.h"
-#include "Transaction.h"
 #include <string>
 
 using namespace std;

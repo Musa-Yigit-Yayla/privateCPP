@@ -1,8 +1,5 @@
 #ifndef NODE_H
 #define NODE_H
-#include "Subscriber.h"
-#include "Transaction.h"
-#include "Movie.h"
 
 template<class ItemType>
 class Node{

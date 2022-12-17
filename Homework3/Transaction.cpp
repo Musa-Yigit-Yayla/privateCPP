@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-
-=======
 #include "Transaction.h"
 
 //public:
@@ -19,4 +16,3 @@
     void Transaction::setReturned(bool returned){
         this->isReturned = returned;
     }
->>>>>>> Stashed changes
