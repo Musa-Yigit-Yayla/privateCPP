@@ -103,7 +103,7 @@ void MovieRentalSystem::removeMovie( const int movieId ){
             }
         }
     }
-    else if(isRented){
+    if(isRented){
         cout << "Cannot remove the movie the movie is rented by subscriber(s)." << endl;
     }
     else{

@@ -1,3 +1,4 @@
+#include "Subscriber.h"
 using namespace std;
 //public:
     Subscriber::Subscriber(int subID): subscriberID{subID}{
