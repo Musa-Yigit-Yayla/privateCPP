@@ -42,6 +42,7 @@
 		<Unit filename="Node.h" />
 		<Unit filename="Subscriber.cpp" />
 		<Unit filename="Subscriber.h" />
+		<Unit filename="Transaction.cpp" />
 		<Unit filename="Transaction.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
