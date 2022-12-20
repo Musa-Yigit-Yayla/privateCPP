@@ -2,6 +2,7 @@
 #define SUBSCRIBER_H
 #include "Movie.h"
 #include "LinkedList.h"
+#include
 
 using namespace std;
 
@@ -19,6 +20,7 @@ public:
     int getCopyCount() const;
     Movie* getMovieAt(int) const;
     void addMovie(Movie movie);
+    void getMoviesLength() const;
 
 };
 

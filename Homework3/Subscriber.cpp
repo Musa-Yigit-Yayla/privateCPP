@@ -44,3 +44,6 @@ using namespace std;
             }
         }
     }
+    void Subscriber::getMoviesLength() const{
+        return this->rentedMovies.getLength();
+    }

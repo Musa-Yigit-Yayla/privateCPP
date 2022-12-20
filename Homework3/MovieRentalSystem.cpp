@@ -128,7 +128,7 @@ void MovieRentalSystem::addMovie( const int movieID, const int numCopies ){
         Movie curr = this->movies.getEntry(i);
         if(movieID == curr.getMovieID()){
             //movie exists
-            cout << "A movie with the given ID (" << movieID << ") " << "already exists. Cannot add the movie." << endl
+            cout << "A movie with the given ID (" << movieID << ") " << "already exists. Cannot add the movie." << endl;
             delete newMovie;
             return;
         }
@@ -152,7 +152,47 @@ void MovieRentalSystem::addMovie( const int movieID, const int numCopies ){
         this->movies.insertElt(insertionPos, *newMovie);
     }
 }
-void MovieRentalSystem::removeSubscriber( const int subscriberId );
+//This method is for the successful removal of a subscriber
+//If the subscriber does not exist there will be a warning msg displayed
+//If all of the movies this subscriber rented has been returned, all the transactions of subscriber will be removed.
+//Subsequently the subscriber itself will be removed.
+//Else there will be a related warning msg displayed accordingly.
+void MovieRentalSystem::removeSubscriber( const int subscriberId ){
+    //search the subscriber list to check whether the subscriber exists
+    int subIndex = -1;
+
+    for(int i = 1; i <= this->subs.getLength(); i++){
+        Subscriber currSub = subs.getEntry(i);
+        if(currSub.getSubscriberID() == subscriberId){
+            subIndex = i;
+            break;
+        }
+    }
+    if(subIndex == -1){
+        //no match has been found
+        cout << "Warning no such subscriber exists with given ID " << subscriberId << "!" << endl;
+        return;
+    }
+    //check the movie list of the subscriber whether s/he has returned their movies
+    int rentedMoviesLength = newSubscriber->getMoviesLength();
+    if(rentedMoviesLength != 0){
+        cout << "Subscriber still holds some movies. Cannot remove the subscriber unless they return the movies." << endl;
+    }
+    else{
+        //remove all of the transactions of the subscriber
+        for(int i = 1; i <= this->transactions.getLength(); i++){
+            //might be problematic
+            Transaction curr = this->transactions.getEntry(i);
+            if(curr.getSubscriberID() == subscriberId){
+                //remove the transaction
+                this->transactions.removeElt(i);
+            }
+        }
+        //Remove the subscriber
+        this->subs.removeElt(subIndex);
+        cout << "Subscriber with the given ID " << subscriberId << " has been removed successfully." << endl;
+    }
+}
 void MovieRentalSystem::rentMovie( const int subscriberId, const int movieId );
 void MovieRentalSystem::returnMovie( const int subscriberId, const int movieId );
 void MovieRentalSystem::showMoviesRentedBy( const int subscriberId ) const;
