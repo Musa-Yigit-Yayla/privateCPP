@@ -6,7 +6,6 @@ class Movie{
 private:
     int movieID;
     int copyCount;
-
     LinkedList<Subscriber> renterSubscribers;
 public:
     Movie(int movieID, int copyCount);

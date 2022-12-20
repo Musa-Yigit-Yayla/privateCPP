@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 /*
 private:
     LinkedList<Subscriber> subs;
@@ -118,7 +119,39 @@ void MovieRentalSystem::removeMovie( const int movieId ){
         }
     }
 }
-void MovieRentalSystem::addMovie( const int movieId, const int numCopies );
+//Adds the movie by first instantiating it, if a movie with the same ID DNE
+//If movie exists displays a warning msg
+void MovieRentalSystem::addMovie( const int movieID, const int numCopies ){
+    Movie* newMovie = new Movie(movieID, numCopies);
+    //Linear search the given movie
+    for(int i = 1; i <= this->movies.getLength(); i++){
+        Movie curr = this->movies.getEntry(i);
+        if(movieID == curr.getMovieID()){
+            //movie exists
+            cout << "A movie with the given ID (" << movieID << ") " << "already exists. Cannot add the movie." << endl
+            delete newMovie;
+            return;
+        }
+    }
+    //find the first movie with a greater ID if exists
+    int insertionPos = -1;
+    for(int i = 1; i <= this->movies.getLength(); i++){
+        Movie curr = this->movies.getEntry(i); // might need to cast
+        int currID = curr.getMovieID();
+        if(movieID < currID){
+            //set the insertion index
+            insertionPos = i;
+            break;
+        }
+    }
+    if(insertionPos == -1){
+        //append the movie
+        this->movies.append(*newMovie);
+    }
+    else{
+        this->movies.insertElt(insertionPos, *newMovie);
+    }
+}
 void MovieRentalSystem::removeSubscriber( const int subscriberId );
 void MovieRentalSystem::rentMovie( const int subscriberId, const int movieId );
 void MovieRentalSystem::returnMovie( const int subscriberId, const int movieId );
