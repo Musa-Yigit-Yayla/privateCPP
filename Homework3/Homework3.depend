@@ -18,17 +18,11 @@
 	<cstddef>
 	<iostream>
 
-1671267638 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist.h
+1671292016 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist.h
 	"Node.h"
-	"Subscriber.h"
-	"Movie.h"
-	"Transaction.h"
 	<string>
 
-1671267638 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\node.h
-	"Subscriber.h"
-	"Transaction.h"
-	"Movie.h"
+1671292061 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\node.h
 
 1670414090 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\linkedlist_imp.h
 	<cstddef>
@@ -62,6 +56,6 @@
 
 1671267638 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\transaction.h
 
-1671262362 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\transaction.cpp
+1671292787 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\homework3\transaction.cpp
 	"Transaction.h"
 

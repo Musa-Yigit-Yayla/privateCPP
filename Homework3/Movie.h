@@ -5,7 +5,7 @@
 class Movie{
 private:
     int movieID;
-    int copyCount;
+    int copyCount; // available count of the movie
     LinkedList<Subscriber> renterSubscribers;
 public:
     Movie(int movieID, int copyCount);

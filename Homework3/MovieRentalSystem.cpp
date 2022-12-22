@@ -79,7 +79,8 @@ void MovieRentalSystem::removeMovie( const int movieId ){
     int position = -1;
     Movie* currMovie;
     for(int i = 1; i < this->movies.getLength(); i++){
-        currMovie = &(this->movies.getEntry(i));
+        Movie movieAt = this->movies.getEntry(i);
+        currMovie = &movieAt;
         if(i == currMovie->getMovieID()){
             position = i;
             break;
@@ -94,8 +95,8 @@ void MovieRentalSystem::removeMovie( const int movieId ){
     //check subs if movie is rented by anyone
 
     for(int i = 1; i <= this->subs.getLength(); i++){
-        Subscriber curr = ((static_cast<Subscriber>)(this->subs.getEntry(i)));
-        for(int j = 1; j <= curr.getCopyCount; j++){
+        Subscriber curr = (this->subs).getEntry(i);
+        for(int j = 1; j <= curr.getCopyCount(); j++){
             //check each element to find whether we have the movie itself
             currMovie = curr.getMovieAt(j);
             if(currMovie->getMovieID() == movieId){
@@ -110,7 +111,7 @@ void MovieRentalSystem::removeMovie( const int movieId ){
     else{
         //Remove the movie
         for(int i = 1; i <= this->movies.getLength(); i++){
-            Movie curr = ((static_cast<Movie>)(this->movies.getEntry(i)));
+            Movie curr = (this->movies.getEntry(i));
             if(curr.getMovieID() == movieId){
                 this->movies.removeElt(i);
                 std::cout << "Movie " << movieId << "has been removed.";
@@ -174,7 +175,8 @@ void MovieRentalSystem::removeSubscriber( const int subscriberId ){
         return;
     }
     //check the movie list of the subscriber whether s/he has returned their movies
-    int rentedMoviesLength = newSubscriber->getMoviesLength();
+    Subscriber givenSubscriber = this->subs.getEntry(i);
+    int rentedMoviesLength = givenSubscriber.getMoviesLength();
     if(rentedMoviesLength != 0){
         cout << "Subscriber still holds some movies. Cannot remove the subscriber unless they return the movies." << endl;
     }
@@ -193,8 +195,101 @@ void MovieRentalSystem::removeSubscriber( const int subscriberId ){
         cout << "Subscriber with the given ID " << subscriberId << " has been removed successfully." << endl;
     }
 }
-void MovieRentalSystem::rentMovie( const int subscriberId, const int movieId );
-void MovieRentalSystem::returnMovie( const int subscriberId, const int movieId );
+
+//Conditions might be problematic
+void MovieRentalSystem::rentMovie( const int subscriberId, const int movieId ){
+    //Search whether the movie exists
+    bool movieExists = false;
+    bool subExists = false;
+    Movie movieToRent;
+    Subscriber renter;
+    for(int i = 1; i <= this->movies.getLength(); i++){
+        Movie curr = this->movies.getEntry(i);
+        if(curr.getMovieID() == movieId){
+            movieExists = true;
+            movieToRent = curr;
+            break;
+        }
+    }
+    for(int i = 1; i <= this->subs.getLength(); i++){
+        Subscriber curr = this->subs.getEntry(i);
+        if(curr.getMovieID() == subscriberId){
+            renter = curr;
+            subExists = true;
+            break;
+        }
+    }
+    if(!movieExists){
+        cout << "Movie with the given ID (" << movieId ") does not exists. Cannot rent movie." << endl;
+
+    }
+    else if(!movieExists){
+        cout << "Subscriber with the given ID (" << subscriberIdID ") does not exists. Cannot rent movie." << endl;
+    }
+    else if(movieToRent.getCopyCount() == 0){
+        cout << "Movie " << movieId << " has no available copy for renting." << endl;
+    }
+    else{
+        //rent the movie
+        renter.addMovie(movieToRent);
+        Transaction transaction(subscriberId, movieId);
+        this->transactions.append(transaction);
+        cout << "Movie" << movieId << "has been rented by subscriber " << 7777 << endl
+    }
+}
+//If the subscriber or movie does not exist display a warning msg
+//else If subscriber has no such movie rented display a warning msg
+//else returnMovie increment copy count by 1
+void MovieRentalSystem::returnMovie( const int subscriberId, const int movieId ){
+    /*bool movieExists = false;
+    bool subExists = false;
+    Movie movieToReturn;
+    Subscriber returner;
+    for(int i = 1; i <= this->movies.getLength(); i++){
+        Movie curr = this->movies.getEntry(i);
+        if(curr.getMovieID() == movieId){
+            movieExists = true;
+            movieToReturn = curr;
+            break;
+        }
+    }
+    for(int i = 1; i <= this->subs.getLength(); i++){
+        Subscriber curr = this->subs.getEntry(i);
+        if(curr.getMovieID() == subscriberId){
+            returner = curr;
+            subExists = true;
+            break;
+        }
+    }
+    if(!movieExists){
+        cout << "Movie with the given ID (" << movieId ") does not exists. Cannot rent movie." << endl;
+
+    }
+    else if(!movieExists){
+        cout << "Subscriber with the given ID (" << subscriberIdID ") does not exists. Cannot rent movie." << endl;
+    }*/
+    Transaction transaction;
+    bool matchFound = false;
+    //search the transactions until a match is found
+    for(int i = 1; i <= this->transactions.getLength(); i++){
+        Transaction curr = this->transactions.getEntry(i);
+        if(curr.getMovieID() == movieId && curr.getSubscriberID() == subscriberId){
+            //match is found
+            matchFound = true;
+            transaction = curr;
+        }
+    }
+    //If transaction indicates that it's not returned, return it
+    if(matchFound){
+        bool isReturned = transaction.getIsReturned();
+        if(!isReturned){
+
+        }
+    }
+    else{
+        cout << "No rental transaction for subscriber " << subscriberId << " and movie " << movieId << endl;
+    }
+}
 void MovieRentalSystem::showMoviesRentedBy( const int subscriberId ) const;
 void MovieRentalSystem::showSubscribersWhoRentedMovie( const int movieId ) const;
 void MovieRentalSystem::showAllMovies() const;

@@ -1,4 +1,6 @@
 #include "Subscriber.h"
+#include <iostream>
+
 using namespace std;
 //public:
     Subscriber::Subscriber(int subID): subscriberID{subID}{
@@ -13,6 +15,19 @@ using namespace std;
     int Subscriber::getSubscriberID() const{
         return this->subscriberID;
     }
+    void Subscriber::setSubscriberID(int subId){
+        this->subscriberID = subId;
+    }
+    //removes the movie from the subscriber's movie list
+    //Increments the movie count by one
+    //Does not modify transaction
+    //Invoke from movieRental return movie
+    void Subscriber::removeMovie(int movieId){
+
+        for(int i = 1; i <= this->rentedMovies.getLength(); i++){
+
+        }
+    }
     //Returns the number of movies this subscriber has rented
     int Subscriber::getCopyCount() const{
         return this->rentedMovies.getLength();
@@ -20,9 +35,10 @@ using namespace std;
      Movie* Subscriber::getMovieAt(int pos) const{
          if(pos < 1 || pos > this->rentedMovies.getLength()){
             cout << "Given position is invalid. Cannot return the movie at position " << pos << "." << endl;
-            return NULL;
+            return nullptr;
          }
-        Movie* moviePtr = &(this->rentedMovies.getEntry(pos));
+        Movie movieAt = this->rentedMovies.getEntry(pos);
+        Movie* moviePtr = &movieAt;
         return moviePtr;
      }
      //Adds the given movie to the linked list of the subscriber
@@ -32,7 +48,7 @@ using namespace std;
         //Insert the movie at the sorted linked list
         //Check for the first bigger element
         int movieID = movie.getMovieID();
-        for(int i = 1; i <= this->rentedMovies.length(); i++){
+        for(int i = 1; i <= this->rentedMovies.getLength(); i++){
             Movie curr = (static_cast<Movie>(this->rentedMovies.getEntry(i)));
             if(curr.getMovieID() >= movieID){
                 //insert at the curr's position
@@ -43,7 +59,9 @@ using namespace std;
                 this->rentedMovies.append(movie);
             }
         }
+        //decrement the copy count of the given movie
+        movie.decrementCopyCount();
     }
-    void Subscriber::getMoviesLength() const{
+    int Subscriber::getMoviesLength() const{
         return this->rentedMovies.getLength();
     }

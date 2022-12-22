@@ -12,7 +12,9 @@
         this->copyCount++;
     }
     void Movie::decrementCopyCount(){
-        this->copyCount--;
+        if(this->copyCount > 0){
+            this->copyCount--;
+        }
     }
     void Movie::setMovieID(int ID){
         this->movieID = ID;
