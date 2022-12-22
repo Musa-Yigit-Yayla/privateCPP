@@ -23,10 +23,21 @@ using namespace std;
     //Does not modify transaction
     //Invoke from movieRental return movie
     void Subscriber::removeMovie(int movieId){
-
+        int removalPosition = -1;
+        Movie* movieToBeRemoved;
         for(int i = 1; i <= this->rentedMovies.getLength(); i++){
-
+            Movie curr = this->rentedMovies.getEntry(i);
+            if(curr.getMovieID() == movieId){
+                movieToBeRemoved = &curr;
+                removalPosition = i;
+                break;
+            }
         }
+        if(removalPosition != -1){
+            this->rentedMovies.removeElt(removalPosition);
+            movieToBeRemoved->incrementCopyCount();
+        }
+
     }
     //Returns the number of movies this subscriber has rented
     int Subscriber::getCopyCount() const{
