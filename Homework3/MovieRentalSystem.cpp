@@ -15,54 +15,64 @@ using namespace std;
 MovieRentalSystem::MovieRentalSystem( const string movieInfoFileName, const string subscriberInfoFileName ){
     string str;
     ifstream movieFile(movieInfoFileName);
-    int count = 0;
-    while(getline(movieFile, str)){
-        //discard first line
-        if(count == 0){
-            count++;
-            continue;
-        }
-        //find the blank character to divide the string into two
-        string movieID = "";
-        string copyCount = "";
-        bool isBlankHit = false;
-        for(size_t i = 0; i < str.length(); i++){
-            char ch = str.at(i);
-            if(ch == ' '){
-                isBlankHit = true;
+    if(movieFile.bad()){
+        cout << "Input file " << movieInfoFileName << " does not exist" << endl;
+    }
+    else{
+        int counter = 0;
+        while(getline(movieFile, str)){
+            //discard first line
+            if(counter == 0){
+                counter++;
                 continue;
             }
-            //add the digits to movieID
-            if(!isBlankHit){
-                movieID += ch;
+            //find the blank character to divide the string into two
+            string movieID = "";
+            string copyCount = "";
+            bool isBlankHit = false;
+            for(size_t i = 0; i < str.length(); i++){
+                char ch = str.at(i);
+                if(ch == ' '){
+                    isBlankHit = true;
+                    continue;
+                }
+                //add the digits to movieID
+                if(!isBlankHit){
+                    movieID += ch;
+                }
+                else{
+                    copyCount += ch;
+                }
             }
-            else{
-                copyCount += ch;
-            }
+            int movID = stoi(movieID);
+            int cCount = stoi(copyCount);
+
+            //add the movie to the linked list of movie rental system
+            Movie movie(movID, cCount);
+            this->movies.append(movie);
         }
-        int movID = stoi(movieID);
-        int cCount = stoi(copyCount);
-
-        //add the movie to the linked list of movie rental system
-        Movie movie(movID, cCount);
-        this->movies.append(movie);
+        movieFile.close();
     }
-    movieFile.close();
-
     //read subscriberFile
     ifstream subscriberFile(subscriberInfoFileName);
-    count = 0;
-    while(getline(subscriberFile, str)){
-        if(count == 0){
-            //discard first line
-            count++;
-            continue;
+    if(subscriberFile.bad()){
+        cout << "Input file " << subscriberInfoFileName << " does not exist" << endl;
+    }
+    else{
+        int counter = 0;
+        while(getline(subscriberFile, str)){
+            if(counter == 0){
+                //discard first line
+                counter++;
+                continue;
+            }
+            string subID = "";
+            subID += str;
+            //create a new sub and append it to the linked list of subscribers
+            Subscriber sub(stoi(subID));
+            this->subs.append(sub);
         }
-        string subID = "";
-        subID += str;
-        //create a new sub and append it to the linked list of subscribers
-        Subscriber sub(stoi(subID));
-        this->subs.append(sub);
+        subscriberFile.close();
     }
 }
 MovieRentalSystem::~MovieRentalSystem(){
@@ -165,7 +175,7 @@ void MovieRentalSystem::removeSubscriber( const int subscriberId ){
     for(int i = 1; i <= this->subs.getLength(); i++){
         Subscriber currSub = subs.getEntry(i);
         if(currSub.getSubscriberID() == subscriberId){
-            givenSubscriber = curr;
+            givenSubscriber = &currSub;
             subIndex = i;
             break;
         }
@@ -193,6 +203,7 @@ void MovieRentalSystem::removeSubscriber( const int subscriberId ){
         }
         //Remove the subscriber
         this->subs.removeElt(subIndex);
+        delete givenSubscriber;
         cout << "Subscriber with the given ID " << subscriberId << " has been removed successfully." << endl;
     }
 }
@@ -202,37 +213,38 @@ void MovieRentalSystem::rentMovie( const int subscriberId, const int movieId ){
     //Search whether the movie exists
     bool movieExists = false;
     bool subExists = false;
-    Movie movieToRent;
-    Subscriber renter;
+    Movie* movieToRent;
+    Subscriber* renter;
     for(int i = 1; i <= this->movies.getLength(); i++){
         Movie curr = this->movies.getEntry(i);
         if(curr.getMovieID() == movieId){
             movieExists = true;
-            movieToRent = curr;
+            movieToRent = &curr;
             break;
         }
     }
     for(int i = 1; i <= this->subs.getLength(); i++){
         Subscriber curr = this->subs.getEntry(i);
-        if(curr.getMovieID() == subscriberId){
-            renter = curr;
+        if(curr.getSubscriberID() == subscriberId){
+            renter = &curr;
             subExists = true;
             break;
         }
     }
     if(!movieExists){
-        cout << "Movie with the given ID (" << movieId ") does not exists. Cannot rent movie." << endl;
+        cout << "Movie with the given ID (" << movieId << ") does not exists. Cannot rent movie." << endl;
 
     }
-    else if(!movieExists){
-        cout << "Subscriber with the given ID (" << subscriberIdID ") does not exists. Cannot rent movie." << endl;
+    else if(!subExists){
+        cout << "Subscriber with the given ID (" << subscriberId << ") does not exists. Cannot rent movie." << endl;
     }
-    else if(movieToRent.getCopyCount() == 0){
+    else if(movieToRent->getCopyCount() == 0){
         cout << "Movie " << movieId << " has no available copy for renting." << endl;
     }
     else{
         //rent the movie
-        renter.addMovie(movieToRent);
+        renter->addMovie(*movieToRent);
+        movieToRent->decrementCopyCount();
         Transaction transaction(subscriberId, movieId);
         this->transactions.append(transaction);
         cout << "Movie" << movieId << "has been rented by subscriber " << 7777 << endl;
@@ -256,7 +268,7 @@ void MovieRentalSystem::returnMovie( const int subscriberId, const int movieId )
     }*/
     for(int i = 1; i <= this->subs.getLength(); i++){
         Subscriber curr = this->subs.getEntry(i);
-        if(curr.getMovieID() == subscriberId){
+        if(curr.getSubscriberID() == subscriberId){
             returner = &curr;
             //subExists = true;
             break;
@@ -294,9 +306,15 @@ void MovieRentalSystem::returnMovie( const int subscriberId, const int movieId )
 
 }
 void MovieRentalSystem::showMoviesRentedBy( const int subscriberId ) const{
+    //check the subscriber if it exists
+}
+void MovieRentalSystem::showSubscribersWhoRentedMovie( const int movieId ) const{
 
 }
-void MovieRentalSystem::showSubscribersWhoRentedMovie( const int movieId ) const;
-void MovieRentalSystem::showAllMovies() const;
-void MovieRentalSystem::showAllSubscribers() const;
+void MovieRentalSystem::showAllMovies() const{
+
+}
+void MovieRentalSystem::showAllSubscribers() const{
+
+}
 

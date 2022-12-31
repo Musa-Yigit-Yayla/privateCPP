@@ -1,7 +1,9 @@
 #ifndef MOVIE_H
 #define MOVIE_H
-#include "Subscriber.h"
+//#include "Subscriber.h"
 #include "LinkedList.h"
+class Subscriber; // forward declaration
+
 class Movie{
 private:
     int movieID;
