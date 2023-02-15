@@ -1,5 +1,9 @@
 #include <iostream>
 #include "MovieRentalSystem.h"
+#include "LinkedList.h"
+#include "Subscriber.h"
+#include "Movie.h"
+#include "Transaction.h"
 using namespace std;
 int main( ) {
 MovieRentalSystem firstMRS( "my_movies.txt", "subscribers.txt" );

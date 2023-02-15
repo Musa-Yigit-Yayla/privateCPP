@@ -3,16 +3,17 @@ Musa Yiğit Yayla
 22003108
 */
 #include "LinkedList.h"
-//#include "Subscriber.h"
-//#include "Movie.h"
-//#include "Transaction.h"
+#include "Subscriber.h"
+#include "Movie.h"
+#include "Transaction.h"
 #include <cstddef>
 #include <iostream>
+#include "Node.h"
 //#include <string>
-
 class Subscriber;
 class Transaction;
 class Movie;
+class Node<class ItemType>;
 
 using namespace std;
 
@@ -28,12 +29,16 @@ Node<ItemType>& LinkedList<ItemType>::getNodeAt(int position) const{
             return *this->headPtr;
         }
         else{
-            Node<ItemType>* curr = this->headPtr->getNextPointer();
-            Node<ItemType>* prevCurr = this->headPtr;
+                Node<ItemType>* curr;
+                Node<ItemType>* prevCurr;
+            if(this->headPtr != nullptr){
+                curr = this->headPtr->getNextPointer();
+                prevCurr = this->headPtr;
+            }
             //Traverse the list until we hit the null pointer, return the prevCurr e.g the searched element
             while(position > 1){ // change back to 0 ?
                 prevCurr = curr;
-                if(curr != NULL){
+                if(curr != nullptr){
                     curr = curr->getNextPointer();
                 }
                 position--;
@@ -197,6 +202,7 @@ template <class ItemType>
         }
         curr->setItem(newEntry);
     }
+
 
     //instantiate templates for testing
     template class LinkedList<int>;
