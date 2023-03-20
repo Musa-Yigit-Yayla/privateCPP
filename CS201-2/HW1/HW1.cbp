@@ -32,6 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="BankingSystem.h" />
+		<Unit filename="Branch.cpp" />
+		<Unit filename="Branch.h" />
+		<Unit filename="Customer.cpp" />
+		<Unit filename="Customer.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

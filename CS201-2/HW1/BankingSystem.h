@@ -1,3 +1,14 @@
+/*
+*Musa Yiğit Yayla
+*22003108
+*CS201-1
+*HW1
+*/
+
+#ifndef BANKGING_SYSTEM_H
+#define BANKING_SYSTEM_H
+#pragma once
+
 #include <string>
 
 using namespace std;
@@ -18,3 +29,4 @@ public:
 private:
 
 };
+#endif
