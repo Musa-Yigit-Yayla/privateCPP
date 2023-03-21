@@ -38,21 +38,21 @@ public:
 
     //Doubles the size of the Account array when necessary
     void Branch::addAccount(Account& acc){
-        //Search whether the given id exists
-        for(int i = 0; i < this->accountsLength; i++){
-            Account curr = this->accounts[i];
-            if(curr != nullptr && curr.getId() == acc->getId()){
-                //display warning message
-                cout << "Account " << acc->getId() << " added for customer " << acc.getCustomer().getId() <<  << endl;
-                return;
-            }
+        Account* ptr = this->accounts[0];
+        while(ptr != nullptr){
+            ptr++;
         }
-        if(this->accountsLength == sizeof(this->accounts) / sizeof(this->accounts[0])){
+
+        if(ptr != nullptr)){ // means the array is full
             Account* newAccounts = new Account[this->accountsLength * 2];
             for(int i = 0; i < this->accountsLength; i++){
                 newAccounts[i] = this->accounts[i];
             }
-            for(int i = this->accountsLength; i < this->accountsLength * 2; i++){
+            //add to the end
+            newAccounts[this->accountsLength] = acc;
+            cout << "Account " << acc->getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
+
+            for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
                 newAccounts[i] = nullptr;
             }
             this->accountsLength *= 2;

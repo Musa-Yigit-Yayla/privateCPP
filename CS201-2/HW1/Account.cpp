@@ -14,13 +14,6 @@ public:
         this->branch = branch;
         this->customer = customer;
     }
-    //Use this constructor generally
-    Account::Account(int branchId, int customerId, double amount){
-        //Retrieve the customer and the branch by their ids from the BankingSystem
-
-
-        this->amount = amount;
-    }
     Branch* Account::getBranch() const{
         return &this->branch;
     }
@@ -34,6 +27,15 @@ public:
     void Account::setCustomer(Customer* customer){
         this->customer = customer;
         this->customer.addAccount(this);
+    }
+    double Account::getBalance() const{
+        return this->balance;
+    }
+    int Account::getId() const{
+        return this->id;
+    }
+    int Account::getAccountCount() const{
+        return this->accountCount;
     }
     void Account::deposit(double amount){
         this->amount += amount;

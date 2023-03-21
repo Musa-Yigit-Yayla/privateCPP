@@ -17,6 +17,9 @@ public:
     Customer* getCustomer() const;
     void setBranch(Branch* branch);
     void setCustomer(Customer* customer);
+    double getBalance() const;
+    int getId() const;
+    int getAccountCount() const;
     void deposit(double amount);
     double withdraw(double amount);
     string to_string();
