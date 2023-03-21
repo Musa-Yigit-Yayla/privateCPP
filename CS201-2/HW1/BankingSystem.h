@@ -10,6 +10,9 @@
 #pragma once
 
 #include <string>
+#include "Branch.h"
+#include "Customer.h"
+#include "Account.h"
 
 using namespace std;
 class BankingSystem {
@@ -27,6 +30,9 @@ public:
     void showCustomer ( const int customerId ) ;
 
 private:
-
+    int branchLength = 8;
+    int customerLength = 8;
+    Branch* branches = new Branch[branchLength];
+    Customer* customers = new Customer[customerLength];
 };
 #endif
