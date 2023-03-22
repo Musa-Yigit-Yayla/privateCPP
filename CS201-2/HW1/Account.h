@@ -25,7 +25,7 @@ public:
     double withdraw(double amount);
     string to_string();
 private:
-    double balance;
+    double balance = 0.0;
     int id;
     Branch branch;
     Customer customer;

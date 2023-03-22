@@ -16,6 +16,7 @@ public:
 
         for(int i = 0; i < this->accountsLength; i++){
             this->accounts[i] = nullptr;
+            this->accountsCount++;
         }
         this->branchCount += 1;
     }
@@ -39,8 +40,10 @@ public:
     //Doubles the size of the Account array when necessary
     void Branch::addAccount(Account& acc){
         Account* ptr = this->accounts[0];
+        int index = 0;
         while(ptr != nullptr){
             ptr++;
+            index++;
         }
 
         if(ptr != nullptr)){ // means the array is full
@@ -50,6 +53,7 @@ public:
             }
             //add to the end
             newAccounts[this->accountsLength] = acc;
+            this->accountsCount++;
             cout << "Account " << acc->getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
 
             for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
@@ -58,15 +62,22 @@ public:
             this->accountsLength *= 2;
             this->accounts = newAccounts;
         }
-        //Search for the first nullptr
-        for(int i = 0; i < this->accountsLength; i++){
-            if(this->accounts[i] == nullptr){
-                this->accounts[i] = acc;
-                cout << "Account " << acc.getId() <<
-            }
+        else{
+            /*//Search for the first nullptr
+            for(int i = 0; i < this->accountsLength; i++){
+                if(this->accounts[i] == nullptr){
+                    this->accounts[i] = acc;
+                    this->accountsCount++;
+                    cout << "Account " << acc->getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
+                    break;
+                }
+            }*/
+            this->accounts[index] = acc;
+            this->accountsCount++;
+            cout << "Account " << acc->getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
         }
-
         //FURTHER ATTENTION REQUIRED FOR THIS METHOD
+        //Done no further attention required apparently
     }
     //Deletes the account with the given ID
     //Returns accountId if deletion is successful, else returns -1
@@ -130,7 +141,14 @@ public:
         return this->accountsLength;
     }
     string Branch::to_string() const{
+        string result = "Branch id: " + this->branchId + "    Branch name: " + this->branchName + "      Number of accounts: " + this->accountsCount;
+        for(int i = 0; i < this->accountsCount; i++){
+            if(i == 0){
+                result += "Accounts at this branch:\n";
+                result += "Account id  Customer id     Customer name         Balance\n";
+            }
 
+        }
     }
 
     /*

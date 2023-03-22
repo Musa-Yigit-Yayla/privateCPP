@@ -202,23 +202,31 @@ public:
     }
     void BankingSystem::showAllAccounts() {
         //Account id Branch id Branch name Customer id Customer name Balance
-        printf("%-12s%-12s%-16s%-16s%-27sBalance", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
+        printf("%-12s%-12s%-16s%-16s%-27sBalance\n", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
         for(int i = 0; i < this->customerLength; i++){
             Customer* currCustomer = this->customers[i];
             if(currCustomer != nullptr){
                 Account* accounts = currCustomer->getAllAccounts();
                 int accountLength = currCustomer->getAccountCount();
-                for(int j = 0; j < accountLength; j++){
-                    Account currAccount = accounts[j];
+                Account* currAccount = accounts[j];
+                for(int j = 0; j < accountLength && currAccount != nullptr; j++){
+                    currAccount = accounts[j];
+
                     if(currAccount != nullptr){
+                        Branch* currBranch = currAccount->getBranch();
                         //print out the line
+                        printf("%-12d%-12d%-16s%-16d%-27s" + "" + currAccount->getBalance(), currAccount->getId(), currBranch->getBranchId(), currBranch->getName(), currCustomer->getId(), currCustomer->getName());
                     }
                 }
             }
         }
     }
-    void BankingSystem::showBranch ( const int branchId ) ;
-    void BankingSystem::showCustomer ( const int customerId ) ;
+    void BankingSystem::showBranch ( const int branchId ){
+
+    }
+    void BankingSystem::showCustomer ( const int customerId ){
+
+    }
 /*
 private:
     int branchLength = 8;

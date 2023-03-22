@@ -35,6 +35,7 @@ private:
     string branchName;
     Account* accounts = new Account[8];
     int accountsLength = 8;
+    int accountsCount = 0;
     static int branchCount = 0;
 };
 #endif // BRANCH_H
