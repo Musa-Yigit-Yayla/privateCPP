@@ -19,6 +19,7 @@ public:
     void setCustomerName(string customerName);
     void addAccount(Account& acc);
     int deleteAccount(const int accountId);
+    Account* getAllAccounts() const;
     string to_string() const;
 private:
     int customerId;

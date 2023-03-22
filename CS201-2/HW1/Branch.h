@@ -26,6 +26,9 @@ public:
     //Deletes the account with the given ID
     //Returns accountId if deletion is successful, else returns -1
     int deleteAccount(const int accountId);
+    Account* getAccount(int accountId) const;
+    Account* getAllAccounts() const;
+    int getAccountCount() const;
     string to_string() const;
 private:
     int branchId;

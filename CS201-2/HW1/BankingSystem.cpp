@@ -4,6 +4,7 @@
 #include "Account.h"
 #include <string>
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -181,9 +182,41 @@ public:
 
         //Both the customer and the branch exists, proceed accordingly.
         Account account(amount, *branch, *customer);
+        branch->addAccount(account);
+        customer->addAccount(account);
+        cout << "Account " << account.getId() << " added for customer " << account.getCustomer()->getId() << " at branch " << branch->getBranchId() << endl;
     }
-    void BankingSystem::deleteAccount ( const int accountId ) ;
-    void BankingSystem::showAllAccounts () ;
+    void BankingSystem::deleteAccount ( const int accountId ){
+        Account* account;
+        Branch* branch = this->branches[0];
+        while(i < this->branchLength && branch != nullptr){
+            Account* account = branch.getAccount(accountId);
+            if(account->getId() == accountId)
+                branch->deleteAccount(accountId);
+                break;
+            }
+            branch = this->branches[i];
+            i++;
+        }
+        //Get the branch and the customer of the account if exists
+    }
+    void BankingSystem::showAllAccounts() {
+        //Account id Branch id Branch name Customer id Customer name Balance
+        printf("%-12s%-12s%-16s%-16s%-27sBalance", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
+        for(int i = 0; i < this->customerLength; i++){
+            Customer* currCustomer = this->customers[i];
+            if(currCustomer != nullptr){
+                Account* accounts = currCustomer->getAllAccounts();
+                int accountLength = currCustomer->getAccountCount();
+                for(int j = 0; j < accountLength; j++){
+                    Account currAccount = accounts[j];
+                    if(currAccount != nullptr){
+                        //print out the line
+                    }
+                }
+            }
+        }
+    }
     void BankingSystem::showBranch ( const int branchId ) ;
     void BankingSystem::showCustomer ( const int customerId ) ;
 /*

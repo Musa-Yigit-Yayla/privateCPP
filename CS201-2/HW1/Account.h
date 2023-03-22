@@ -13,6 +13,7 @@ public:
     Account();
     Account(double amount);
     Account::Account(double amount, Branch& branch, Customer& customer)
+    Account::~Account();
     Branch* getBranch() const;
     Customer* getCustomer() const;
     void setBranch(Branch* branch);
@@ -29,6 +30,7 @@ private:
     Branch branch;
     Customer customer;
     static int accountCount = 0;
+    static int accountsCreated = 0; //static variable representing accounts that have been created so far (do not decrement)
 };
 
 

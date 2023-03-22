@@ -71,8 +71,63 @@ public:
     //Deletes the account with the given ID
     //Returns accountId if deletion is successful, else returns -1
     //Make sure to delete the account from the corresponding Customer too. i. e. modify the Customer's Account array too.
+    //Invoke this method to delete an account, not the Customer's method. That method will be invoked from here.
     int Branch::deleteAccount(const int accountId){
+        Account* account = this->accounts[0]; //account to be deleted
+        int result = -1;
+        for(int i = 1; i < this->accountsLength && account != nullptr; i++){
+            Account* curr = this->accounts[i];
+            if(curr != nullptr && curr->getId() == accountId){
+                result = accountId;
+                break;
+            }
+        }
 
+
+        if(result == - 1){
+            cout << "Account " << result << " does not exist" << endl;
+        }
+        else{
+            //First remove the Account from Customer's Account array
+            account->getCustomer()->deleteAccount(accountId);
+            //Then delete the actual account, and update the array in the Branch accordingly
+            int i = 1;
+            while(i < this->accountsLength && account != nullptr){
+                if(account->getId() == accountId){
+                    delete account;
+                    cout << "Account " << accountId << "has been deleted" << endl;
+                    break;
+                }
+                i++;
+                account = this->accounts[i];
+            }
+            //Shift the remaining elements
+            while(i < this->accountsLength - 1){
+                this->accounts[i] = this->accounts[i + 1];
+                i++;
+            }
+        }
+        return result;
+    }
+    //Returns the account matching the given accountId, returns nullptr otherwise
+    Account* Branch::getAccount(int accountId) const{
+        Account* result = nullptr;
+        int i = 0;
+
+        while(result != nullptr && i <this->accountsLength){
+            if(result->getId() == accountId){
+                break;
+            }
+            i++;
+            result = this->accounts[i];
+        }
+        return result;
+    }
+    Account* Branch::getAllAccounts() const{
+        return this->accounts;
+    }
+    int Branch::getAccountCount() const{
+        return this->accountsLength;
     }
     string Branch::to_string() const{
 

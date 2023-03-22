@@ -4,15 +4,26 @@
 
 public:
     Account::Account(){
-
+        this->accountCount++;
+        this->accountsCreated++;
+        this->id = this->accountsCreated;
     }
     Account::Account(double amount){
         this->amount = amount;
+        this->accountCount++;
+        this->accountsCreated++;
+        this->id = this->accountsCreated;
     }
     Account::Account(double amount, Branch& branch, Customer& customer){
         this->Account(amount);
         this->branch = branch;
         this->customer = customer;
+        this->accountCount++;
+        this->accountsCreated++;
+        this->id = this->accountsCreated;
+    }
+    Account::~Account(){
+        this->accountCount--;
     }
     Branch* Account::getBranch() const{
         return &this->branch;
