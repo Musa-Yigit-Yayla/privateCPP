@@ -1,8 +1,11 @@
 #include <string>
 #include <iostream>
+#include "Branch.h"
+#include "Customer.h"
 #include "Account.h"
 
-public:
+
+//public:
     Account::Account(){
         if(!this->isAccountCreated){
             this->accountCount = 0;
@@ -30,7 +33,8 @@ public:
             this->accountsCreated = 0;
             this->isAccountCreated = true;
         }
-        this->Account(amount);
+
+        this->balance = amount;
         this->branch = branch;
         this->customer = customer;
         this->accountCount++;
