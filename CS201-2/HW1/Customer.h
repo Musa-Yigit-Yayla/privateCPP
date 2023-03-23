@@ -8,11 +8,14 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
 #pragma once
+#include <string>
+#include "Account.h"
 
 using namespace std;
 class Customer{
 public:
     Customer(const int customerId, const string customerName);
+    Customer();
     int getId() const;
     string getCustomerName() const;
     void setId(int customerId);
@@ -25,8 +28,10 @@ private:
     int customerId;
     string customerName;
     int accountsLength = 8;
+    int accountCount = 0;
     Account* accounts = new Account(accountsLength);
-    static int customerCount = 0;
+    static int customerCount;
+    bool isCustomerCreated = false;
 };
 
 #endif // CUSTOMER_H

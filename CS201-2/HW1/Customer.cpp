@@ -1,16 +1,28 @@
 #include "Customer.h"
+#include "Account.h"
 #include <string>
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
 public:
 
     Customer::Customer(const int customerId, const string customerName){
+        if(!this->isCustomerCreated){
+            this->customerCount = 0;
+            this->isCustomerCreated = true;
+        }
         this->customerId = customerId;
         this->customerName = customerName;
         this->customerCount++;
     }
-
+    Customer::Customer(){
+        if(!this->isCustomerCreated){
+            this->customerCount = 0;
+            this->isCustomerCreated = true;
+        }
+        this->customerCount++;
+    }
     int Customer::getId() const{
         return this->customerId;
     }
@@ -24,7 +36,7 @@ public:
         this->customerName = customerName;
     }
     void Customer::addAccount(Account& acc){
-
+        this->accounts[this->accountCount++] = acc;
     }
     //Is not a standalone function, invoked from Branch::deleteAccount
     //Removes the given account from the array by shifting elements by left once. Does not delete the account
@@ -47,6 +59,7 @@ public:
                 i++;
             }
             this->accounts[i] = nullptr;
+            this->accountCount--;
         }
         return result;
     }
@@ -57,7 +70,24 @@ public:
         return this->accountsLength;
     }
     string Customer::to_string() const{
-
+        string s = "%-13s%-7d%-15s%-19sNumber of accounts: ";
+        sprintf(s, "Customer id:", "" + this->customerId, "Customer name:", this->customerName);
+        s += "" + this->accountCount + "\n";
+        if(this->accountCount != 0){
+            s += "Accounts of this customer:\n"
+            for(int i = 0; i < this->accountCount; i++){
+                string line;
+                if(i == 0){
+                    line = "%-12s%-16s%-20sBalance\n";
+                    sprintf(line, "Account id", "Branch id", "Branch name");
+                    s += line;
+                }
+                line = "%-12d%-16d%-20s" + this->accounts[i]->getBalance() + "\n";
+                sprintf(line, this->accounts[i]->getId(), this->accounts[i]->getBranch()->getBranchId(), this->accounts[i]->getBranch()->getBranchName());
+                s += line;
+            }
+        }
+        return s;
     }
 /*private:
     int customerId;

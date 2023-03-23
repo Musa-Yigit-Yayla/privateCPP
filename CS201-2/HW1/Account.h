@@ -7,13 +7,21 @@ using namespace std;
 
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
+#pragma once
+
+class Customer;
+class Branch;
+
+#include "Branch.h"
+#include "Customer.h"
+#include <string>
 
 class Account{
 public:
     Account();
     Account(double amount);
-    Account::Account(double amount, Branch& branch, Customer& customer)
-    Account::~Account();
+    Account(double amount, Branch& branch, Customer& customer);
+    ~Account();
     Branch* getBranch() const;
     Customer* getCustomer() const;
     void setBranch(Branch* branch);
@@ -29,8 +37,9 @@ private:
     int id;
     Branch branch;
     Customer customer;
-    static int accountCount = 0;
-    static int accountsCreated = 0; //static variable representing accounts that have been created so far (do not decrement)
+    static int accountCount;
+    static int accountsCreated; //static variable representing accounts that have been created so far (do not decrement)
+    bool isAccountCreated = false; // represents whether an account has been instantiated or not, will be useful in constructors
 };
 
 

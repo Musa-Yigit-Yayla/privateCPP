@@ -4,17 +4,32 @@
 
 public:
     Account::Account(){
+        if(!this->isAccountCreated){
+            this->accountCount = 0;
+            this->accountsCreated = 0;
+            this->isAccountCreated = true;
+        }
         this->accountCount++;
         this->accountsCreated++;
         this->id = this->accountsCreated;
     }
     Account::Account(double amount){
-        this->amount = amount;
+        if(!this->isAccountCreated){
+            this->accountCount = 0;
+            this->accountsCreated = 0;
+            this->isAccountCreated = true;
+        }
+        this->balance = amount;
         this->accountCount++;
         this->accountsCreated++;
         this->id = this->accountsCreated;
     }
     Account::Account(double amount, Branch& branch, Customer& customer){
+        if(!this->isAccountCreated){
+            this->accountCount = 0;
+            this->accountsCreated = 0;
+            this->isAccountCreated = true;
+        }
         this->Account(amount);
         this->branch = branch;
         this->customer = customer;
@@ -49,15 +64,15 @@ public:
         return this->accountCount;
     }
     void Account::deposit(double amount){
-        this->amount += amount;
+        this->balance += amount;
     }
     double Account::withdraw(double amount){
-        if(this->amount >= amount){
-            this->amount -= amount;
+        if(this->balance >= amount){
+            this->balance -= amount;
             return amount;
         }
-        else if(this->amount >= 0){
-            return this->amount;
+        else if(this->balance >= 0){
+            return this->balance;
         }
         else{
             return 0;

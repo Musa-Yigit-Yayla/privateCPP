@@ -9,11 +9,13 @@
 #pragma once
 
 #include <string>
+#include "Account.h"
 
 using namespace std;
 class Branch{
 public:
     Branch(const int branchId, const string branchName);
+    Branch();
     int getBranchId() const;
     string getBranchName() const;
     int getBranchCount() const;
@@ -36,6 +38,7 @@ private:
     Account* accounts = new Account[8];
     int accountsLength = 8;
     int accountsCount = 0;
-    static int branchCount = 0;
+    static int branchCount;
+    bool isBranchCreated = false;
 };
 #endif // BRANCH_H

@@ -5,8 +5,11 @@
 *HW1
 */
 #include "Branch.h"
+#include "Account.h"
+#include "Customer.h"
 #include <string>
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
 public:
@@ -14,11 +17,23 @@ public:
         this->branchId = branchId;
         this->branchName = branchName;
 
+        if(!this->isBranchCreated){
+            this->branchCount = 0;
+            this->isBranchCreated = true;
+        }
+
         for(int i = 0; i < this->accountsLength; i++){
             this->accounts[i] = nullptr;
             this->accountsCount++;
         }
         this->branchCount += 1;
+    }
+    Branch::Branch(){
+        if(!this->isBranchCreated){
+            this->branchCount = 0;
+            this->isBranchCreated = true;
+        }
+        this->branchCount++;
     }
     Branch::int getBranchId() const{
         return this->branchId
@@ -141,14 +156,19 @@ public:
         return this->accountsLength;
     }
     string Branch::to_string() const{
-        string result = "Branch id: " + this->branchId + "    Branch name: " + this->branchName + "      Number of accounts: " + this->accountsCount;
+        string result = "Branch id: " + this->branchId + "    Branch name: " + this->branchName + "      Number of accounts: " + this->accountsCount + "\n";
         for(int i = 0; i < this->accountsCount; i++){
             if(i == 0){
                 result += "Accounts at this branch:\n";
                 result += "Account id  Customer id     Customer name         Balance\n";
             }
-
+            Account currAccount = this->accounts[i];
+            string s = "%-12d%-16d%-22s";
+            s = format(s, currAccount->getId(), currAccount->getCustomer()->getId(), currAccount->getCustomer()->getCustomerName());
+            s += currAccount->getBalance() + "\n";
+            result += s;
         }
+        return result;
     }
 
     /*
