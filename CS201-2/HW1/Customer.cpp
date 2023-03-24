@@ -84,8 +84,8 @@ using namespace std;
                     sprintf(line, "Account id", "Branch id", "Branch name");
                     s += line;
                 }
-                line = "%-12d%-16d%-20s" + this->accounts[i]->getBalance() + "\n";
-                sprintf(line, this->accounts[i]->getId(), this->accounts[i]->getBranch()->getBranchId(), this->accounts[i]->getBranch()->getBranchName());
+                line = "%-12d%-16d%-20s" + this->accounts[i].getBalance() + "\n";
+                sprintf(line, this->accounts[i].getId(), this->accounts[i].getBranch()->getBranchId(), this->accounts[i].getBranch()->getBranchName());
                 s += line;
             }
         }

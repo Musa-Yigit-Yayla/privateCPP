@@ -188,10 +188,10 @@ using namespace std;
         branch->addAccount(account);
         customer->addAccount(account);
         cout << "Account " << account.getId() << " added for customer " << account.getCustomer()->getId() << " at branch " << branch->getBranchId() << endl;
-        return accountId;
+        return account.getId();
     }
     void BankingSystem::deleteAccount ( const int accountId ){
-        Account* account;
+        //Account* account;
         Branch* branch = &this->branches[0];
         int i = 0;
         while(i < this->branchLength && branch != nullptr){
@@ -209,18 +209,22 @@ using namespace std;
         //Account id Branch id Branch name Customer id Customer name Balance
         printf("%-12s%-12s%-16s%-16s%-27sBalance\n", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
         for(int i = 0; i < this->customerLength; i++){
-            Customer* currCustomer = this->customers[i];
+            Customer* currCustomer = &this->customers[i];
             if(currCustomer != nullptr){
                 Account* accounts = currCustomer->getAllAccounts();
                 int accountLength = currCustomer->getAccountCount();
-                Account* currAccount = accounts[j];
+                Account* currAccount = accounts[0];
                 for(int j = 0; j < accountLength && currAccount != nullptr; j++){
-                    currAccount = accounts[j];
+                    currAccount = &accounts[j];
 
                     if(currAccount != nullptr){
                         Branch* currBranch = currAccount->getBranch();
+                        string balanceString = "" + currAccount->getBalance();
+                        string accountIdString = "" + currAccount->getId();
+                        string branchIdString = "" + currBranch->getBranchId();
+                        string customerIdString = "" + currCustomer->getId();
                         //print out the line
-                        printf("%-12d%-12d%-16s%-16d%-27s" + "" + currAccount->getBalance(), currAccount->getId(), currBranch->getBranchId(), currBranch->getName(), currCustomer->getId(), currCustomer->getCustomerName());
+                        printf("%-12d%-12d%-16s%-16d%-27s" + "" + balanceString, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());
                     }
                 }
             }
@@ -229,8 +233,8 @@ using namespace std;
     void BankingSystem::showBranch ( const int branchId ){
         //search for the branch with the given id
         Branch* branch = &this->branches[0];
-        for(int i = 0; i < this->branchesLength && branch != nullptr; i++){
-            branch = this->branches[i];
+        for(int i = 0; i < this->branchLength && branch != nullptr; i++){
+            branch = &this->branches[i];
             if(branch->getBranchId() == branchId){
                 break;
             }
@@ -243,9 +247,9 @@ using namespace std;
     }
     void BankingSystem::showCustomer ( const int customerId ){
         //search whether the customer exists with the given id
-        Customer* customer = this->customers[0];
-        for(int i = 0; i < this->customersLength && customer != nullptr; i++){
-            customer = this->customers[i];
+        Customer* customer = &this->customers[0];
+        for(int i = 0; i < this->customerLength && customer != nullptr; i++){
+            customer = &this->customers[i];
             if(customer->getId() == customerId){
                 break;
             }

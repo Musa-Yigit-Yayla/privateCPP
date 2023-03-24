@@ -38,7 +38,7 @@ using namespace std;
         this->branchCount++;
     }
     int Branch::getBranchId() const{
-        return this->branchId
+        return this->branchId;
     }
     string Branch::getBranchName() const{
         return this->branchName;
@@ -71,7 +71,7 @@ using namespace std;
             //add to the end
             newAccounts[this->accountsLength] = acc;
             this->accountsCount++;
-            cout << "Account " << acc->getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
+            cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
 
             for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
                 newAccounts[i] = nullptr;
@@ -91,7 +91,7 @@ using namespace std;
             }*/
             this->accounts[index] = acc;
             this->accountsCount++;
-            cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer().getId() << " at branch " << acc.getBranch().getBranchId() << endl;
+            cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
         }
         //FURTHER ATTENTION REQUIRED FOR THIS METHOD
         //Done no further attention required apparently
@@ -117,7 +117,7 @@ using namespace std;
         }
         else{
             //First remove the Account from Customer's Account array
-            account->getCustomer().deleteAccount(accountId);
+            account->getCustomer()->deleteAccount(accountId);
             //Then delete the actual account, and update the array in the Branch accordingly
             int i = 1;
             while(i < this->accountsLength && account != nullptr){
@@ -158,7 +158,9 @@ using namespace std;
         return this->accountsLength;
     }
     string Branch::to_string() const{
-        string result = "Branch id: " + this->branchId + "    Branch name: " + this->branchName + "      Number of accounts: " + this->accountsCount + "\n";
+        string idString = "" + this->branchId;
+        string accountsCountString = "" + this->accountsCount;
+        string result = "Branch id: " + idString + "    Branch name: " + this->branchName + "      Number of accounts: " + accountsCountString + "\n";
         for(int i = 0; i < this->accountsCount; i++){
             if(i == 0){
                 result += "Accounts at this branch:\n";
@@ -166,8 +168,8 @@ using namespace std;
             }
             Account* currAccount = &this->accounts[i];
             string s = "%-12d%-16d%-22s";
-            s = sprintf(s, currAccount->getId(), currAccount->getCustomer().getId(), currAccount->getCustomer().getCustomerName());
-            s += currAccount.getBalance() + "\n";
+            s = sprintf(s, currAccount->getId(), currAccount->getCustomer()->getId(), currAccount->getCustomer()->getCustomerName());
+            s += currAccount->getBalance() + "\n";
             result += s;
         }
         return result;
