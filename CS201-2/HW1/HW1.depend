@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1679557749 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\main.cpp
+	<iostream>
+	"BankingSystem.h"
+
+1679659274 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\bankingsystem.h
+	<string>
+

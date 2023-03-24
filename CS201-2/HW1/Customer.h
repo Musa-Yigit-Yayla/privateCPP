@@ -8,8 +8,11 @@
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
 #pragma once
+
+class Account;
+//class Branch;
 #include <string>
-#include "Account.h"
+//#include "Account.h"
 
 using namespace std;
 class Customer{
@@ -24,12 +27,13 @@ public:
     int deleteAccount(const int accountId);
     Account* getAllAccounts() const;
     string to_string() const;
+    int getAccountCount() const;
 private:
     int customerId;
     string customerName;
     int accountsLength = 8;
     int accountCount = 0;
-    Account* accounts = new Account(accountsLength);
+    Account* accounts;
     static int customerCount;
     bool isCustomerCreated = false;
 };

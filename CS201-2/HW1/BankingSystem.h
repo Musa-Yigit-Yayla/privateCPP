@@ -9,10 +9,14 @@
 #define BANKING_SYSTEM_H
 #pragma once
 
+class Branch;
+class Customer;
+class Account;
+
 #include <string>
-#include "Branch.h"
-#include "Customer.h"
-#include "Account.h"
+//#include "Branch.h"
+//#include "Customer.h"
+//#include "Account.h"
 
 using namespace std;
 class BankingSystem {
@@ -32,7 +36,7 @@ public:
 private:
     int branchLength = 8;
     int customerLength = 8;
-    Branch* branches = new Branch[branchLength];
-    Customer* customers = new Customer[customerLength];
+    Branch* branches;
+    Customer* customers;
 };
 #endif

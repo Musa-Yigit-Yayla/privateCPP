@@ -8,8 +8,10 @@
 #define BRANCH_H
 #pragma once
 
+//class Customer;
+class Account;
 #include <string>
-#include "Account.h"
+//#include "Account.h"
 
 using namespace std;
 class Branch{
@@ -20,7 +22,7 @@ public:
     string getBranchName() const;
     int getBranchCount() const;
     void setBranchId(int branchId);
-    void setBranchName(string branchName) const;
+    void setBranchName(string branchName);
     //Utility methods
 
     //Doubles the size of the Account array when necessary
@@ -35,7 +37,7 @@ public:
 private:
     int branchId;
     string branchName;
-    Account* accounts = new Account[8];
+    Account* accounts;
     int accountsLength = 8;
     int accountsCount = 0;
     static int branchCount;

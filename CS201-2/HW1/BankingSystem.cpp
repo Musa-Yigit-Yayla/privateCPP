@@ -10,11 +10,14 @@ using namespace std;
 
 //public:
     BankingSystem::BankingSystem(){
+        this->branches = new Branch[this->branchLength];
         for(int i = 0; i < branchLength; i++){
-            this->branch[i] = nullptr;
+            this->branches[i] = nullptr;
         }
+
+        this->customers = new Customer[this->customerLength];
         for(int i = 0; i < customerLength; i++){
-            this->customer[i] = nullptr;
+            this->customers[i] = nullptr;
         }
     }
     BankingSystem::~BankingSystem(){
@@ -67,8 +70,8 @@ using namespace std;
         bool isDeleted = false;
         for(int i = 0; i < this->branchLength; i++){
             Branch* currBranch = &this->branches[i];
-            if(currBranch.getBranchId() == branchId){
-                delete this->branches[i];
+            if(currBranch->getBranchId() == branchId){
+                delete &this->branches[i];
                 isDeleted = true;
                 cout << "Branch " << branchId << " has been deleted" << endl;
             }
@@ -87,7 +90,7 @@ using namespace std;
 
         //Initially check whether a customer with the given Id exists
         for(int i = 0; i < this->customerLength; i++){
-            Customer* curr = this->customers[i];
+            Customer* curr = &this->customers[i];
             if(curr == nullptr){
                 break;
             }
@@ -98,18 +101,18 @@ using namespace std;
             delete curr;
         }
 
-        Customer customer = new Customer[customerId, customerName];
+        Customer* customer = new Customer(customerId, customerName);
         Customer* ptr = &this->customers[0];
         while(ptr != nullptr){
             ptr++;
         }
-        if(ptr - this->customers[0] == this->customerLength){
+        if(ptr - &this->customers[0] == this->customerLength){
             //Double the array size and use the pointers to point to the elements of the array
             Customer* newCustomers = new Customer[this->customerLength * 2];
             for(int i = 0; i < this->customerLength; i++){
                 newCustomers[i] = this->customers[i];
             }
-            newCustomers[this->customerLength] = customer;
+            newCustomers[this->customerLength] = *customer;
             cout << "Customer " << customerId << " has been added" << endl;
             for(int i = this->customerLength + 1; i < this->customerLength * 2; i++){
                 this->customers[i] = nullptr;
@@ -118,7 +121,7 @@ using namespace std;
             this->customerLength *= 2;
         }
         else{
-            this->customers[ptr - this->customers] = customer;
+            this->customers[ptr - this->customers] = *customer;
             cout << "Customer " << customerId << " has been added" << endl;
         }
 
@@ -185,6 +188,7 @@ using namespace std;
         branch->addAccount(account);
         customer->addAccount(account);
         cout << "Account " << account.getId() << " added for customer " << account.getCustomer()->getId() << " at branch " << branch->getBranchId() << endl;
+        return accountId;
     }
     void BankingSystem::deleteAccount ( const int accountId ){
         Account* account;
@@ -192,11 +196,11 @@ using namespace std;
         int i = 0;
         while(i < this->branchLength && branch != nullptr){
             Account* account = branch->getAccount(accountId);
-            if(account->getId() == accountId)
+            if(account->getId() == accountId){
                 branch->deleteAccount(accountId);
                 break;
             }
-            branch = this->branches[i];
+            branch = &this->branches[i];
             i++;
         }
         //Get the branch and the customer of the account if exists
@@ -216,7 +220,7 @@ using namespace std;
                     if(currAccount != nullptr){
                         Branch* currBranch = currAccount->getBranch();
                         //print out the line
-                        printf("%-12d%-12d%-16s%-16d%-27s" + "" + currAccount->getBalance(), currAccount->getId(), currBranch->getBranchId(), currBranch->getName(), currCustomer->getId(), currCustomer->getName());
+                        printf("%-12d%-12d%-16s%-16d%-27s" + "" + currAccount->getBalance(), currAccount->getId(), currBranch->getBranchId(), currBranch->getName(), currCustomer->getId(), currCustomer->getCustomerName());
                     }
                 }
             }
@@ -224,7 +228,7 @@ using namespace std;
     }
     void BankingSystem::showBranch ( const int branchId ){
         //search for the branch with the given id
-        Branch* branch = this->branches[0];
+        Branch* branch = &this->branches[0];
         for(int i = 0; i < this->branchesLength && branch != nullptr; i++){
             branch = this->branches[i];
             if(branch->getBranchId() == branchId){

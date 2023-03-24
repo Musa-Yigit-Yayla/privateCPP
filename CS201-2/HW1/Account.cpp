@@ -35,8 +35,8 @@
         }
 
         this->balance = amount;
-        this->branch = branch;
-        this->customer = customer;
+        this->branch = &branch;
+        this->customer = &customer;
         this->accountCount++;
         this->accountsCreated++;
         this->id = this->accountsCreated;
@@ -45,18 +45,18 @@
         this->accountCount--;
     }
     Branch* Account::getBranch() const{
-        return &this->branch;
+        return this->branch;
     }
     Customer* Account::getCustomer() const{
-        return &this->customer;
+        return this->customer;
     }
     void Account::setBranch(Branch* branch){
         this->branch = branch;
-        this->branch.addAccount(this);
+        this->branch->addAccount(*this);
     }
     void Account::setCustomer(Customer* customer){
         this->customer = customer;
-        this->customer.addAccount(this);
+        this->customer->addAccount(*this);
     }
     double Account::getBalance() const{
         return this->balance;
@@ -87,6 +87,6 @@
 private:
     double balance;
     int id;
-    Branch branch;
-    Customer customer;
+    Branch* branch;
+    Customer* customer;
     static int accountCount = 0;*/
