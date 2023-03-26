@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <cstdio>
+#include <string_view>
 
 using namespace std;
 //public:
@@ -72,18 +73,39 @@ using namespace std;
         return this->accountsLength;
     }
     string Customer::to_string() const{
-        string s = "%-13s%-7d%-15s%-19sNumber of accounts: ";
-        sprintf(s, "Customer id:", "" + this->customerId, "Customer name:", this->customerName);
-        s += "" + this->accountCount + "\n";
+        char buffer1[100];
+        string result = "";
+        //string s = "%-13s%-7d%-15s%-19sNumber of accounts: ";
+        //sprintf(s, "Customer id:", "" + this->customerId, "Customer name:", this->customerName);
+        string s = "%-13s%-7d%-15s%-19sNumber of accounts: "; // 74 chars
+        for(int i = 0; i < s.size(); i++){
+            buffer1[i] = s.at(i);
+        }
+        sprintf(buffer1, "Customer id:", "" + this->customerId, "Customer name:", this->customerName);
+        string s1 = "" + std::to_string(this->accountCount) + "\n";
+        for(int i = 74; i < s1.size() + 74; i++){// Mıght be problematic, CHANGE THIS IF YOU CHANGE string s
+            buffer1[i] += s1.at(i - 74);
+        }
+        //add the buffer1 to the result
+        for(int i = 0; i < s1.size() + 74; i++){
+            result += buffer1[i];
+        }
         if(this->accountCount != 0){
-            s += "Accounts of this customer:\n";
+            //s += "Accounts of this customer:\n";
             for(int i = 0; i < this->accountCount; i++){
                 string line;
+                char buffer2[100];
                 if(i == 0){
-                    line = "%-12s%-16s%-20sBalance\n";
-                    sprintf(line, "Account id", "Branch id", "Branch name");
-                    s += line;
+                    line = "%-12s%-16s%-20sBalance\n"; //57 chars
+                    for(int j = 0; i < line.size(); i++){
+                        buffer2[j] = line.at(j);
+                    }
+                    sprintf(buffer2, "Account id", "Branch id", "Branch name");
+                    for(int j = 0; j < 57; j++){
+                        result += buffer2[j];
+                    }
                 }
+                //CONTINUE FROM HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 line = "%-12d%-16d%-20s" + this->accounts[i].getBalance() + "\n";
                 sprintf(line, this->accounts[i].getId(), this->accounts[i].getBranch()->getBranchId(), this->accounts[i].getBranch()->getBranchName());
                 s += line;

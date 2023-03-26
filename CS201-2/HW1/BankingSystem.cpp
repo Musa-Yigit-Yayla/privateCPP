@@ -12,12 +12,12 @@ using namespace std;
     BankingSystem::BankingSystem(){
         this->branches = new Branch[this->branchLength];
         for(int i = 0; i < branchLength; i++){
-            this->branches[i] = nullptr;
+            &(this->branches[i]) = nullptr;
         }
 
         this->customers = new Customer[this->customerLength];
         for(int i = 0; i < customerLength; i++){
-            this->customers[i] = nullptr;
+            (this->customers + i) = nullptr;
         }
     }
     BankingSystem::~BankingSystem(){
@@ -56,7 +56,7 @@ using namespace std;
             cout << "Branch " << branchId << " has been added" << endl;
 
             for(int i = this->branchLength + 1; i < this->branchLength * 2; i++){
-                 newBranches + i = nullptr;
+                 (newBranches + i) = nullptr;
             }
             this->branches = newBranches;
             this->branchLength *= 2;
@@ -213,18 +213,18 @@ using namespace std;
             if(currCustomer != nullptr){
                 Account* accounts = currCustomer->getAllAccounts();
                 int accountLength = currCustomer->getAccountCount();
-                Account* currAccount = accounts[0];
+                Account* currAccount = &accounts[0];
                 for(int j = 0; j < accountLength && currAccount != nullptr; j++){
                     currAccount = &accounts[j];
 
                     if(currAccount != nullptr){
                         Branch* currBranch = currAccount->getBranch();
-                        string balanceString = "" + currAccount->getBalance();
+                        string balanceString = "" + std::to_string(currAccount->getBalance());
                         string accountIdString = "" + currAccount->getId();
                         string branchIdString = "" + currBranch->getBranchId();
                         string customerIdString = "" + currCustomer->getId();
                         //print out the line
-                        printf("%-12d%-12d%-16s%-16d%-27s" + "" + balanceString, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());
+                        printf("%-12s%-12d%-16s%-16d%-27s" + "" + balanceString, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());
                     }
                 }
             }
