@@ -34,8 +34,9 @@ private:
     int accountsLength = 8;
     int accountCount = 0;
     Account* accounts;
+    Account** accountPointers;
     static int customerCount;
-    bool isCustomerCreated = false;
+    static bool isCustomerCreated;
 };
 
 #endif // CUSTOMER_H

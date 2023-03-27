@@ -37,6 +37,8 @@ private:
     int branchLength = 8;
     int customerLength = 8;
     Branch* branches;
+    Branch** branchPointers;
     Customer* customers;
+    Customer** customerPointers;
 };
 #endif

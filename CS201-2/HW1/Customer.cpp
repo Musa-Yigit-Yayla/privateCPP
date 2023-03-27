@@ -45,9 +45,9 @@ using namespace std;
     //Removes the given account from the array by shifting elements by left once. Does not delete the account
     //Returns the accountId if deletion successful, else returns -1
     int Customer::deleteAccount(const int accountId){
-        Account* account = &this->accounts[0];
+        Account* account = this->accountPointers[0];
         int result = -1;
-        int i = 1;
+        int i = 0;
         while(i < this->accountsLength && account != nullptr){
             if(account->getId() == accountId){
                 result = accountId;
@@ -59,9 +59,11 @@ using namespace std;
         if(result != -1){
             while(i < this->accountsLength - 1){
                 this->accounts[i] = this->accounts[i + 1];
+                this->accountPointers[i] = this->accountPointers[i + 1];
                 i++;
             }
-            this->accounts[i] = nullptr;
+            //this->accounts[i] = nullptr;
+            this->accountPointers[i] = nullptr;
             this->accountCount--;
         }
         return result;
@@ -106,6 +108,8 @@ using namespace std;
                     }
                 }
                 //CONTINUE FROM HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                char buffer3[100];
+
                 line = "%-12d%-16d%-20s" + this->accounts[i].getBalance() + "\n";
                 sprintf(line, this->accounts[i].getId(), this->accounts[i].getBranch()->getBranchId(), this->accounts[i].getBranch()->getBranchName());
                 s += line;
@@ -113,6 +117,8 @@ using namespace std;
         }
         return s;
     }
+    int Customer::customerCount = 0;
+    bool Customer::isCustomerCreated = false;
 /*private:
     int customerId;
     string customerName;

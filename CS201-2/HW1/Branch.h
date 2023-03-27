@@ -38,9 +38,10 @@ private:
     int branchId;
     string branchName;
     Account* accounts;
+    Account** accountPointers; // pointer array for accounts
     int accountsLength = 8;
     int accountsCount = 0;
     static int branchCount;
-    bool isBranchCreated = false;
+    static bool isBranchCreated;
 };
 #endif // BRANCH_H

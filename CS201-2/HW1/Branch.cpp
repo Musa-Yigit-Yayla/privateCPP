@@ -15,6 +15,7 @@ using namespace std;
 //public:
     Branch::Branch(const int branchId, const string branchName){
         this->accounts = new Account[8];
+        this->accountPointers = new Account*[8];
         this->branchId = branchId;
         this->branchName = branchName;
 
@@ -24,13 +25,15 @@ using namespace std;
         }
 
         for(int i = 0; i < this->accountsLength; i++){
-            &(this->accounts + i) = nullptr;
+            this->accountPointers[i] = nullptr;
+            //&(this->accounts + i) = nullptr;
             this->accountsCount++;
         }
         this->branchCount += 1;
     }
     Branch::Branch(){
         this->accounts = new Account[8];
+        this->accountPointers = new Account*[8];
         if(!this->isBranchCreated){
             this->branchCount = 0;
             this->isBranchCreated = true;
@@ -56,7 +59,8 @@ using namespace std;
 
     //Doubles the size of the Account array when necessary
     void Branch::addAccount(Account& acc){
-        Account* ptr = &this->accounts[0];
+        //Account* ptr = &this->accounts[0];
+        Account* ptr = this->accountPointers[0];
         int index = 0;
         while(ptr != nullptr){
             ptr++;
@@ -65,16 +69,20 @@ using namespace std;
 
         if(ptr != nullptr){ // means the array is full
             Account* newAccounts = new Account[this->accountsLength * 2];
+            Account** newAccountPointers = new Account*[this->accountsLength * 2];
             for(int i = 0; i < this->accountsLength; i++){
                 newAccounts[i] = this->accounts[i];
+                newAccountPointers[i] = this->accountPointers[i];
             }
             //add to the end
             newAccounts[this->accountsLength] = acc;
+            newAccountPointers[this->accountsLength] = &acc;
             this->accountsCount++;
             cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
 
             for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
-                &(newAccounts + i) = nullptr;
+                //&(newAccounts + i) = nullptr;
+                newAccountPointers[i] = nullptr;
             }
             this->accountsLength *= 2;
             this->accounts = newAccounts;
@@ -90,6 +98,7 @@ using namespace std;
                 }
             }*/
             this->accounts[index] = acc;
+            this->accountPointers[index] = &acc;
             this->accountsCount++;
             cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
         }
@@ -101,10 +110,12 @@ using namespace std;
     //Make sure to delete the account from the corresponding Customer too. i. e. modify the Customer's Account array too.
     //Invoke this method to delete an account, not the Customer's method. That method will be invoked from here.
     int Branch::deleteAccount(const int accountId){
-        Account* account = &this->accounts[0]; //account to be deleted
+        //Account* account = &this->accounts[0]; //account to be deleted
+        Account* account = this->accountPointers[0];
         int result = -1;
         for(int i = 1; i < this->accountsLength && account != nullptr; i++){
-            Account* curr = &this->accounts[i];
+            //Account* curr = &this->accounts[i];
+            Account* curr = this->accountPointers[i];
             if(curr != nullptr && curr->getId() == accountId){
                 result = accountId;
                 break;
@@ -127,11 +138,12 @@ using namespace std;
                     break;
                 }
                 i++;
-                account = &this->accounts[i];
+                account = this->accountPointers[i];
             }
             //Shift the remaining elements
             while(i < this->accountsLength - 1){
                 this->accounts[i] = this->accounts[i + 1];
+                this->accountPointers[i] = this->accountPointers[i + 1];
                 i++;
             }
         }
@@ -176,7 +188,7 @@ using namespace std;
         }
         return result;
     }
-
+    bool Branch::isBranchCreated = false;
     /*
 private:
     int branchId;
