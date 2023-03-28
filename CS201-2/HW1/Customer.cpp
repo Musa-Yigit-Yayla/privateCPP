@@ -108,10 +108,16 @@ using namespace std;
                     }
                 }
                 //CONTINUE FROM HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                char buffer3[100];
-
-                line = "%-12d%-16d%-20s" + this->accounts[i].getBalance() + "\n";
-                sprintf(line, this->accounts[i].getId(), this->accounts[i].getBranch()->getBranchId(), this->accounts[i].getBranch()->getBranchName());
+                //char buffer3[100];
+                string balanceString = "" + std::to_string(this->accounts[i].getBalance());
+                string formatString = "%-12d%-16d%-20s";
+                line = formatString + balanceString + "\n";
+                char format[48];
+                for(int j = 0; j < 48; j++){
+                    format[j] = formatString.at(j);
+                }
+                sprintf(line, formatString, this->accounts[i].getId(), this->accounts[i].getBranch()->getBranchId(), this->accounts[i].getBranch()->getBranchName());
+                //THE ABOVE LINE MIGHT BE PROBLEMATIC BE CAUTIOUS
                 s += line;
             }
         }

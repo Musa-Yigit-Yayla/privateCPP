@@ -243,7 +243,17 @@ using namespace std;
                         string branchIdString = "" + currBranch->getBranchId();
                         string customerIdString = "" + currCustomer->getId();
                         //print out the line
-                        printf("%-12s%-12d%-16s%-16d%-27s" + "" + balanceString, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());
+                        string formatString = "%-12s%-12d%-16s%-16d%-27s";
+                        char format[formatString.size() + balanceString.size()];
+                        for(int k = 0; k < formatString.size(); k++){
+                            if(k < formatString.size()){
+                                format[k] = formatString.at(k);
+                            }
+                            else{
+                                format[k] =balanceString.at(k - formatString.size());
+                            }
+                        }
+                        printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());
                     }
                 }
             }

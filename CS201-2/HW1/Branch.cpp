@@ -180,8 +180,17 @@ using namespace std;
                 result += "Account id  Customer id     Customer name         Balance\n";
             }
             Account* currAccount = &this->accounts[i];
+            char buffer[100];
             string s = "%-12d%-16d%-22s";
-            s = sprintf(s, currAccount->getId(), currAccount->getCustomer()->getId(), currAccount->getCustomer()->getCustomerName());
+            char writeable[s.size()];
+            for(int j = 0; j < s.size(); j++){
+                buffer[j] = s.at(j);
+                writeable[j] = s.at(j);
+            }
+            sprintf(buffer, writeable, currAccount->getId(), currAccount->getCustomer()->getId(), currAccount->getCustomer()->getCustomerName());
+            for(int j = 0; j < 50; j++){
+                result += buffer[j];
+            }
             accountBalance += currAccount->getBalance();
             s += accountBalance + "\n";
             result += s;
