@@ -7,11 +7,12 @@
 
 //public:
     Account::Account(){
-        if(0 == this->accountsCreated){
+        /*if(0 == this->accountsCreated){
             this->accountCount = 0;
             this->accountsCreated = 0;
             //this->isAccountCreated = true;
-        }
+        }*/
+        //this->branch = &branch;
         this->accountCount++;
         this->accountsCreated++;
         this->id = this->accountsCreated;
@@ -40,6 +41,10 @@
         this->accountCount++;
         this->accountsCreated++;
         this->id = this->accountsCreated;
+    }
+    //Just to create temporary Account objects, will not be used for literal Accounts
+    Account::Account(Branch* branch){
+        this->branch = branch;
     }
     Account::~Account(){
         this->accountCount--;
@@ -82,7 +87,8 @@
             return 0;
         }
     }
-
+    int Account::accountCount = 0;
+    int Account::accountsCreated =  0;
 /*
 private:
     double balance;

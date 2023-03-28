@@ -14,10 +14,10 @@
 using namespace std;
 //public:
     Branch::Branch(const int branchId, const string branchName){
-        this->accounts = new Account[8];
-        this->accountPointers = new Account*[8];
         this->branchId = branchId;
         this->branchName = branchName;
+        this->accounts = new Account[8]{Account(this), Account(this), Account(this), Account(this), Account(this), Account(this), Account(this), Account(this)};
+        this->accountPointers = new Account*[8];
 
         if(!this->isBranchCreated){
             this->branchCount = 0;

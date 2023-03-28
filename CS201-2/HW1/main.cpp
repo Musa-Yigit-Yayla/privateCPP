@@ -2,9 +2,13 @@
 using namespace std ;
 #include "BankingSystem.h"
 int main () {
+cout << "Hey0" << endl;
 BankingSystem B ;
+cout << "Hey1" << endl;
 B . addBranch ( 1451 , " Bilkent " ) ;
+cout << "Hey2" << endl;
 B . addBranch ( 2435 , " Kizilay " ) ;
+cout << "Hey3" << endl;
 B . addBranch ( 1672 , " Bahcelievler " ) ;
 B . addBranch ( 3216 , " Ulus " ) ;
 B . addBranch ( 2435 , " Kizilay " ) ;
