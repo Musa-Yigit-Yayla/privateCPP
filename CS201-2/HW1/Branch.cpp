@@ -180,7 +180,7 @@ using namespace std;
                 result += "Account id  Customer id     Customer name         Balance\n";
             }
             Account* currAccount = &this->accounts[i];
-            char buffer[100];
+            /*char buffer[100];
             string s = "%-12d%-16d%-22s";
             char writeable[s.size()];
             for(int j = 0; j < s.size(); j++){
@@ -190,8 +190,10 @@ using namespace std;
             sprintf(buffer, writeable, currAccount->getId(), currAccount->getCustomer()->getId(), currAccount->getCustomer()->getCustomerName());
             for(int j = 0; j < 50; j++){
                 result += buffer[j];
-            }
+            }*/
+            result += std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getCustomer()->getId()) + " " + currAccount->getCustomer()->getCustomerName();
             accountBalance += currAccount->getBalance();
+            string s;
             s += accountBalance + "\n";
             result += s;
         }

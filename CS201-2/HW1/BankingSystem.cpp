@@ -226,7 +226,8 @@ using namespace std;
     }
     void BankingSystem::showAllAccounts() {
         //Account id Branch id Branch name Customer id Customer name Balance
-        printf("%-12s%-12s%-16s%-16s%-27sBalance\n", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
+        //printf("%-12s%-12s%-16s%-16s%-27sBalance\n", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
+        cout << "Account id " << "Branch id " << "Branch name " << "Customer id " << "Customer name " << "Balance" << endl;
         for(int i = 0; i < this->customerLength; i++){
             Customer* currCustomer = &this->customers[i];
             if(currCustomer != nullptr){
@@ -238,12 +239,12 @@ using namespace std;
 
                     if(currAccount != nullptr){
                         Branch* currBranch = currAccount->getBranch();
-                        string balanceString = "" + std::to_string(currAccount->getBalance());
+                        string balanceString = " " + std::to_string(currAccount->getBalance());
                         string accountIdString = "" + currAccount->getId();
-                        string branchIdString = "" + currBranch->getBranchId();
-                        string customerIdString = "" + currCustomer->getId();
+                        string branchIdString = " " + currBranch->getBranchId();
+                        string customerIdString = " " + currCustomer->getId();
                         //print out the line
-                        string formatString = "%-12s%-12d%-16s%-16d%-27s";
+                        /*string formatString = "%-12s%-12d%-16s%-16d%-27s";
                         char format[formatString.size() + balanceString.size()];
                         for(int k = 0; k < formatString.size(); k++){
                             if(k < formatString.size()){
@@ -253,7 +254,8 @@ using namespace std;
                                 format[k] =balanceString.at(k - formatString.size());
                             }
                         }
-                        printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());
+                        printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());*/
+                        cout << accountIdString << branchIdString << " " << currBranch->getBranchName() << " " << customerIdString << " " << currCustomer->getCustomerName() << endl;
                     }
                 }
             }
