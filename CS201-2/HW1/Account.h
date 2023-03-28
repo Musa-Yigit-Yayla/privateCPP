@@ -39,7 +39,7 @@ private:
     Customer* customer;
     static int accountCount;
     static int accountsCreated; //static variable representing accounts that have been created so far (do not decrement)
-    bool isAccountCreated = false; // represents whether an account has been instantiated or not, will be useful in constructors
+    //bool isAccountCreated = false; // represents whether an account has been instantiated or not, will be useful in constructors
 };
 
 

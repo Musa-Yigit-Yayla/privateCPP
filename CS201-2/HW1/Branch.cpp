@@ -198,6 +198,7 @@ using namespace std;
         return result;
     }
     bool Branch::isBranchCreated = false;
+    int Branch::branchCount = 0;
     /*
 private:
     int branchId;

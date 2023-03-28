@@ -131,8 +131,8 @@ using namespace std;
     }
     int Customer::customerCount = 0;
     bool Customer::isCustomerCreated = false;
-    bool Account::accountsCreated = true;
-    bool Account::isAccountCreated = false;
+    int Account::accountsCreated = 0;
+    //bool Account::isAccountCreated = false;
     int Account::accountCount = 0;
 /*private:
     int customerId;

@@ -7,20 +7,20 @@
 
 //public:
     Account::Account(){
-        if(!this->isAccountCreated){
+        if(0 == this->accountsCreated){
             this->accountCount = 0;
             this->accountsCreated = 0;
-            this->isAccountCreated = true;
+            //this->isAccountCreated = true;
         }
         this->accountCount++;
         this->accountsCreated++;
         this->id = this->accountsCreated;
     }
     Account::Account(double amount){
-        if(!this->isAccountCreated){
+        if(this->accountsCreated == 0){
             this->accountCount = 0;
             this->accountsCreated = 0;
-            this->isAccountCreated = true;
+            //this->isAccountCreated = true;
         }
         this->balance = amount;
         this->accountCount++;
@@ -28,10 +28,10 @@
         this->id = this->accountsCreated;
     }
     Account::Account(double amount, Branch& branch, Customer& customer){
-        if(!this->isAccountCreated){
+        if(this->accountsCreated == 0){
             this->accountCount = 0;
             this->accountsCreated = 0;
-            this->isAccountCreated = true;
+            //this->isAccountCreated = true;
         }
 
         this->balance = amount;
