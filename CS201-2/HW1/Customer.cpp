@@ -1,5 +1,6 @@
 #include "Customer.h"
 #include "Account.h"
+#include "Branch.h"
 #include <string>
 #include <iostream>
 #include <cstdio>
@@ -116,7 +117,12 @@ using namespace std;
                 for(int j = 0; j < 48; j++){
                     format[j] = formatString.at(j);
                 }
-                sprintf(line, formatString, this->accounts[i].getId(), this->accounts[i].getBranch()->getBranchId(), this->accounts[i].getBranch()->getBranchName());
+                char buffer3[100];
+                for(int j = 0; j < line.size(); j++){
+                    buffer3[j] = line.at(j);
+                }
+
+                sprintf(buffer3, format, this->accounts[i].getId(), this->accounts[i].getBranch()->getBranchId(), this->accounts[i].getBranch()->getBranchName());
                 //THE ABOVE LINE MIGHT BE PROBLEMATIC BE CAUTIOUS
                 s += line;
             }
@@ -125,6 +131,9 @@ using namespace std;
     }
     int Customer::customerCount = 0;
     bool Customer::isCustomerCreated = false;
+    bool Account::accountsCreated = true;
+    bool Account::isAccountCreated = false;
+    int Account::accountCount = 0;
 /*private:
     int customerId;
     string customerName;
