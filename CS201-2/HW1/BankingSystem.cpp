@@ -42,24 +42,24 @@ using namespace std;
                 cout << "Branch " << branchId << " already exists" << endl;
                 isBranchFound = true;
             }
-            delete curr;
+            //delete curr;
             if(isBranchFound){
                 return;
             }
         }
 
-        Branch branch(branchId, branchName);
+        Branch* branch = new Branch(branchId, branchName);
 
         Branch* ptr = this->branchPointers[0];
-        while(ptr != nullptr){
+        while(ptr != nullptr && ptr - this->branchPointers[0] < this->branchLength){
             ptr++;
         }
         if(this->branchLength == 1 && ptr == nullptr){
             //We are adding the first Account to the branch :)
-            this->branches[0] = branch;
-            this->branchPointers[0] = &branch;
+            this->branches[0] = *branch;
+            this->branchPointers[0] = branch;
             cout << "Branch " << branchId << " has been added" << endl;
-            this->branchLength += 1;
+            //this->branchLength += 1;
         }
         //MIGHT BE PROBLEMATIC !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BELOW CODE Put the if else back maybe
         else{
@@ -72,8 +72,8 @@ using namespace std;
                 newBranchPointers[i] = this->branchPointers[i];
             }
             //Make the addition then set the rest to nullptr
-            newBranches[branchLength] = branch;
-            newBranchPointers[branchLength] = &branch;
+            newBranches[branchLength] = *branch;
+            newBranchPointers[branchLength] = branch;
             cout << "Branch " << branchId << " has been added" << endl;
 
             /*for(int i = this->branchLength + 1; i < this->branchLength * 2; i++){
