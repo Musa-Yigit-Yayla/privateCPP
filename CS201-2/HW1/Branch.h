@@ -18,6 +18,7 @@ class Branch{
 public:
     Branch(const int branchId, const string branchName);
     Branch();
+    ~Branch();
     int getBranchId() const;
     string getBranchName() const;
     int getBranchCount() const;

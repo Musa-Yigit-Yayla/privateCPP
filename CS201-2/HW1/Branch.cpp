@@ -48,6 +48,10 @@ using namespace std;
         }
         this->branchCount++;
     }
+    Branch::~Branch(){
+        delete[] this->accounts;
+        delete[] this->accountPointers;
+    }
     int Branch::getBranchId() const{
         return this->branchId;
     }
@@ -76,8 +80,8 @@ using namespace std;
         }
 
         if(ptr != nullptr){ // means the array is full
-            Account* newAccounts = new Account[this->accountsLength * 2];
-            Account** newAccountPointers = new Account*[this->accountsLength * 2];
+            Account* newAccounts = new Account[this->accountsLength + 1];
+            Account** newAccountPointers = new Account*[this->accountsLength + 1];
             for(int i = 0; i < this->accountsLength; i++){
                 newAccounts[i] = this->accounts[i];
                 newAccountPointers[i] = this->accountPointers[i];
@@ -88,14 +92,14 @@ using namespace std;
             this->accountsCount++;
             cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
 
-            for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
+            /*for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
                 //&(newAccounts + i) = nullptr;
                 newAccountPointers[i] = nullptr;
             }
             this->accountsLength *= 2;
-            this->accounts = newAccounts;
+            this->accounts = newAccounts;*/
         }
-        else{
+        //else{
             /*//Search for the first nullptr
             for(int i = 0; i < this->accountsLength; i++){
                 if(this->accounts[i] == nullptr){
@@ -104,12 +108,13 @@ using namespace std;
                     cout << "Account " << acc->getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
                     break;
                 }
-            }*/
+            }
             this->accounts[index] = acc;
-            this->accountPointers[index] = &acc;
+            this->accountPointers[index] = &acc;*/
+            this->accountsLength++;
             this->accountsCount++;
             cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
-        }
+        //}
         //FURTHER ATTENTION REQUIRED FOR THIS METHOD
         //Done no further attention required apparently
     }

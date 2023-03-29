@@ -11,11 +11,13 @@ using namespace std;
 //public:
     BankingSystem::BankingSystem(){
         this->branches = new Branch[this->branchLength];
+        this->branchPointers = new Branch*[this->branchLength];
         for(int i = 0; i < branchLength; i++){
             (this->branchPointers[i]) = nullptr;
         }
 
         this->customers = new Customer[this->customerLength];
+        this->customerPointers = new Customer*[this->customerLength];
         for(int i = 0; i < customerLength; i++){
             (this->customerPointers[i]) = nullptr;
         }
@@ -29,16 +31,21 @@ using namespace std;
     void BankingSystem::addBranch ( const int branchId , const string branchName ){
 
         //First check if a branch with the given ID already exists
+        bool isBranchFound = false;
         for(int i = 0; i < this->branchLength; i++){
             Branch* curr = this->branchPointers[i];
             if(curr == nullptr){
+                delete curr;
                 break;
             }
             else if(curr->getBranchId() == branchId){
                 cout << "Branch " << branchId << " already exists" << endl;
-                return;
+                isBranchFound = true;
             }
             delete curr;
+            if(isBranchFound){
+                return;
+            }
         }
 
         Branch branch(branchId, branchName);
@@ -47,7 +54,15 @@ using namespace std;
         while(ptr != nullptr){
             ptr++;
         }
+        if(this->branchLength == 1 && ptr == nullptr){
+            //We are adding the first Account to the branch :)
+            this->branches[0] = branch;
+            this->branchPointers[0] = &branch;
+            cout << "Branch " << branchId << " has been added" << endl;
+            this->branchLength += 1;
+        }
         //MIGHT BE PROBLEMATIC !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BELOW CODE Put the if else back maybe
+        else{
         //if(ptr - this->branchPointers[0] == this->branchLength){
             //double the array size and copy the elements into the new array
             Branch* newBranches = new Branch[this->branchLength + 1];
@@ -67,11 +82,12 @@ using namespace std;
             this->branches = newBranches;
             this->branchPointers = newBranchPointers;
             this->branchLength += 1;
+        }
         //}
         //else{
             //this->branches[ptr - this->branches] = branch;
             //this->branchPointers[ptr - this->branches] = &branch;
-            cout << "Branch " << branchId << " has been added" << endl;
+            //cout << "Branch " << branchId << " has been added" << endl;
         //}
     }
     void BankingSystem::deleteBranch ( const int branchId ){
