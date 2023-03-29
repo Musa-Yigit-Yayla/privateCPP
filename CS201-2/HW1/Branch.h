@@ -11,7 +11,7 @@
 //class Customer;
 class Account;
 #include <string>
-//#include "Account.h"
+#include "Account.h"
 
 using namespace std;
 class Branch{
@@ -37,9 +37,9 @@ public:
 private:
     int branchId;
     string branchName;
-    Account* accounts;
-    Account** accountPointers; // pointer array for accounts
-    int accountsLength = 8;
+    Account* accounts = new Account[1];
+    Account** accountPointers = new Account*[1]; // pointer array for accounts
+    int accountsLength = 1;
     int accountsCount = 0;
     static int branchCount;
     static bool isBranchCreated;

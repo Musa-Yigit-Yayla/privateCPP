@@ -34,8 +34,8 @@ public:
     void showCustomer ( const int customerId ) ;
 
 private:
-    int branchLength = 8;
-    int customerLength = 8;
+    int branchLength = 1;
+    int customerLength = 1;
     Branch* branches;
     Branch** branchPointers;
     Customer* customers;

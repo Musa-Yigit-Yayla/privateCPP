@@ -16,6 +16,7 @@
         this->accountCount++;
         this->accountsCreated++;
         this->id = this->accountsCreated;
+        //cout << "Default account constructor invoked. Account ID:" << this->id << endl;
     }
     Account::Account(double amount){
         if(this->accountsCreated == 0){
