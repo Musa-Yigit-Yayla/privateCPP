@@ -55,16 +55,18 @@ using namespace std;
         while(ptr != nullptr && ptr - this->branchPointers[0] < this->branchLength){
             ptr++;
         }
-        if(this->branchLength == 1 && ptr == nullptr){
+        if(this->branchLength == 1 && ptr == nullptr && this->branchCount == 0){ // ptr == nullptr yap branchCount u
             //We are adding the first Account to the branch :)
             this->branches[0] = *branch;
             this->branchPointers[0] = branch;
+            this->branchCount = 0;
             cout << "Branch " << branchId << " has been added" << endl;
             //this->branchLength += 1;
         }
         //MIGHT BE PROBLEMATIC !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BELOW CODE Put the if else back maybe
         //else{
-        if(ptr - this->branchPointers[0] == this->branchLength){
+        //if(ptr - this->branchPointers[0] == this->branchLength){
+        else{
             //double the array size and copy the elements into the new array
             Branch* newBranches = new Branch[this->branchLength + 1];
             Branch** newBranchPointers = new Branch*[this->branchLength + 1];
@@ -75,6 +77,7 @@ using namespace std;
             //Make the addition then set the rest to nullptr
             newBranches[branchLength] = *branch;
             newBranchPointers[branchLength] = branch;
+            this->branchCount = 0;
             cout << "Branch " << branchId << " has been added" << endl;
 
             /*for(int i = this->branchLength + 1; i < this->branchLength * 2; i++){
@@ -102,6 +105,7 @@ using namespace std;
                 //delete currBranch;
                 //delete (&this->branches[i]); // might be problematic but it should work fine
                 isDeleted = true;
+                this->branchCount--;
                 cout << "Branch " << branchId << " has been deleted" << endl;
             }
             // !!!!!!!!!!!!!!!!!!!! If problem occurs remove the below else and get the if else if statements out from the comments
@@ -364,6 +368,7 @@ using namespace std;
         cout << customer->to_string() << endl;
     }
     int BankingSystem::customerCount = 0;
+    int BankingSystem::branchCount = 0;
 /*
 private:
     int branchLength = 8;
