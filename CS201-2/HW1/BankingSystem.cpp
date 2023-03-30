@@ -55,11 +55,11 @@ using namespace std;
         while(ptr != nullptr && ptr - this->branchPointers[0] < this->branchLength){
             ptr++;
         }
-        if(this->branchLength == 1 && ptr == nullptr && this->branchCount == 0){ // ptr == nullptr yap branchCount u
+        if(this->branchLength == 1 && ptr == nullptr){ // ptr == nullptr yap branchCount u
             //We are adding the first Account to the branch :)
             this->branches[0] = *branch;
             this->branchPointers[0] = branch;
-            this->branchCount = 0;
+            //this->branchCount = 0;
             cout << "Branch " << branchId << " has been added" << endl;
             //this->branchLength += 1;
         }
@@ -146,12 +146,11 @@ using namespace std;
                 this->branchLength -= 1;
 
             //REMOVE BELOW TWO LINES FOR PROGRAM TO EXECUTE FURTHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            this->branches = newBranches;
-            this->branchPointers = newBranchPointers;
+            //this->branches = newBranches;
+            //this->branchPointers = newBranchPointers;
         }
     }
     void BankingSystem::addCustomer ( const int customerId , const string customerName ){
-
         //Initially check whether a customer with the given Id exists
         for(int i = 0; i < this->customerLength; i++){
             Customer* curr = this->customerPointers[i];
@@ -164,7 +163,6 @@ using namespace std;
             }
             //delete curr;
         }
-
         Customer* customer = new Customer(customerId, customerName);
         Customer* ptr = this->customerPointers[0] + this->customerCount;
         /*while(ptr != nullptr){
@@ -263,7 +261,6 @@ using namespace std;
         }
     }
     int BankingSystem::addAccount ( const int branchId , const int customerId , const double amount ){
-        //check whether a branch with given ID exists
         Branch* branch;
         Customer* customer;
         bool branchExists = false;
