@@ -40,5 +40,6 @@ private:
     Branch** branchPointers;
     Customer* customers;
     Customer** customerPointers;
+    static int customerCount;
 };
 #endif
