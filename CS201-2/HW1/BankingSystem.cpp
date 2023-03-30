@@ -96,6 +96,20 @@ using namespace std;
     }
     void BankingSystem::deleteBranch ( const int branchId ){
         bool isDeleted = false;
+        //bool branchExists = false;
+        /*//initially check whether we don't have the given branch
+        for(int i = 0; i < this->branchLength; i++){
+            Branch currBranch = this->branches[i];
+            if(currBranch.getBranchId() == branchId){
+                branchExists = true;
+                break;
+            }
+        }
+        if(!branchExists){
+            cout << "Branch " << branchId << " does not exist" << endl;
+            return;
+        }*/
+
         Branch* newBranches = new Branch[this->branchLength - 1];
         Branch** newBranchPointers = new Branch*[this->branchLength - 1];
         int counter = 0; // counter representing newBranches index
@@ -108,11 +122,11 @@ using namespace std;
                 this->branchCount--;
                 cout << "Branch " << branchId << " has been deleted" << endl;
             }
-            // !!!!!!!!!!!!!!!!!!!! If problem occurs remove the below else and get the if else if statements out from the comments
             else{
                 //Add the branch to the newBranches
                 newBranches[counter] = this->branches[i];
                 newBranchPointers[counter++] = this->branchPointers[i];
+                //cout << "Branch with id " << this->branches[i].getBranchId() << " added to the newBranches xddddddddddd" << endl;
             }
             /*if(isDeleted && i < this->branchLength - 1){
                 this->branches[i] = this->branches[i + 1];
@@ -130,6 +144,10 @@ using namespace std;
         else{
             if(this->branchLength > 1)
                 this->branchLength -= 1;
+
+            //REMOVE BELOW TWO LINES FOR PROGRAM TO EXECUTE FURTHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            this->branches = newBranches;
+            this->branchPointers = newBranchPointers;
         }
     }
     void BankingSystem::addCustomer ( const int customerId , const string customerName ){
@@ -251,12 +269,13 @@ using namespace std;
         bool branchExists = false;
         for(int i = 0; i < this->branchLength; i++){
             Branch* currBranch = &this->branches[i];
-            if(currBranch ==  nullptr){
-                break;
-            }
-            else if(currBranch->getBranchId() == branchId){
+            //if(currBranch ==  nullptr){
+                //break;
+            //}
+            if(currBranch->getBranchId() == branchId){
                 branchExists = true;
                 branch = currBranch;
+
                 break;
             }
         }
@@ -267,10 +286,10 @@ using namespace std;
         bool customerExists = false;
         for(int i = 0; i < this->customerLength; i++){
             Customer* currCustomer = &this->customers[i];
-            if(currCustomer == nullptr){
-                break;
-            }
-            else if(currCustomer->getId() == customerId){
+            //if(currCustomer == nullptr){
+                //break;
+            //}
+            if(currCustomer->getId() == customerId){
                 customerExists = true;
                 customer = currCustomer;
                 break;
