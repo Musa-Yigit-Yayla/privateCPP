@@ -90,7 +90,7 @@ using namespace std;
             newAccounts[this->accountsLength] = acc;
             newAccountPointers[this->accountsLength] = &acc;
             this->accountsCount++;
-            cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
+            //cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
 
             /*for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
                 //&(newAccounts + i) = nullptr;
@@ -113,7 +113,7 @@ using namespace std;
             this->accountPointers[index] = &acc;*/
             this->accountsLength++;
             this->accountsCount++;
-            cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
+            //cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
         //}
         //FURTHER ATTENTION REQUIRED FOR THIS METHOD
         //Done no further attention required apparently

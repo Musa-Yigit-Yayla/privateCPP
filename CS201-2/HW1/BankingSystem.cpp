@@ -211,7 +211,7 @@ using namespace std;
         Customer* newCustomers = new Customer[this->customerLength - 1];
         Customer** newCustomerPointers = new Customer*[this->customerLength - 1];
         int counter = 0;
-        for(int i = 0; i < this->customerLength; i++){
+        for(int i = 0; i < this->customerLength && counter < this->customerLength - 1; i++){
             Customer currCustomer = this->customers[i];
             if(currCustomer.getId() == customerId){
                 //delete &this->customers[i];
@@ -233,12 +233,15 @@ using namespace std;
                 this->customerPointers[i] = nullptr;
             }*/
         }
+
         if(!isDeleted){
             cout << "Customer " << customerId << " does not exist" << endl;
         }
         else{
+            this->customers = newCustomers;
+            this->customerPointers = newCustomerPointers;
             if(this->customerLength > 1)
-            this->customerLength -= 1;
+                this->customerLength -= 1;
         }
     }
     int BankingSystem::addAccount ( const int branchId , const int customerId , const double amount ){
