@@ -10,7 +10,8 @@ using namespace std;
 //public:
 
     Customer::Customer(const int customerId, const string customerName){
-        this->accounts = new Account(accountsLength);
+        this->accounts = new Account[this->accountsLength];
+        this->accountPointers = new Account*[this->accountsLength];
         if(!this->isCustomerCreated){
             this->customerCount = 0;
             this->isCustomerCreated = true;
@@ -20,7 +21,8 @@ using namespace std;
         this->customerCount++;
     }
     Customer::Customer(){
-        this->accounts = new Account(accountsLength);
+        this->accounts = new Account[this->accountsLength];
+        this->accountPointers = new Account*[this->accountsLength];
         if(!this->isCustomerCreated){
             this->customerCount = 0;
             this->isCustomerCreated = true;

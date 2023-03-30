@@ -38,8 +38,8 @@ public:
 private:
     int branchId;
     string branchName;
-    Account* accounts = new Account[1];
-    Account** accountPointers = new Account*[1]; // pointer array for accounts
+    Account* accounts; //new Account[1];
+    Account** accountPointers; //new Account*[1]; // pointer array for accounts
     int accountsLength = 1;
     int accountsCount = 0;
     static int branchCount;

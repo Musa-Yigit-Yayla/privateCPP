@@ -16,32 +16,23 @@ using namespace std;
     Branch::Branch(const int branchId, const string branchName){
         this->branchId = branchId;
         this->branchName = branchName;
-        /*Account tempAcc0(this);
-        Account tempAcc1(this);
-        Account tempAcc2(this);
-        Account tempAcc3(this);
-        Account tempAcc4(this);
-        Account tempAcc5(this);
-        Account tempAcc6(this);
-        Account tempAcc7(this);
-        this->accounts = new Account[8]{tempAcc0, tempAcc1, tempAcc2, tempAcc3, tempAcc4, tempAcc5, tempAcc6, tempAcc7};
-        this->accountPointers = new Account*[8]{nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};*/
-
+        this->accounts = new Account[this->accountsLength];
+        this->accountPointers = new Account*[this->accountsLength];
         if(!this->isBranchCreated){
             this->branchCount = 0;
             this->isBranchCreated = true;
         }
 
-        for(int i = 0; i < this->accountsLength; i++){
+        /*for(int i = 0; i < this->accountsLength; i++){
             this->accountPointers[i] = nullptr;
             //&(this->accounts + i) = nullptr;
             this->accountsCount++;
-        }
+        }*/
         this->branchCount += 1;
     }
     Branch::Branch(){
-        //this->accounts = new Account[8];
-        //this->accountPointers = new Account*[8];
+        this->accounts = new Account[this->accountsLength];
+        this->accountPointers = new Account*[this->accountsLength];
         if(!this->isBranchCreated){
             this->branchCount = 0;
             this->isBranchCreated = true;

@@ -14,7 +14,7 @@ B . addBranch ( 3216 , " Ulus " ) ;
 B . addBranch ( 2435 , " Kizilay " ) ;
 B . deleteBranch ( 1672 ) ;
 B . deleteBranch ( 1723 ) ;
-B . addBranch ( 9876 , " Umitkoy " ) ;
+//B . addBranch ( 9876 , " Umitkoy " ) ;
 cout << endl;
 B . addCustomer ( 1234 , "Ali Ak" ) ;
 B . addCustomer ( 4567 , " Aynur Dayanik " ) ;
