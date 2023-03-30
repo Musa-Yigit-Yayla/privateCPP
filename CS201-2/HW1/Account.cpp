@@ -13,9 +13,9 @@
             //this->isAccountCreated = true;
         }*/
         //this->branch = &branch;
-        this->accountCount++;
-        this->accountsCreated++;
-        this->id = this->accountsCreated;
+        //this->accountCount++;
+        //this->accountsCreated++;
+        //this->id = this->accountsCreated;
         //cout << "Default account constructor invoked. Account ID:" << this->id << endl;
     }
     Account::Account(double amount){
@@ -25,8 +25,8 @@
             //this->isAccountCreated = true;
         }
         this->balance = amount;
-        this->accountCount++;
-        this->accountsCreated++;
+        //this->accountCount++;
+        //this->accountsCreated++;
         this->id = this->accountsCreated;
     }
     Account::Account(double amount, Branch& branch, Customer& customer){
