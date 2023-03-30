@@ -14,8 +14,8 @@ class Customer;
 class Account;
 
 #include <string>
-//#include "Branch.h"
-//#include "Customer.h"
+#include "Branch.h"
+#include "Customer.h"
 //#include "Account.h"
 
 using namespace std;
@@ -36,10 +36,10 @@ public:
 private:
     int branchLength = 1;
     int customerLength = 1;
-    Branch* branches;
-    Branch** branchPointers;
-    Customer* customers;
-    Customer** customerPointers;
+    Branch* branches = new Branch[branchLength];
+    Branch** branchPointers = new Branch*[branchLength];
+    Customer* customers = new Customer[customerLength];
+    Customer** customerPointers = new Customer*[customerLength];
     static int customerCount;
     static int branchCount;
 };

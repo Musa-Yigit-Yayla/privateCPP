@@ -40,8 +40,8 @@ using namespace std;
         this->branchCount += 1;
     }
     Branch::Branch(){
-        this->accounts = new Account[8];
-        this->accountPointers = new Account*[8];
+        //this->accounts = new Account[8];
+        //this->accountPointers = new Account*[8];
         if(!this->isBranchCreated){
             this->branchCount = 0;
             this->isBranchCreated = true;
