@@ -119,39 +119,54 @@ using namespace std;
         //Account* account = &this->accounts[0]; //account to be deleted
         Account* account = this->accountPointers[0];
         int result = -1;
-        for(int i = 1; i < this->accountsLength && account != nullptr; i++){
+        /*for(int i = 1; i < this->accountsLength && account != nullptr; i++){
             //Account* curr = &this->accounts[i];
             Account* curr = this->accountPointers[i];
             if(curr != nullptr && curr->getId() == accountId){
                 result = accountId;
                 break;
             }
-        }
+        }*/
 
 
-        if(result == - 1){
-            cout << "Account " << result << " does not exist" << endl;
-        }
-        else{
+        if(account != nullptr){
             //First remove the Account from Customer's Account array
-            account->getCustomer()->deleteAccount(accountId);
+            Customer* customer; //= account->getCustomer();
+            /*if(customer != nullptr){
+                account->getCustomer()->deleteAccount(accountId);
+            }*/
             //Then delete the actual account, and update the array in the Branch accordingly
-            int i = 1;
+            Account* newAccounts = new Account[this->accountsLength];
+            Account** newAccountPointers = new Account*[this->accountsLength];
+            int i = 0;
+            int counter = 0;
             while(i < this->accountsLength && account != nullptr){
+                account = this->accountPointers[i];
                 if(account->getId() == accountId){
                     //delete account;
+                    Customer* customer = account->getCustomer();
+                    customer->deleteAccount(accountId);
                     cout << "Account " << accountId << "has been deleted" << endl;
-                    break;
+                    result = accountId;
+                }
+                else{
+                    newAccounts[counter] = this->accounts[i];
+                    newAccountPointers[counter++] = this->accountPointers[i];
                 }
                 i++;
-                account = this->accountPointers[i];
+
             }
-            //Shift the remaining elements
+            /*//Shift the remaining elements
             while(i < this->accountsLength - 1){
                 this->accounts[i] = this->accounts[i + 1];
                 this->accountPointers[i] = this->accountPointers[i + 1];
                 i++;
-            }
+            }*/
+            this->accounts = newAccounts;
+            this->accountPointers = newAccountPointers;
+        }
+        if(result == - 1){
+            cout << "Account " << result << " does not exist" << endl;
         }
         return result;
     }
