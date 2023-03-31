@@ -77,7 +77,7 @@ using namespace std;
     //Removes the given account from the array by shifting elements by left once. Does not delete the account
     //Returns the accountId if deletion successful, else returns -1
     int Customer::deleteAccount(const int accountId){
-        Account* account = this->accountPointers[0];
+        /*Account* account = &this->accounts[0];
         int result = -1;
         int i = 0;
         while(i < this->accountsLength && account != nullptr){
@@ -97,6 +97,48 @@ using namespace std;
             //this->accounts[i] = nullptr;
             this->accountPointers[i] = nullptr;
             this->accountCount--;
+        }
+        return result;*/
+
+
+        Account* account = this->accountPointers[0];
+        int result = -1;
+        /*for(int i = 1; i < this->accountsLength && account != nullptr; i++){
+            //Account* curr = &this->accounts[i];
+            Account* curr = this->accountPointers[i];
+            if(curr != nullptr && curr->getId() == accountId){
+                result = accountId;
+                break;
+            }
+        }*/
+
+
+        if(account != nullptr){
+            //Then delete the actual account
+            Account* newAccounts = new Account[this->accountsLength - 1];
+            Account** newAccountPointers = new Account*[this->accountsLength - 1];
+            int i = 0;
+            int counter = 0;
+            while(i < this->accountsLength && counter < this->accountsLength - 1 && account != nullptr){
+                account = &this->accounts[i];
+                int id = account->getId();
+                if(id == accountId){
+                    //delete account;
+                    //Customer* customer = account->getCustomer();
+                    //customer->deleteAccount(accountId);
+                    //cout << "Account " << accountId << " has been deleted" << endl;
+                    result = accountId;
+                }
+                else{
+                    newAccounts[counter] = this->accounts[i];
+                    newAccountPointers[counter++] = this->accountPointers[i];
+                }
+                i++;
+            }
+            if(result != -1){
+                this->accounts = newAccounts;
+                this->accountPointers = newAccountPointers;
+            }
         }
         return result;
     }

@@ -151,17 +151,18 @@ using namespace std;
                 account->getCustomer()->deleteAccount(accountId);
             }*/
             //Then delete the actual account, and update the array in the Branch accordingly
-            Account* newAccounts = new Account[this->accountsLength];
-            Account** newAccountPointers = new Account*[this->accountsLength];
+            Account* newAccounts = new Account[this->accountsLength - 1];
+            Account** newAccountPointers = new Account*[this->accountsLength - 1];
             int i = 0;
             int counter = 0;
-            while(i < this->accountsLength && account != nullptr){
-                account = this->accountPointers[i];
-                if(account->getId() == accountId){
+            while(i < this->accountsLength && counter < this->accountsLength - 1 && account != nullptr){
+                account = &this->accounts[i];
+                int id = account->getId();
+                if(id == accountId){
                     //delete account;
                     Customer* customer = account->getCustomer();
                     customer->deleteAccount(accountId);
-                    cout << "Account " << accountId << "has been deleted" << endl;
+                    cout << "Account " << accountId << " has been deleted" << endl;
                     result = accountId;
                 }
                 else{
@@ -177,8 +178,11 @@ using namespace std;
                 this->accountPointers[i] = this->accountPointers[i + 1];
                 i++;
             }*/
-            this->accounts = newAccounts;
-            this->accountPointers = newAccountPointers;
+            //This condition ensures that we have deleted successfully and can assign the new array to our data fields
+            if(result != -1){
+                this->accounts = newAccounts;
+                this->accountPointers = newAccountPointers;
+            }
         }
         if(result == - 1){
             cout << "Account " << result << " does not exist" << endl;
