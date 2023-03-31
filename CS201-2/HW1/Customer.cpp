@@ -119,7 +119,7 @@ using namespace std;
             Account** newAccountPointers = new Account*[this->accountsLength - 1];
             int i = 0;
             int counter = 0;
-            while(i < this->accountsLength && counter < this->accountsLength - 1 && account != nullptr){
+            while(i < this->accountsLength && counter < this->accountsLength && account != nullptr){
                 account = &this->accounts[i];
                 int id = account->getId();
                 if(id == accountId){
