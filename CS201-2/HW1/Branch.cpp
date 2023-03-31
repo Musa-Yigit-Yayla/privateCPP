@@ -80,7 +80,9 @@ using namespace std;
             //add to the end
             newAccounts[this->accountsLength] = acc;
             newAccountPointers[this->accountsLength] = &acc;
-            this->accountsCount++;
+            //this->accountsCount++;
+            this->accounts = newAccounts;
+            this->accountPointers = newAccountPointers;
             //cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
 
             /*for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
@@ -137,7 +139,7 @@ using namespace std;
             int i = 1;
             while(i < this->accountsLength && account != nullptr){
                 if(account->getId() == accountId){
-                    delete account;
+                    //delete account;
                     cout << "Account " << accountId << "has been deleted" << endl;
                     break;
                 }
@@ -158,12 +160,15 @@ using namespace std;
         Account* result = nullptr;
         int i = 0;
 
-        while(result != nullptr && i <this->accountsLength){
+        while(i < this->accountsLength){
+            result = &this->accounts[i];
+            int id = result->getId();
+            //int branchId = result->getBranch()->getBranchId();
             if(result->getId() == accountId){
                 break;
             }
             i++;
-            result = &this->accounts[i];
+            //result = &this->accounts[i];
         }
         return result;
     }

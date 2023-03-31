@@ -311,14 +311,18 @@ using namespace std;
         Branch* branch = &this->branches[0];
         int i = 0;
         while(i < this->branchLength && branch != nullptr){
+            branch = &this->branches[i];
             Account* account = branch->getAccount(accountId);
-            if(account->getId() == accountId){
+            bool isAccountNull = (account == nullptr);
+            cout << "Branch id is " << branch->getBranchId() << endl;
+            if(!isAccountNull && account->getId() == accountId){
                 branch->deleteAccount(accountId);
                 break;
             }
-            branch = &this->branches[i];
+
             i++;
         }
+        cout << "Account " << accountId << " does not exist" << endl;
         //Get the branch and the customer of the account if exists
     }
     void BankingSystem::showAllAccounts() {

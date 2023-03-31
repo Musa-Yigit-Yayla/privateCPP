@@ -42,7 +42,21 @@ using namespace std;
         this->customerName = customerName;
     }
     void Customer::addAccount(Account& acc){
-        this->accounts[this->accountCount++] = acc;
+        //this->accounts[this->accountCount++] = acc;
+        Account* newAccounts = new Account[this->accountsLength + 1];
+            Account** newAccountPointers = new Account*[this->accountsLength + 1];
+            for(int i = 0; i < this->accountsLength; i++){
+                newAccounts[i] = this->accounts[i];
+                newAccountPointers[i] = this->accountPointers[i];
+            }
+            //add to the end
+            newAccounts[this->accountsLength] = acc;
+            newAccountPointers[this->accountsLength] = &acc;
+            //this->accountCount++;
+            this->accounts = newAccounts;
+            this->accountPointers = newAccountPointers;
+            this->accountsLength++;
+            this->accountCount++;
     }
     //Is not a standalone function, invoked from Branch::deleteAccount
     //Removes the given account from the array by shifting elements by left once. Does not delete the account
