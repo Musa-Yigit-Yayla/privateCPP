@@ -39,9 +39,8 @@ using namespace std;
                 //delete curr;
                 break;
             }
-            else{
-                currBranchId = curr->getBranchId();
-            }
+            currBranchId = curr->getBranchId();
+
             if(currBranchId == branchId){
                 cout << "Branch " << branchId << " already exists" << endl;
                 return;
@@ -96,8 +95,8 @@ using namespace std;
     }
     void BankingSystem::deleteBranch ( const int branchId ){
         bool isDeleted = false;
-        //bool branchExists = false;
-        /*//initially check whether we don't have the given branch
+        /*bool branchExists = false;
+        //initially check whether we don't have the given branch
         for(int i = 0; i < this->branchLength; i++){
             Branch currBranch = this->branches[i];
             if(currBranch.getBranchId() == branchId){
@@ -113,7 +112,7 @@ using namespace std;
         Branch* newBranches = new Branch[this->branchLength - 1];
         Branch** newBranchPointers = new Branch*[this->branchLength - 1];
         int counter = 0; // counter representing newBranches index
-        for(int i = 0; i < this->branchLength; i++){
+        for(int i = 0; i < this->branchLength && counter < this->branchLength - 1; i++){
             Branch* currBranch = this->branchPointers[i];
             if(currBranch->getBranchId() == branchId){
                 //delete currBranch;
@@ -125,7 +124,7 @@ using namespace std;
             else{
                 //Add the branch to the newBranches
                 newBranches[counter] = this->branches[i];
-                newBranchPointers[counter++] = this->branchPointers[i];
+                newBranchPointers[counter++] = &this->branches[i];
                 //cout << "Branch with id " << this->branches[i].getBranchId() << " added to the newBranches xddddddddddd" << endl;
             }
             /*if(isDeleted && i < this->branchLength - 1){
@@ -142,13 +141,16 @@ using namespace std;
             cout << "Branch " << branchId << " does not exist" << endl;
         }
         else{
+
+            //REMOVE BELOW TWO LINES FOR PROGRAM TO EXECUTE FURTHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            this->branches = newBranches;
+            this->branchPointers = newBranchPointers;
+
             if(this->branchLength > 1)
                 this->branchLength -= 1;
 
-            //REMOVE BELOW TWO LINES FOR PROGRAM TO EXECUTE FURTHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //this->branches = newBranches;
-            //this->branchPointers = newBranchPointers;
         }
+
     }
     void BankingSystem::addCustomer ( const int customerId , const string customerName ){
         //Initially check whether a customer with the given Id exists
