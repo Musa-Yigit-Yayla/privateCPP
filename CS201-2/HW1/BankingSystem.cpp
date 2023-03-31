@@ -308,21 +308,25 @@ using namespace std;
     }
     void BankingSystem::deleteAccount ( const int accountId ){
         //Account* account;
+        bool isDeleted = false;
         Branch* branch = &this->branches[0];
         int i = 0;
         while(i < this->branchLength && branch != nullptr){
             branch = &this->branches[i];
             Account* account = branch->getAccount(accountId);
             bool isAccountNull = (account == nullptr);
-            cout << "Branch id is " << branch->getBranchId() << endl;
+            //cout << "Branch id is " << branch->getBranchId() << endl;
             if(!isAccountNull && account->getId() == accountId){
                 branch->deleteAccount(accountId);
+                isDeleted = true;
                 break;
             }
 
             i++;
         }
-        cout << "Account " << accountId << " does not exist" << endl;
+        if(!isDeleted){
+            cout << "Account " << accountId << " does not exist" << endl;
+        }
         //Get the branch and the customer of the account if exists
     }
     void BankingSystem::showAllAccounts() {

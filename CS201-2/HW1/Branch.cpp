@@ -69,8 +69,23 @@ using namespace std;
             ptr++;
             index++;
         }
-
         if(ptr != nullptr){ // means the array is full*/
+
+            //Initial process to delete the garbage Account that has been instantiated during the Branch construction process
+            if(this->accountsCount == 0){
+                delete[] this->accounts;
+                delete[] this->accountPointers;
+                //we have got no previous account so just  add this account and return
+
+                Account* accounts = new Account[1]{acc};
+                Account** accountPointers = new Account*[1]{&acc};
+                this->accounts = accounts;
+                this->accountPointers = accountPointers;
+                this->accountsCount++;
+                return;
+            }
+
+
             Account* newAccounts = new Account[this->accountsLength + 1];
             Account** newAccountPointers = new Account*[this->accountsLength + 1];
             for(int i = 0; i < this->accountsLength; i++){
@@ -174,6 +189,13 @@ using namespace std;
     Account* Branch::getAccount(int accountId) const{
         Account* result = nullptr;
         int i = 0;
+
+
+        /*for(int j = 0; j < this->accountsLength; j++){
+            Account curr = this->accounts[i];
+            cout << "Account with id " << curr.getId() << endl;
+        }*/
+
 
         while(i < this->accountsLength){
             result = &this->accounts[i];

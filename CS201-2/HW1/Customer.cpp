@@ -43,6 +43,21 @@ using namespace std;
     }
     void Customer::addAccount(Account& acc){
         //this->accounts[this->accountCount++] = acc;
+
+        //check whether we have an empty Account array in this customer
+        if(this->accountCount == 0){
+            delete[] this->accounts;
+            delete[] this->accountPointers;
+
+            //we have got no previous account so just  add this account and return
+            Account* accounts = new Account[1]{acc};
+            Account** accountPointers = new Account*[1]{&acc};
+            this->accounts = accounts;
+            this->accountPointers = accountPointers;
+            this->accountCount++;
+            return;
+        }
+
         Account* newAccounts = new Account[this->accountsLength + 1];
             Account** newAccountPointers = new Account*[this->accountsLength + 1];
             for(int i = 0; i < this->accountsLength; i++){
