@@ -101,7 +101,7 @@ using namespace std;
         return result;*/
 
 
-        Account* account = this->accountPointers[0];
+        Account* account = &this->accounts[0];
         int result = -1;
         /*for(int i = 1; i < this->accountsLength && account != nullptr; i++){
             //Account* curr = &this->accounts[i];
