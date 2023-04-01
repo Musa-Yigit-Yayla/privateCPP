@@ -158,7 +158,7 @@ using namespace std;
             buffer1[i] = s.at(i);
         }*/
         string s = "Customer id: " + std::to_string(this->customerId) + " Customer name: " + this->customerName + " Number of accounts: " + std::to_string(this->accountCount); //Might be problematic
-        s += std::to_string(this->accountCount) + "\n";
+        s += std::to_string(this->accountCount);
         result += s;
         /*sprintf(buffer1, "Customer id:", "" + this->customerId, "Customer name:", this->customerName);
         string s1 = "" + std::to_string(this->accountCount) + "\n";

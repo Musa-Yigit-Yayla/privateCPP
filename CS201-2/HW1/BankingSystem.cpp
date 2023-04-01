@@ -376,7 +376,7 @@ using namespace std;
     void BankingSystem::showBranch ( const int branchId ){
         //search for the branch with the given id
         Branch* branch = this->branchPointers[0];
-        for(int i = 0; i < this->branchLength && i < this->branchCount && branch != nullptr; i++){
+        for(int i = 0; i < this->branchLength && i <= this->branchCount && branch != nullptr; i++){
             branch = &this->branches[i];
             if(branch->getBranchId() == branchId){
                 break;

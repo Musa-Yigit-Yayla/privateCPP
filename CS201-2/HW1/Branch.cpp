@@ -220,9 +220,9 @@ using namespace std;
         return this->accountsLength;
     }
     string Branch::to_string() const{
-        string idString = "" + this->branchId;
-        string accountsCountString = "" + this->accountsCount;
-        string result = "Branch id: " + idString + "    Branch name: " + this->branchName + "      Number of accounts: " + accountsCountString + "\n";
+        string idString = std::to_string(this->branchId);
+        string accountsCountString = std::to_string(this->accountsCount);
+        string result = "Branch id: " + idString + "    Branch name: " + this->branchName + "      Number of accounts: " + accountsCountString;
         string accountBalance = "";
         for(int i = 0; i < this->accountsCount; i++){
             if(i == 0){
