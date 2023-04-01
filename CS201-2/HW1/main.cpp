@@ -1,7 +1,50 @@
 #include <iostream>
 using namespace std ;
 #include "BankingSystem.h"
+void test1(){
+    BankingSystem B;
 
+    B.addBranch(1, "1");
+    B.addBranch(2, "2");
+    B.addBranch(3, "3");
+    B.deleteBranch(1);
+    B.deleteBranch(3);
+    B.deleteBranch(3);
+    B.deleteBranch(2);
+    B.deleteBranch(2);
+    B.addBranch(1, "1");
+    B.addBranch(2, "2");
+    B.addBranch(3, "3");
+    B.addBranch(1, "1");
+    B.addBranch(2, "2");
+    B.addBranch(3, "3");
+
+}
+void test2(){
+    BankingSystem B;
+    B.addCustomer(1, "1");
+    B.addCustomer(2, "2");
+    B.addCustomer(3, "3");
+    B.addCustomer(3, "3");
+    B.addCustomer(4, "3");
+    B.deleteCustomer(4);
+    B.deleteCustomer(4);
+    B.deleteCustomer(1);
+    B.deleteCustomer(2);
+    B.deleteCustomer(3);
+    B.addCustomer(1, "1");
+    B.addCustomer(2, "2");
+    B.addCustomer(3, "3");
+    B.addCustomer(1, "1");
+    B.addCustomer(2, "2");
+    B.addCustomer(3, "3");
+    B.deleteCustomer(3);
+    B.deleteCustomer(2);
+    B.deleteCustomer(1);
+    B.deleteCustomer(3);
+    B.deleteCustomer(2);
+    B.deleteCustomer(1);
+}
 void test3(){
     BankingSystem B;
     B.addCustomer(1, "1");
@@ -108,6 +151,47 @@ return 0;
 }
 /*Outputs
 
+Test 1
+Branch 1 has been added
+Branch 2 has been added
+Branch 3 has been added
+Branch 1 has been deleted
+Branch 3 has been deleted
+Branch 3 does not exist
+Branch 2 has been deleted
+Branch 2 does not exist
+Branch 1 has been added
+Branch 2 has been added
+Branch 3 has been added
+Branch 1 already exists
+Branch 2 already exists
+Branch 3 already exists
+
+Test 2
+Customer 1 has been added
+Customer 2 has been added
+Customer 3 has been added
+Customer 3 already exists
+Customer 4 has been added
+Customer 4 has been deleted
+Customer 4 does not exist
+Customer 1 has been deleted
+Customer 2 has been deleted
+Customer 3 has been deleted
+Customer 1 has been added
+Customer 2 has been added
+Customer 3 has been added
+Customer 1 already exists
+Customer 2 already exists
+Customer 3 already exists
+Customer 3 has been deleted
+Customer 2 has been deleted
+Customer 1 has been deleted
+Customer 3 does not exist
+Customer 2 does not exist
+Customer 1 does not exist
+
+
 Test 3
 Customer 1 has been added
 Branch 1 has been added
@@ -131,7 +215,7 @@ Account 4 has been deleted
 Customer 2 does not exist
 Branch 2 does not exist
 
-Test4
+Test 4
 Account id Branch id Branch name Customer id Customer name Balance
 Customer 1 does not exist
 Branch 1 does not exist

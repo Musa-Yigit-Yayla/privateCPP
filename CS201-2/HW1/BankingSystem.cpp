@@ -33,7 +33,7 @@ using namespace std;
         //First check if a branch with the given ID already exists
         //bool isBranchFound = false;
         for(int i = 0; i < this->branchLength; i++){
-            Branch* curr = this->branchPointers[i];
+            Branch* curr = &this->branches[i];
             int currBranchId;
             if(curr == nullptr){
                 //delete curr;
@@ -112,16 +112,18 @@ using namespace std;
         Branch* newBranches = new Branch[this->branchLength - 1];
         Branch** newBranchPointers = new Branch*[this->branchLength - 1];
         int counter = 0; // counter representing newBranches index
-        for(int i = 0; i < this->branchLength && counter < this->branchLength - 1; i++){
-            Branch* currBranch = this->branchPointers[i];
+        // add this to loop continuation condition if problem occurs counter < this->branchLength - 1  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        for(int i = 0; i < this->branchLength && counter <= this->branchLength - 1; i++){
+            Branch* currBranch = &this->branches[i];
+            int id = currBranch->getBranchId();
             if(currBranch->getBranchId() == branchId){
                 //delete currBranch;
                 //delete (&this->branches[i]); // might be problematic but it should work fine
                 isDeleted = true;
-                this->branchCount--;
+                //this->branchCount--;
                 cout << "Branch " << branchId << " has been deleted" << endl;
             }
-            else{
+            else if(counter < this->branchLength - 1){
                 //Add the branch to the newBranches
                 newBranches[counter] = this->branches[i];
                 newBranchPointers[counter++] = &this->branches[i];
@@ -148,7 +150,7 @@ using namespace std;
 
             if(this->branchLength > 1)
                 this->branchLength -= 1;
-
+            this->branchCount--;
         }
 
     }
