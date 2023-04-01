@@ -335,7 +335,7 @@ using namespace std;
         //Account id Branch id Branch name Customer id Customer name Balance
         //printf("%-12s%-12s%-16s%-16s%-27sBalance\n", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
         cout << "Account id " << "Branch id " << "Branch name " << "Customer id " << "Customer name " << "Balance" << endl;
-        for(int i = 0; i < this->customerLength; i++){
+        for(int i = 0; i < this->customerLength && i < this->customerCount; i++){
             Customer* currCustomer = &this->customers[i];
             if(currCustomer != nullptr){
                 Account* accounts = currCustomer->getAllAccounts();
@@ -364,16 +364,17 @@ using namespace std;
                             }
                         }
                         printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());*/
-                        cout << accountIdString << branchIdString << " " << currBranch.getBranchName() << " " << customerIdString << " " << currCustomer->getCustomerName() << endl;
+                        cout << accountIdString << branchIdString << " " << currBranch.getBranchName() << " " << customerIdString << " " << currCustomer->getCustomerName() << balanceString << endl;
                     }
                 }
             }
         }
     }
+    //If problem occurs change branchPointers to branches !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     void BankingSystem::showBranch ( const int branchId ){
         //search for the branch with the given id
-        Branch* branch = &this->branches[0];
-        for(int i = 0; i < this->branchLength && branch != nullptr; i++){
+        Branch* branch = this->branchPointers[0];
+        for(int i = 0; i < this->branchLength && i < this->branchCount && branch != nullptr; i++){
             branch = &this->branches[i];
             if(branch->getBranchId() == branchId){
                 break;
@@ -387,8 +388,8 @@ using namespace std;
     }
     void BankingSystem::showCustomer ( const int customerId ){
         //search whether the customer exists with the given id
-        Customer* customer = &this->customers[0];
-        for(int i = 0; i < this->customerLength && customer != nullptr; i++){
+        Customer* customer = this->customerPointers[0];
+        for(int i = 0; i < this->customerLength && i < this->customerCount && customer != nullptr; i++){
             customer = &this->customers[i];
             if(customer->getId() == customerId){
                 break;

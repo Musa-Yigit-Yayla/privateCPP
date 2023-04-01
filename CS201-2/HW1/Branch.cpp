@@ -242,7 +242,7 @@ using namespace std;
                 result += buffer[j];
             }*/
             result += std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getCustomer()->getId()) + " " + currAccount->getCustomer()->getCustomerName();
-            accountBalance += currAccount->getBalance();
+            accountBalance += std::to_string(currAccount->getBalance());
             string s;
             s += accountBalance + "\n";
             result += s;
