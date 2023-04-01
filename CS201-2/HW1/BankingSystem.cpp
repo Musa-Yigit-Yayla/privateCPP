@@ -260,6 +260,8 @@ using namespace std;
             this->customerPointers = newCustomerPointers;
             if(this->customerLength > 1)
                 this->customerLength -= 1;
+
+            this->customerCount--;
         }
     }
     int BankingSystem::addAccount ( const int branchId , const int customerId , const double amount ){

@@ -27,6 +27,36 @@ void test3(){
     int acc8 = B.addAccount(2,1,100);
 
 }
+void test4(){
+    BankingSystem B;
+    B.showAllAccounts();
+    B.showCustomer(1);
+    B.showBranch(1);
+    B.addCustomer(1, "c1");
+    B.showCustomer(1);
+    B.addBranch(10, "b10");
+    B.showBranch(10);
+    B.addBranch(11, "b11");
+    B.addCustomer(2, "c2");
+    int acc1 = B.addAccount(11, 1, 100);
+    int acc2 = B.addAccount(11, 1, 200);
+    int acc3 = B.addAccount(11, 2, 300);
+    int acc4 = B.addAccount(11, 2, 400);
+    int acc5 = B.addAccount(10, 1, 500);
+    int acc6 = B.addAccount(10, 1, 600);
+    int acc7 = B.addAccount(10, 2, 700);
+    int acc8 = B.addAccount(10, 2, 800);
+    B.showAllAccounts();
+    B.showBranch(10);
+    B.showBranch(11);
+    B.showCustomer(1);
+    B.showCustomer(2);
+    B.deleteBranch(11);
+    B.showCustomer(1);
+    B.showCustomer(2);
+    B.showAllAccounts();
+
+}
 int main () {
 /*cout << "Hey0" << endl;
 BankingSystem B ;
@@ -73,7 +103,7 @@ B . showCustomer ( 1212 ) ;
 B . deleteBranch ( 1451 ) ;
 B . showCustomer ( 4567 ) ;*/
 
-test3();
+test4();
 return 0;
 }
 /*Outputs
@@ -100,6 +130,78 @@ Account 5 has been deleted
 Account 4 has been deleted
 Customer 2 does not exist
 Branch 2 does not exist
+
+Test4
+Account id Branch id Branch name Customer id Customer name Balance
+Customer 1 does not exist
+Branch 1 does not exist
+Customer 1 has been added
+Customer id: 1 Customer name: c1 Number of accounts: 0
+Branch 10 has been added
+Branch id: 10 Branch name: b10 Number of accounts: 0
+Branch 11 has been added
+Customer 2 has been added
+Account 1 added for customer 1 at branch 11
+Account 2 added for customer 1 at branch 11
+Account 3 added for customer 2 at branch 11
+Account 4 added for customer 2 at branch 11
+Account 5 added for customer 1 at branch 10
+Account 6 added for customer 1 at branch 10
+Account 7 added for customer 2 at branch 10
+Account 8 added for customer 2 at branch 10
+Account id Branch id Branch name Customer id Customer name Balance
+1 11 b11 1 c1 100.00
+2 11 b11 1 c1 200.00
+3 11 b11 2 c2 300.00
+4 11 b11 2 c2 400.00
+5 10 b10 1 c1 500.00
+6 10 b10 1 c1 600.00
+7 10 b10 2 c2 700.00
+8 10 b10 2 c2 800.00
+Branch id: 10 Branch name: b10 Number of accounts: 4
+Accounts at this branch:
+Account id Customer id Customer name Balance
+5 1 c1 500.00
+6 1 c1 600.00
+7 2 c2 700.00
+8 2 c2 800.00
+Branch id: 11 Branch name: b11 Number of accounts: 4
+Accounts at this branch:
+Account id Customer id Customer name Balance
+1 1 c1 100.00
+2 1 c1 200.00
+3 2 c2 300.00
+4 2 c2 400.00
+Customer id: 1 Customer name: c1 Number of accounts: 4
+Accounts of this customer:
+Account id Branch id Branch name Balance
+1 11 b11 100.00
+2 11 b11 200.00
+5 10 b10 500.00
+6 10 b10 600.00
+Customer id: 2 Customer name: c2 Number of accounts: 4
+Accounts of this customer:
+Account id Branch id Branch name Balance
+3 11 b11 300.00
+4 11 b11 400.00
+7 10 b10 700.00
+8 10 b10 800.00
+Branch 11 has been deleted
+Customer id: 1 Customer name: c1 Number of accounts: 2
+Accounts of this customer:
+Account id Branch id Branch name Balance
+5 10 b10 500.00
+6 10 b10 600.00
+Customer id: 2 Customer name: c2 Number of accounts: 2
+Accounts of this customer:
+Account id Branch id Branch name Balance
+7 10 b10 700.00
+8 10 b10 800.00
+Account id Branch id Branch name Customer id Customer name Balance
+5 10 b10 1 c1 500.00
+6 10 b10 1 c1 600.00
+7 10 b10 2 c2 700.00
+8 10 b10 2 c2 800.00
 
 
 
