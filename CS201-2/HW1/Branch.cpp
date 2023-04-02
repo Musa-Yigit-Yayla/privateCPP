@@ -216,6 +216,9 @@ using namespace std;
     Account* Branch::getAllAccounts() const{
         return this->accounts;
     }
+    Account** Branch::getAllAccountPointers() const{
+        return this->accountPointers;
+    }
     int Branch::getAccountCount() const{
         return this->accountsLength;
     }

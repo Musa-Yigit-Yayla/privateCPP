@@ -339,21 +339,29 @@ using namespace std;
         cout << "Account id " << "Branch id " << "Branch name " << "Customer id " << "Customer name " << "Balance" << endl;
         for(int i = 0; i < this->customerLength && i < this->customerCount; i++){
             Customer* currCustomer = &this->customers[i];
+            Customer* currCustomerPointer = this->customerPointers[i];
             if(currCustomer != nullptr){
                 Account* accounts = currCustomer->getAllAccounts();
+                Account** accountPointers = currCustomer->getAllAccountPointers();
                 int accountLength = currCustomer->getAccountCount();
                 Account* currAccount = &accounts[0];
                 for(int j = 0; j < accountLength && currAccount != nullptr; j++){
                     currAccount = &accounts[j];
-
-                    if(currAccount != nullptr){
+                    Account* currAccountPointer = accountPointers[j];
+                    Branch* currBranch;
+                    //Branch* currBranchPointer = currCustomer->
+                    if(currAccountPointer != nullptr){
+                        currBranch = currAccount->getBranch();
+                        //currBranchPointer
+                    }
+                    if(currAccountPointer != nullptr && currBranch != nullptr){
                         //Branch* currBranch = currAccount->getBranch();
                         int accountId = currAccount->getId();
                         Branch* currBranch = currAccount->getBranch();
-                        string balanceString = " " + std::to_string(currAccount->getBalance());
+                        string balanceString = "" + std::to_string(currAccount->getBalance());
                         string accountIdString = "" + std::to_string(currAccount->getId());
-                        string branchIdString = " " + std::to_string(currBranch->getBranchId());
-                        string customerIdString = " " + std::to_string(currCustomer->getId());
+                        string branchIdString = "" + std::to_string(currBranch->getBranchId());
+                        string customerIdString = "" + std::to_string(currCustomer->getId());
                         //print out the line
                         /*string formatString = "%-12s%-12d%-16s%-16d%-27s";
                         char format[formatString.size() + balanceString.size()];
@@ -366,7 +374,7 @@ using namespace std;
                             }
                         }
                         printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());*/
-                        cout << accountIdString << branchIdString << " " << currBranch->getBranchName() << " " << customerIdString << " " << currCustomer->getCustomerName() << balanceString << endl;
+                        cout << accountIdString << " " << branchIdString << " " << currBranch->getBranchName() << " " << customerIdString << " " << currCustomer->getCustomerName() << " " << balanceString << endl;
                     }
                 }
             }

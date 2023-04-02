@@ -26,6 +26,7 @@ public:
     void addAccount(Account& acc);
     int deleteAccount(const int accountId);
     Account* getAllAccounts() const;
+    Account** getAllAccountPointers() const;
     string to_string() const;
     int getAccountCount() const;
 private:

@@ -33,6 +33,7 @@ public:
     int deleteAccount(const int accountId);
     Account* getAccount(int accountId) const;
     Account* getAllAccounts() const;
+    Account** getAllAccountPointers() const;
     int getAccountCount() const;
     string to_string() const;
 private:
