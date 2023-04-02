@@ -32,7 +32,10 @@ public:
     int getAccountCount() const;
     void deposit(double amount);
     double withdraw(double amount);
-    string to_string();
+    static int partition(Account* accounts, Account** accountPointers, int low, int high);
+    static void sortAllAccounts(Account* accounts, Account** accountPointers, int low, int high);
+    string to_string() const;
+    int compareTo(Account& givenAccount);
 private:
     double balance = 0.0;
     int id;

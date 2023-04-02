@@ -4,6 +4,8 @@
 #include "Customer.h"
 #include "Account.h"
 
+static void sortAllAccounts(Account* accounts, Account** accountPointers, int low, int high);
+static int partition(Account* accounts, Account** accountPointers, int low, int high);
 
 //public:
     Account::Account(){
@@ -87,6 +89,60 @@
         else{
             return 0;
         }
+    }
+    string Account::to_string() const{
+        //ToDo
+        return "";
+    }
+    int Account::compareTo(Account& givenAccount){
+        return this->id - givenAccount.id;
+    }
+    //Sorts all accounts by id, by using their compareTo method
+    //Will be used to showAllAccounts
+    //Uses quick sort
+    void Account::sortAllAccounts(Account* accounts, Account** accountPointers, int low, int high){
+        if(low < high){
+            int partitionIndex =  partition(accounts, accountPointers, low, high);
+            sortAllAccounts(accounts, accountPointers, low, partitionIndex);
+            sortAllAccounts(accounts, accountPointers, partitionIndex + 1, high);
+        }
+    }
+    int Account::partition(Account* accounts, Account** accountPointers, int low, int high){
+        int pivot = accounts[low].getId();
+        int initialLow = low;
+        Account* pivotPointer = accountPointers[low];
+        while(low < high){
+            int currLowId = accounts[low].getId();
+            int currHighId = accounts[high].getId();
+            while(currLowId < pivot && low < high){
+                low++;
+            }
+            while(currHighId > pivot && high > low){
+                high--;
+            }
+            if(high >= low){
+                //swap the low and high
+                Account* temp = &accounts[low];
+                accounts[low] = accounts[high];
+                accounts[high] = *temp;
+
+                temp = accountPointers[low];
+                accountPointers[low] = accountPointers[high];
+                accountPointers[high] = temp;
+
+                low++;
+                high--;
+            }
+        }
+        /*Account* temp = &accounts[high];
+        accounts[high] = pivot;
+        accounts[initialLow] = *temp;
+
+        temp = accountPointers[high];
+        accountPointers[high] = pivotPointer;
+        accountPointers[high] = temp;*/
+
+        return high;
     }
     int Account::accountCount = 0;
     int Account::accountsCreated =  0;

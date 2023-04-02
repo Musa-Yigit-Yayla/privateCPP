@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <cstdio>
+#include <algorithm>
 
 using namespace std;
 
@@ -337,7 +338,90 @@ using namespace std;
         //Account id Branch id Branch name Customer id Customer name Balance
         //printf("%-12s%-12s%-16s%-16s%-27sBalance\n", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
         cout << "Account id " << "Branch id " << "Branch name " << "Customer id " << "Customer name " << "Balance" << endl;
+        Account* accounts;
+        Account** accountPointers;
+        int totalAccountLength = 0;
+        Customer* currCustomer = &this->customers[0];
+        Customer* currCustomerPointer = this->customerPointers[0];
+
+        //Loop through customers to retrieve all accounts so we can sort them in ascending order
         for(int i = 0; i < this->customerLength && i < this->customerCount; i++){
+            currCustomer = &this->customers[i];
+            if(i == 0){
+                accounts = currCustomer->getAllAccounts();
+                accountPointers = currCustomer->getAllAccountPointers();
+                int currAccountLength = currCustomer->getAccountCount();
+                totalAccountLength += currAccountLength;
+                continue;
+            }
+            int currAccountLength = currCustomer->getAccountCount();
+            Account* newAccounts = currCustomer->getAllAccounts();
+            Account** newAccountPointers = currCustomer->getAllAccountPointers();
+            int initialTotalAccountLength = totalAccountLength;
+            totalAccountLength += currAccountLength;
+
+            Account* prevAccounts;
+            prevAccounts = accounts;
+            Account** prevAccountPointers;
+            prevAccountPointers = accountPointers;
+
+            accounts = new Account[totalAccountLength];
+            accountPointers = new Account*[totalAccountLength];
+            int j = 0;
+            while(j < totalAccountLength - currAccountLength){
+                accounts[j] = prevAccounts[j];
+                accountPointers[j] = prevAccountPointers[j];
+                j++;
+            }
+            while(j < totalAccountLength){
+                accounts[j] = newAccounts[j + totalAccountLength - initialTotalAccountLength]; // might be problematic
+                accountPointers[j] = newAccountPointers[j + totalAccountLength - initialTotalAccountLength];
+                j++;
+            }
+
+        }
+
+        //sort each account before displaying
+        accounts[0].sortAllAccounts(accounts, accountPointers, 0, totalAccountLength);
+
+        //display each account
+
+        Account* currAccount = &accounts[0];
+            for(int j = 0; j < totalAccountLength && currAccount != nullptr; j++){
+                currAccount = &accounts[j];
+                Account* currAccountPointer = accountPointers[j];
+                Branch* currBranch;
+                //Branch* currBranchPointer = currCustomer->
+                if(currAccountPointer != nullptr){
+                    currBranch = currAccount->getBranch();
+                    //currBranchPointer
+                }
+                if(currAccountPointer != nullptr && currBranch != nullptr){
+                    //Branch* currBranch = currAccount->getBranch();
+                    int accountId = currAccount->getId();
+                    //Branch* currBranch = currAccount->getBranch();
+                    string balanceString = "" + std::to_string(currAccount->getBalance());
+                    string accountIdString = "" + std::to_string(currAccount->getId());
+                    string branchIdString = "" + std::to_string(currBranch->getBranchId());
+                    string customerIdString = "" + std::to_string(currCustomer->getId());
+                    //print out the line
+                    /*string formatString = "%-12s%-12d%-16s%-16d%-27s";
+                    char format[formatString.size() + balanceString.size()];
+                    for(int k = 0; k < formatString.size(); k++){
+                        if(k < formatString.size()){
+                            format[k] = formatString.at(k);
+                        }
+                        else{
+                            format[k] =balanceString.at(k - formatString.size());
+                        }
+                    }
+                    printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());*/
+                    cout << accountIdString << " " << branchIdString << " " << currBranch->getBranchName() << " " << customerIdString << " " << currCustomer->getCustomerName() << " " << balanceString << endl;
+                }
+            }
+
+
+        /*for(int i = 0; i < this->customerLength && i < this->customerCount; i++){
             Customer* currCustomer = &this->customers[i];
             Customer* currCustomerPointer = this->customerPointers[i];
             if(currCustomer != nullptr){
@@ -373,12 +457,12 @@ using namespace std;
                                 format[k] =balanceString.at(k - formatString.size());
                             }
                         }
-                        printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());*/
+                        printf( format, accountIdString, branchIdString, currBranch->getBranchName(), customerIdString, currCustomer->getCustomerName());
                         cout << accountIdString << " " << branchIdString << " " << currBranch->getBranchName() << " " << customerIdString << " " << currCustomer->getCustomerName() << " " << balanceString << endl;
                     }
                 }
             }
-        }
+        }*/
     }
     //If problem occurs change branchPointers to branches !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     void BankingSystem::showBranch ( const int branchId ){
