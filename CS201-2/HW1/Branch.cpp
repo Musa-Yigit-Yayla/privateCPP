@@ -225,13 +225,13 @@ using namespace std;
     string Branch::to_string() const{
         string idString = std::to_string(this->branchId);
         string accountsCountString = std::to_string(this->accountsCount);
-        string result = "Branch id: " + idString + " Branch name: " + this->branchName + " Number of accounts: " + accountsCountString;
-        string accountBalance = "";
+        string result = "Branch id: " + idString + " Branch name: " + this->branchName + " Number of accounts: " + accountsCountString + "\n";
         for(int i = 0; i < this->accountsCount; i++){
             if(i == 0){
                 result += "Accounts at this branch:\n";
                 result += "Account id Customer id Customer name Balance\n";
             }
+            string accountBalance = "";
             Account* currAccount = &this->accounts[i];
             /*char buffer[100];
             string s = "%-12d%-16d%-22s";
