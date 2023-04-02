@@ -230,7 +230,7 @@ using namespace std;
         for(int i = 0; i < this->accountsCount; i++){
             if(i == 0){
                 result += "Accounts at this branch:\n";
-                result += "Account id  Customer id     Customer name         Balance\n";
+                result += "Account id Customer id Customer name Balance\n";
             }
             Account* currAccount = &this->accounts[i];
             /*char buffer[100];
@@ -244,7 +244,7 @@ using namespace std;
             for(int j = 0; j < 50; j++){
                 result += buffer[j];
             }*/
-            result += std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getCustomer()->getId()) + " " + currAccount->getCustomer()->getCustomerName();
+            result += std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getCustomer()->getId()) + " " + currAccount->getCustomer()->getCustomerName() + " ";
             accountBalance += std::to_string(currAccount->getBalance());
             string s;
             s += accountBalance + "\n";

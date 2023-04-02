@@ -357,7 +357,7 @@ using namespace std;
                     if(currAccountPointer != nullptr && currBranch != nullptr){
                         //Branch* currBranch = currAccount->getBranch();
                         int accountId = currAccount->getId();
-                        Branch* currBranch = currAccount->getBranch();
+                        //Branch* currBranch = currAccount->getBranch();
                         string balanceString = "" + std::to_string(currAccount->getBalance());
                         string accountIdString = "" + std::to_string(currAccount->getId());
                         string branchIdString = "" + std::to_string(currBranch->getBranchId());
