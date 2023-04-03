@@ -29,6 +29,22 @@ using namespace std;
         }
         this->customerCount++;
     }
+    Customer::~Customer(){
+        //You may have to remove the below for loop if an error occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /*for(int i = 0; i < this->accountsLength; i++){
+            Account* currAccount = &this->accounts[i];
+            Account* currAccountPointer = this->accountPointers[i];
+            Branch* currBranch = nullptr;
+            if(currAccountPointer != nullptr){
+                currBranch = currAccount->getBranch();
+            }
+            if(currBranch != nullptr){
+                currBranch->deleteAccount(currAccount->getId());
+            }
+        }*/
+        delete[] this->accounts;
+        delete[] this->accountPointers;
+    }
     int Customer::getId() const{
         return this->customerId;
     }
@@ -138,6 +154,7 @@ using namespace std;
             if(result != -1){
                 this->accounts = newAccounts;
                 this->accountPointers = newAccountPointers;
+                this->accountCount--;
             }
         }
         return result;
@@ -154,7 +171,7 @@ using namespace std;
     int Customer::getAccountCount() const{
         return this->accountsLength;
     }
-    string Customer::to_string() const{
+    string Customer::to_string(){
         //char buffer1[100];
         string result = "";
         //string s = "%-13s%-7d%-15s%-19sNumber of accounts: ";
@@ -163,8 +180,9 @@ using namespace std;
         /*for(int i = 0; i < s.size(); i++){
             buffer1[i] = s.at(i);
         }*/
-        string s = "Customer id: " + std::to_string(this->customerId) + " Customer name: " + this->customerName + " Number of accounts: " + std::to_string(this->accountCount); //Might be problematic
-        s += std::to_string(this->accountCount);
+        string s = "Customer id: " + std::to_string(this->customerId) + " Customer name: " + this->customerName + " Number of accounts: " + std::to_string(this->accountCount) + "\n"; //Might be problematic
+        //s += std::to_string(this->accountCount);
+        s += "Accounts of this customer:\n";
         result += s;
         /*sprintf(buffer1, "Customer id:", "" + this->customerId, "Customer name:", this->customerName);
         string s1 = "" + std::to_string(this->accountCount) + "\n";
@@ -175,6 +193,10 @@ using namespace std;
         for(int i = 0; i < s1.size() + 74; i++){
             result += buffer1[i];
         }*/
+        Account* account = &this->accounts[0];
+        if(account != nullptr){
+            this->accountCount = account->getAccountCount();
+        }
         if(this->accountCount != 0){
             //s += "Accounts of this customer:\n";
             for(int i = 0; i < this->accountCount; i++){

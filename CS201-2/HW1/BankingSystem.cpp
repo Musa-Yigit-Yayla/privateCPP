@@ -487,7 +487,7 @@ using namespace std;
             cout << "Branch " << branchId << " does not exist" << endl;
             return;
         }
-        cout << branch->to_string() << endl;
+        cout << branch->to_string();
     }
     void BankingSystem::showCustomer ( const int customerId ){
         //search whether the customer exists with the given id
@@ -505,7 +505,7 @@ using namespace std;
             cout << "Customer " << customerId << " does not exist" << endl;
             return;
         }
-        cout << customer->to_string() << endl;
+        cout << customer->to_string();
     }
     int BankingSystem::customerCount = 0;
     int BankingSystem::branchCount = 0;

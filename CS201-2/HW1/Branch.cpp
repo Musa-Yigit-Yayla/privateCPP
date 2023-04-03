@@ -40,6 +40,18 @@ using namespace std;
         this->branchCount++;
     }
     Branch::~Branch(){
+        //You may have to remove the below for loop if an error occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        for(int i = 0; i < this->accountsLength; i++){
+            Account* currAccount = &this->accounts[i];
+            Account* currAccountPointer = this->accountPointers[i];
+            Customer* currCustomer = nullptr;
+            if(currAccountPointer != nullptr){
+                currCustomer = currAccount->getCustomer();
+            }
+            if(currCustomer != nullptr){
+                currCustomer->deleteAccount(currAccount->getId());
+            }
+        }
         delete[] this->accounts;
         delete[] this->accountPointers;
     }
@@ -182,6 +194,7 @@ using namespace std;
             if(result != -1){
                 this->accounts = newAccounts;
                 this->accountPointers = newAccountPointers;
+                this->accountsCount--;
             }
         }
         if(result == - 1){
@@ -247,7 +260,7 @@ using namespace std;
             result += std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getCustomer()->getId()) + " " + currAccount->getCustomer()->getCustomerName() + " ";
             accountBalance += std::to_string(currAccount->getBalance());
             string s;
-            s += accountBalance;
+            s += accountBalance  + "\n";
             result += s;
         }
         return result;

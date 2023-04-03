@@ -19,6 +19,7 @@ class Customer{
 public:
     Customer(const int customerId, const string customerName);
     Customer();
+    ~Customer();
     int getId() const;
     string getCustomerName() const;
     void setId(int customerId);
@@ -28,7 +29,7 @@ public:
     Account* getAllAccounts() const;
     Account** getAllAccountPointers() const;
     int getCustomerCount() const;
-    string to_string() const;
+    string to_string();
     int getAccountCount() const;
 private:
     int customerId;
