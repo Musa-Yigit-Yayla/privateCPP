@@ -374,15 +374,18 @@ using namespace std;
                 j++;
             }
             while(j < totalAccountLength){
-                accounts[j] = newAccounts[j + totalAccountLength - initialTotalAccountLength]; // might be problematic
-                accountPointers[j] = newAccountPointers[j + totalAccountLength - initialTotalAccountLength];
+                accounts[j] = newAccounts[j - (totalAccountLength - currAccountLength)]; //+ totalAccountLength - initialTotalAccountLength]; // might be problematic
+                accountPointers[j] = newAccountPointers[j - (totalAccountLength - currAccountLength)]; //+ totalAccountLength - initialTotalAccountLength];
                 j++;
             }
 
         }
-
+        //display accounts for testing
+        /*for(int i = 0; i < totalAccountLength; i++){
+            cout << "Account id: " << accounts[i].getId() << endl;
+        }*/
         //sort each account before displaying
-        accounts[0].sortAllAccounts(accounts, accountPointers, 0, totalAccountLength);
+        accounts[0].sortAllAccounts(accounts, accountPointers, 0, totalAccountLength - 1);
 
         //display each account
 

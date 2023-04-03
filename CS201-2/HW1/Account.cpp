@@ -108,17 +108,22 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
         }
     }
     int Account::partition(Account* accounts, Account** accountPointers, int low, int high){
-        int pivot = accounts[low].getId();
+        int pivot; //= accounts[low].getId();
         int initialLow = low;
         Account* pivotPointer = accountPointers[low];
+        if(pivotPointer != nullptr){
+            pivot = accounts[low].getId();
+        }
         while(low < high){
             int currLowId = accounts[low].getId();
             int currHighId = accounts[high].getId();
             while(currLowId < pivot && low < high){
                 low++;
+                currLowId = accounts[low].getId();
             }
             while(currHighId > pivot && high > low){
                 high--;
+                currHighId = accounts[high].getId();
             }
             if(high >= low){
                 //swap the low and high
