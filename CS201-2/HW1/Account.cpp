@@ -101,13 +101,16 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
     //Will be used to showAllAccounts
     //Uses quick sort
     void Account::sortAllAccounts(Account* accounts, Account** accountPointers, int low, int high){
-        if(low < high){
-            int partitionIndex =  partition(accounts, accountPointers, low, high);
-            sortAllAccounts(accounts, accountPointers, low, partitionIndex);
-            sortAllAccounts(accounts, accountPointers, partitionIndex + 1, high);
-        }
+        // base case
+        if (low >= high)
+            return;
+
+        int p = partition(accounts, accountPointers, low, high);
+
+        quickSort(accounts, accountPointers, low, p - 1);
+        quickSort(accounts, accountPointers, p + 1, high);
     }
-    int Account::partition(Account* accounts, Account** accountPointers, int low, int high){
+    /*int Account::partition(Account* accounts, Account** accountPointers, int low, int high){
         int pivot; //= accounts[low].getId();
         int initialLow = low;
         Account* pivotPointer = accountPointers[low];
@@ -147,7 +150,64 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
         accountPointers[high] = pivotPointer;
         accountPointers[high] = temp;*/
 
-        return high;
+     //   return high;
+    //}
+    int Account::partition(Account* accounts, Account** accountPointers, int start, int end){
+        int pivot = accounts[start].getId();
+
+        int count = 0;
+        for (int i = start + 1; i <= end; i++) {
+            if (accounts[i].getId() <= pivot)
+                count++;
+        }
+
+        // Giving pivot element its correct position
+        int pivotIndex = start + count;
+
+        int low = start;
+        int high = pivotIndex;
+
+        Account* temp = &accounts[low];
+        accounts[low] = accounts[high];
+        accounts[high] = *temp;
+
+        temp = accountPointers[low];
+        accountPointers[low] = accountPointers[high];
+        accountPointers[high] = temp;
+
+        // Sorting left and right parts of the pivot element
+        int i = start, j = end;
+
+        while(i < pivotIndex && j > pivotIndex){
+
+            while(accounts[i].getId() <= pivot){
+                i++;
+            }
+
+            while(accounts[j].getId() > pivot){
+                j--;
+            }
+
+            if(i < pivotIndex && j > pivotIndex){
+                //swap(arr[i++], arr[j--]);
+
+                int low = i;
+                int high = j;
+
+                Account* temp = &accounts[low];
+                accounts[low] = accounts[high];
+                accounts[high] = *temp;
+
+                temp = accountPointers[low];
+                accountPointers[low] = accountPointers[high];
+                accountPointers[high] = temp;
+
+                i++;
+                j--;
+            }
+        }
+
+        return pivotIndex;
     }
     int Account::accountCount = 0;
     int Account::accountsCreated =  0;
