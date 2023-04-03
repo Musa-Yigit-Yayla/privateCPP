@@ -229,21 +229,34 @@ using namespace std;
     }
     void BankingSystem::deleteCustomer ( const int customerId ){
         bool isDeleted = false;
-        Customer* newCustomers = new Customer[this->customerLength - 1];
-        Customer** newCustomerPointers = new Customer*[this->customerLength - 1];
+        Customer* newCustomers; //= new Customer[this->customerLength - 1];
+        Customer** newCustomerPointers; //= new Customer*[this->customerLength - 1];
+
+        //IF YOU FACE ANY PROBLEMS REMOVE THE BELOW IF ELSE CONDITIONS
+        /*if(this->customerLength < 2){
+            newCustomers = new Customer[this->customerLength];
+            newCustomerPointers = new Customer*[this->customerLength];
+        }*/
+        //else{
+            newCustomers = new Customer[this->customerLength - 1];
+            newCustomerPointers = new Customer*[this->customerLength - 1];
+        //}
+
         int counter = 0;
-        for(int i = 0; i < this->customerLength && counter < this->customerLength - 1; i++){
-            Customer currCustomer = this->customers[i];
-            if(currCustomer.getId() == customerId){
+        for(int i = 0; i < this->customerLength && counter <= this->customerLength - 1; i++){ // switch counter <= this->cusLen to < this->cusLen !!!!!!!!!!!!!!!!!!!!!!!!!!
+            Customer* currCustomer = &this->customers[i];
+            Customer* currCustomerPointer = this->customerPointers[i];
+            int id = currCustomer->getId();
+            if(currCustomerPointer != nullptr && currCustomer->getId() == customerId){
                 //delete &this->customers[i];
                 //delete this->customerPointers[i];
-                this->customerCount--;
+                //this->customerCount--;
                 cout << "Customer " << customerId << " has been deleted" << endl;
                 isDeleted = true;
             }
-            else{
-                newCustomers[counter] = currCustomer;
-                newCustomerPointers[counter++] = &currCustomer;
+            else if(currCustomerPointer != nullptr){
+                newCustomers[counter] = this->customers[i];
+                newCustomerPointers[counter++] = this->customerPointers[i];
             }
             /*if(isDeleted && i < this->customerLength - 1){
                 this->customers[i] = this->customers[i + 1];
@@ -305,11 +318,11 @@ using namespace std;
         }
 
         //Both the customer and the branch exists, proceed accordingly.
-        Account account(amount, *branch, *customer);
-        branch->addAccount(account);
-        customer->addAccount(account);
-        cout << "Account " << account.getId() << " added for customer " << account.getCustomer()->getId() << " at branch " << branch->getBranchId() << endl;
-        return account.getId();
+        Account* account = new Account(amount, *branch, *customer); // revert to normal account declaration if problem occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        branch->addAccount(*account);
+        customer->addAccount(*account);
+        cout << "Account " << account->getId() << " added for customer " << account->getCustomer()->getId() << " at branch " << branch->getBranchId() << endl;
+        return account->getId();
     }
     void BankingSystem::deleteAccount ( const int accountId ){
         //Account* account;

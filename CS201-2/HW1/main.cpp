@@ -3,13 +3,13 @@ using namespace std ;
 #include "BankingSystem.h"
 
 void test0(){
-    cout << "Hey0" << endl;
+    //cout << "Hey0" << endl;
     BankingSystem B ;
-    cout << "Hey1" << endl;
+    //cout << "Hey1" << endl;
     B . addBranch ( 1451 , " Bilkent " ) ;
-    cout << "Hey2" << endl;
+    //cout << "Hey2" << endl;
     B . addBranch ( 2435 , " Kizilay " ) ;
-    cout << "Hey3" << endl;
+    //cout << "Hey3" << endl;
     B . addBranch ( 1672 , " Bahcelievler " ) ;
     B . addBranch ( 3216 , " Ulus " ) ;
     B . addBranch ( 2435 , " Kizilay " ) ;
@@ -151,7 +151,7 @@ void test4(){
 int main () {
 
 
-test3();
+test0();
 return 0;
 }
 /*Outputs
