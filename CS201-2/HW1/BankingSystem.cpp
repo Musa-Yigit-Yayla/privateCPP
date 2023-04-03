@@ -493,7 +493,8 @@ using namespace std;
         //search whether the customer exists with the given id
         Customer* customer = this->customerPointers[0];
         if(customer != nullptr){
-            this->customerCount = customer->getCustomerCount();
+            int customerCounter = customer->getCustomerCount();
+            this->customerCount = customerCounter;
         }
         for(int i = 0; i < this->customerLength && i <= this->customerCount && customer != nullptr; i++){
             customer = &this->customers[i];

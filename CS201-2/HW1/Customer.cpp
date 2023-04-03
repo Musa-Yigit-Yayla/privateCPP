@@ -44,6 +44,7 @@ using namespace std;
         }*/
         delete[] this->accounts;
         delete[] this->accountPointers;
+        //this->customerCount--;
     }
     int Customer::getId() const{
         return this->customerId;
@@ -193,10 +194,12 @@ using namespace std;
         for(int i = 0; i < s1.size() + 74; i++){
             result += buffer1[i];
         }*/
-        Account* account = &this->accounts[0];
-        if(account != nullptr){
-            this->accountCount = account->getAccountCount();
-        }
+        /*Account* account = &this->accounts[0];
+        Account* accountPointer = this->accountPointers[0];
+        if(accountPointer != nullptr){
+            int accountCounter = account->getAccountCount();
+            //this->accountCount = accountCounter;
+        }*/
         if(this->accountCount != 0){
             //s += "Accounts of this customer:\n";
             for(int i = 0; i < this->accountCount; i++){

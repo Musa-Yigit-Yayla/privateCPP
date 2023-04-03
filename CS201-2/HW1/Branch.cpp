@@ -40,7 +40,7 @@ using namespace std;
         this->branchCount++;
     }
     Branch::~Branch(){
-        //You may have to remove the below for loop if an error occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /*//You may have to remove the below for loop if an error occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for(int i = 0; i < this->accountsLength; i++){
             Account* currAccount = &this->accounts[i];
             Account* currAccountPointer = this->accountPointers[i];
@@ -51,9 +51,10 @@ using namespace std;
             if(currCustomer != nullptr){
                 currCustomer->deleteAccount(currAccount->getId());
             }
-        }
+        }*/
         delete[] this->accounts;
         delete[] this->accountPointers;
+        //this->branchCount--;
     }
     int Branch::getBranchId() const{
         return this->branchId;
