@@ -385,7 +385,7 @@ using namespace std;
             cout << "Account id: " << accounts[i].getId() << endl;
         }*/
         //sort each account before displaying
-        accounts[0].sortAllAccounts(accounts, accountPointers, 0, totalAccountLength - 1);
+        accounts[0].sortAllAccounts(accounts, accountPointers, totalAccountLength);
 
         //display each account
 

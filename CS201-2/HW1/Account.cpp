@@ -107,8 +107,8 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
 
         int p = partition(accounts, accountPointers, low, high);
 
-        quickSort(accounts, accountPointers, low, p - 1);
-        quickSort(accounts, accountPointers, p + 1, high);
+        sortAllAccounts(accounts, accountPointers, low, p - 1);
+        sortAllAccounts(accounts, accountPointers, p + 1, high);
     }
     /*int Account::partition(Account* accounts, Account** accountPointers, int low, int high){
         int pivot; //= accounts[low].getId();
@@ -152,7 +152,7 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
 
      //   return high;
     //}
-    int Account::partition(Account* accounts, Account** accountPointers, int start, int end){
+    /*int Account::partition(Account* accounts, Account** accountPointers, int start, int end){
         int pivot = accounts[start].getId();
 
         int count = 0;
@@ -208,7 +208,51 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
         }
 
         return pivotIndex;
+    }*/
+    template <typename ItemType>
+    void swap(ItemType* i1, ItemType* i2){
+        ItemType* temp = i1;
+        i1 = i2;
+        i2 = temp;
     }
+    //A standalone sortAllAccounts function, only dependent on the swap method
+    //Uses bubbleSort to sort the given arrays
+    void Account::sortAllAccounts(Account accounts[], Account* accountPointers[], int n){
+        bool sorted = false;
+        int pass = 1;
+        while(!sorted && (pass < n)){
+
+            sorted = true;
+            for(int i = 0; i < n - pass; i++){
+
+                int nextIndex = i + 1;
+                if(accounts[i].getId() > accounts[i].getId()){
+                    swap(accounts[i], accounts[nextIndex]);
+                    swap(accountPointers[i], accountPointers[nextIndex]);
+                    sorted = false;
+                }
+            }
+            pass++;
+        }
+    }
+    int Account::partition(Account* accounts, Account** accountPointers, int low, int high){
+        int pivot = accounts[high].getId();
+        int x = (low - 1);
+
+        // loop for comparing all elements with pivot element
+        for (int y = low; y <= high - 1; y++) {
+
+            if (accounts[y].getId() < pivot) {
+                x++;
+                swap(&accounts[x], &accounts[y]);
+                swap(&accountPointers[x], &accountPointers[y]);
+            }
+        }
+        swap(&accounts[x + 1], &accounts[high]);
+        swap(&accountPointers[x + 1], &accountPointers[high]);
+        return (x + 1);
+    }
+
     int Account::accountCount = 0;
     int Account::accountsCreated =  0;
 /*

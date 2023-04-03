@@ -32,8 +32,9 @@ public:
     int getAccountCount() const;
     void deposit(double amount);
     double withdraw(double amount);
-    static int partition(Account* accounts, Account** accountPointers, int low, int high);
-    static void sortAllAccounts(Account* accounts, Account** accountPointers, int low, int high);
+    int partition(Account* accounts, Account** accountPointers, int low, int high);
+    void sortAllAccounts(Account* accounts, Account** accountPointers, int low, int high);
+    void sortAllAccounts(Account accounts[], Account* accountPointers[], int n);
     string to_string() const;
     int compareTo(Account& givenAccount);
 private:
