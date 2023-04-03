@@ -247,7 +247,7 @@ using namespace std;
             result += std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getCustomer()->getId()) + " " + currAccount->getCustomer()->getCustomerName() + " ";
             accountBalance += std::to_string(currAccount->getBalance());
             string s;
-            s += accountBalance + "\n";
+            s += accountBalance;
             result += s;
         }
         return result;

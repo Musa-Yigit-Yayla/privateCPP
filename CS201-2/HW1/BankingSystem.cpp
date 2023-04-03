@@ -471,6 +471,12 @@ using namespace std;
     void BankingSystem::showBranch ( const int branchId ){
         //search for the branch with the given id
         Branch* branch = this->branchPointers[0];
+        //int bl = this->branchLength;
+        //int bc = this->branchCount;
+
+        if(branch != nullptr){
+            this->branchCount = branch->getBranchCount();
+        }
         for(int i = 0; i < this->branchLength && i <= this->branchCount && branch != nullptr; i++){
             branch = &this->branches[i];
             if(branch->getBranchId() == branchId){
@@ -486,7 +492,10 @@ using namespace std;
     void BankingSystem::showCustomer ( const int customerId ){
         //search whether the customer exists with the given id
         Customer* customer = this->customerPointers[0];
-        for(int i = 0; i < this->customerLength && i < this->customerCount && customer != nullptr; i++){
+        if(customer != nullptr){
+            this->customerCount = customer->getCustomerCount();
+        }
+        for(int i = 0; i < this->customerLength && i <= this->customerCount && customer != nullptr; i++){
             customer = &this->customers[i];
             if(customer->getId() == customerId){
                 break;

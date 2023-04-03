@@ -27,6 +27,7 @@ public:
     int deleteAccount(const int accountId);
     Account* getAllAccounts() const;
     Account** getAllAccountPointers() const;
+    int getCustomerCount() const;
     string to_string() const;
     int getAccountCount() const;
 private:

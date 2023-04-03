@@ -148,6 +148,9 @@ using namespace std;
     Account** Customer::getAllAccountPointers() const{
         return this->accountPointers;
     }
+    int Customer::getCustomerCount() const{
+        return this->customerCount;
+    }
     int Customer::getAccountCount() const{
         return this->accountsLength;
     }
