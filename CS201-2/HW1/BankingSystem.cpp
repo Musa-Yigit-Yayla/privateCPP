@@ -368,8 +368,8 @@ using namespace std;
         //Account id Branch id Branch name Customer id Customer name Balance
         //printf("%-12s%-12s%-16s%-16s%-27sBalance\n", "Account id", "Branch id", "Branch name", "Customer id", "Customer name" );
         cout << "Account id " << "Branch id " << "Branch name " << "Customer id " << "Customer name " << "Balance" << endl;
-        Account* accounts;
-        Account** accountPointers;
+        Account* accounts = nullptr;
+        Account** accountPointers = nullptr;
         int totalAccountLength = 0;
         Customer* currCustomer = &this->customers[0];
         Customer* currCustomerPointer = this->customerPointers[0];

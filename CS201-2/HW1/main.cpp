@@ -148,7 +148,7 @@ void test4(){
     B.showAllAccounts();
 
 }
-int main () {
+int main (){
 
 
 test0();
@@ -197,7 +197,7 @@ Customer 2 does not exist
 Customer 1 does not exist
 
 
-Test 3 Passed ( Failed again)
+Test 3 Passed
 Customer 1 has been added
 Branch 1 has been added
 Account 1 added for customer 1 at branch 1
