@@ -146,6 +146,7 @@ using namespace std;
     int Branch::deleteAccount(const int accountId, bool isBranchOrCustomerDeleted){
         //Account* account = &this->accounts[0]; //account to be deleted
         Account* account = &this->accounts[0];
+        Account* accountPointer = this->accountPointers[0];
         int result = -1;
         /*for(int i = 1; i < this->accountsLength && account != nullptr; i++){
             //Account* curr = &this->accounts[i];
@@ -157,9 +158,9 @@ using namespace std;
         }*/
 
 
-        if(account != nullptr){
+        if(accountPointer != nullptr){
             //First remove the Account from Customer's Account array
-            Customer* customer; //= account->getCustomer();
+            Customer* customer = nullptr; //= account->getCustomer();
             /*if(customer != nullptr){
                 account->getCustomer()->deleteAccount(accountId);
             }*/
@@ -168,8 +169,9 @@ using namespace std;
             Account** newAccountPointers = new Account*[this->accountsLength - 1];
             int i = 0;
             int counter = 0;
-            while(i < this->accountsLength && counter < this->accountsLength && account != nullptr){
+            while(i < this->accountsLength && counter < this->accountsLength && accountPointer != nullptr){
                 account = &this->accounts[i];
+                accountPointer = this->accountPointers[i];
                 int id = account->getId();
                 if(id == accountId){
                     //delete account;
@@ -239,9 +241,9 @@ using namespace std;
             cout << "Account with id " << curr.getId() << endl;
         }*/
 
-
-        while(i < this->accountsLength){
-            result = this->accountPointers[i];
+        //You may wanna add the remaining condition into the loop continuation condition
+        while(i < this->accountsLength){ //&& i < this->accountsCount){
+            result = &this->accounts[i];
             int id = result->getId();
             //int branchId = result->getBranch()->getBranchId();
             if(result->getId() == accountId){
