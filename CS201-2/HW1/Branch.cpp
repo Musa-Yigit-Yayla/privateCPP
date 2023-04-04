@@ -143,7 +143,7 @@ using namespace std;
     //Returns accountId if deletion is successful, else returns -1
     //Make sure to delete the account from the corresponding Customer too. i. e. modify the Customer's Account array too.
     //Invoke this method to delete an account, not the Customer's method. That method will be invoked from here.
-    int Branch::deleteAccount(const int accountId){
+    int Branch::deleteAccount(const int accountId, bool isBranchOrCustomerDeleted){
         //Account* account = &this->accounts[0]; //account to be deleted
         Account* account = &this->accounts[0];
         int result = -1;
@@ -175,7 +175,9 @@ using namespace std;
                     //delete account;
                     Customer* customer = account->getCustomer();
                     customer->deleteAccount(accountId);
-                    cout << "Account " << accountId << " has been deleted" << endl;
+                    if(!isBranchOrCustomerDeleted){
+                        cout << "Account " << accountId << " has been deleted" << endl;
+                    }
                     result = accountId;
                 }
                 else{
@@ -227,6 +229,29 @@ using namespace std;
         }
         return result;
     }
+    Account* Branch::getAccountPointer(int accountId) const{
+        Account* result = nullptr;
+        int i = 0;
+
+
+        /*for(int j = 0; j < this->accountsLength; j++){
+            Account curr = this->accounts[i];
+            cout << "Account with id " << curr.getId() << endl;
+        }*/
+
+
+        while(i < this->accountsLength){
+            result = this->accountPointers[i];
+            int id = result->getId();
+            //int branchId = result->getBranch()->getBranchId();
+            if(result->getId() == accountId){
+                break;
+            }
+            i++;
+            //result = &this->accounts[i];
+        }
+        return result;
+    }
     Account* Branch::getAllAccounts() const{
         return this->accounts;
     }
@@ -234,7 +259,7 @@ using namespace std;
         return this->accountPointers;
     }
     int Branch::getAccountCount() const{
-        return this->accountsLength;
+        return this->accountsCount;
     }
     string Branch::to_string() const{
         string idString = std::to_string(this->branchId);

@@ -124,7 +124,7 @@ using namespace std;
                 //this->branchCount--;
                 Account* accounts = currBranch->getAllAccounts();
                 int accountLength = currBranch->getAccountCount();
-                for(int i = 0; i < accountLength; i++){
+                for(int i = 0; i < accountLength && currBranch->getAccountCount() > 0; i++){
                     int accountId = accounts[i].getId();
                     this->deleteAccount(accountId, true);
                 }
@@ -342,14 +342,17 @@ using namespace std;
         //Account* account;
         bool isDeleted = false;
         Branch* branch = &this->branches[0];
+        Branch* branchPointer = this->branchPointers[0];
         int i = 0;
-        while(i < this->branchLength && branch != nullptr){
+        while(i < this->branchLength && branchPointer != nullptr){
             branch = &this->branches[i];
+            branchPointer = this->branchPointers[i];
             Account* account = branch->getAccount(accountId);
-            bool isAccountNull = (account == nullptr);
+            Account* accountPointer = branch->getAccountPointer(accountId);
+            bool isAccountNull = (accountPointer == nullptr);
             //cout << "Branch id is " << branch->getBranchId() << endl;
             if(!isAccountNull && account->getId() == accountId){
-                branch->deleteAccount(accountId);
+                branch->deleteAccount(accountId, isBranchOrCustomerDeleted);
                 isDeleted = true;
                 break;
             }

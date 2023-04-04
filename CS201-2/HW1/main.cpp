@@ -151,12 +151,12 @@ void test4(){
 int main () {
 
 
-test3();
+test0();
 return 0;
 }
 /*Outputs
 
-Test 1
+Test 1 Passed on local machine check on dijkstra
 Branch 1 has been added
 Branch 2 has been added
 Branch 3 has been added
@@ -172,7 +172,7 @@ Branch 1 already exists
 Branch 2 already exists
 Branch 3 already exists
 
-Test 2
+Test 2 Passed
 Customer 1 has been added
 Customer 2 has been added
 Customer 3 has been added
@@ -197,7 +197,7 @@ Customer 2 does not exist
 Customer 1 does not exist
 
 
-Test 3
+Test 3 Passed
 Customer 1 has been added
 Branch 1 has been added
 Account 1 added for customer 1 at branch 1
@@ -220,7 +220,7 @@ Account 4 has been deleted
 Customer 2 does not exist
 Branch 2 does not exist
 
-Test 4
+Test 4 // Almost correct output but segmentation fault (core dumped) occurs
 Account id Branch id Branch name Customer id Customer name Balance
 Customer 1 does not exist
 Branch 1 does not exist

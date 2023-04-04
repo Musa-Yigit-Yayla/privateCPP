@@ -30,8 +30,9 @@ public:
     void addAccount(Account& acc);
     //Deletes the account with the given ID
     //Returns accountId if deletion is successful, else returns -1
-    int deleteAccount(const int accountId);
+    int deleteAccount(const int accountId, bool isBranchOrCustomerDeleted = false);
     Account* getAccount(int accountId) const;
+    Account* getAccountPointer(int accountId) const;
     Account* getAllAccounts() const;
     Account** getAllAccountPointers() const;
     int getAccountCount() const;

@@ -119,6 +119,7 @@ using namespace std;
 
 
         Account* account = &this->accounts[0];
+        Account* accountPointer = this->accountPointers[0];
         int result = -1;
         /*for(int i = 1; i < this->accountsLength && account != nullptr; i++){
             //Account* curr = &this->accounts[i];
@@ -130,14 +131,15 @@ using namespace std;
         }*/
 
 
-        if(account != nullptr){
+        if(accountPointer != nullptr){
             //Then delete the actual account
             Account* newAccounts = new Account[this->accountsLength - 1];
             Account** newAccountPointers = new Account*[this->accountsLength - 1];
             int i = 0;
             int counter = 0;
-            while(i < this->accountsLength && counter < this->accountsLength && account != nullptr){
+            while(i < this->accountsLength && counter < this->accountsLength && accountPointer != nullptr){
                 account = &this->accounts[i];
+                accountPointer = this->accountPointers[i];
                 int id = account->getId();
                 if(id == accountId){
                     //delete account;
