@@ -286,6 +286,7 @@ using namespace std;
         bool branchExists = false;
         for(int i = 0; i < this->branchLength; i++){
             Branch* currBranch = &this->branches[i];
+            //Branch* currBranchPointer = this->branchPointers[i];
             //if(currBranch ==  nullptr){
                 //break;
             //}
@@ -410,6 +411,7 @@ using namespace std;
                 //Branch* currBranchPointer = currCustomer->
                 if(currAccountPointer != nullptr){
                     currBranch = currAccount->getBranch();
+                    currCustomer = currAccount->getCustomer();
                     //currBranchPointer
                 }
                 if(currAccountPointer != nullptr && currBranch != nullptr){
