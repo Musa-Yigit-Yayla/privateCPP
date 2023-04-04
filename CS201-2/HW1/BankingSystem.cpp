@@ -122,6 +122,12 @@ using namespace std;
                 //delete (&this->branches[i]); // might be problematic but it should work fine
                 isDeleted = true;
                 //this->branchCount--;
+                Account* accounts = currBranch->getAllAccounts();
+                int accountLength = currBranch->getAccountCount();
+                for(int i = 0; i < accountLength; i++){
+                    int accountId = accounts[i].getId();
+                    this->deleteAccount(accountId, true);
+                }
                 cout << "Branch " << branchId << " has been deleted" << endl;
             }
             else if(counter < this->branchLength - 1){
@@ -251,6 +257,13 @@ using namespace std;
                 //delete &this->customers[i];
                 //delete this->customerPointers[i];
                 //this->customerCount--;
+                /*Account* accounts = currCustomer->getAllAccounts();
+                int accountLength = currCustomer->getAccountCount();
+                for(int i = 0; i < accountLength; i++){
+                    int accountId = accounts[i].getId();
+                    this->deleteAccount(accountId);
+                }*/
+
                 cout << "Customer " << customerId << " has been deleted" << endl;
                 isDeleted = true;
             }
@@ -325,7 +338,7 @@ using namespace std;
         cout << "Account " << account->getId() << " added for customer " << account->getCustomer()->getId() << " at branch " << branch->getBranchId() << endl;
         return account->getId();
     }
-    void BankingSystem::deleteAccount ( const int accountId ){
+    void BankingSystem::deleteAccount ( const int accountId, bool isBranchOrCustomerDeleted){
         //Account* account;
         bool isDeleted = false;
         Branch* branch = &this->branches[0];
@@ -343,7 +356,7 @@ using namespace std;
 
             i++;
         }
-        if(!isDeleted){
+        if(!isDeleted && !isBranchOrCustomerDeleted){
             cout << "Account " << accountId << " does not exist" << endl;
         }
         //Get the branch and the customer of the account if exists
@@ -506,8 +519,9 @@ using namespace std;
     }
     void BankingSystem::showCustomer ( const int customerId ){
         //search whether the customer exists with the given id
-        Customer* customer = this->customerPointers[0];
-        if(customer != nullptr){
+        Customer* customerPointer = this->customerPointers[0];
+        Customer* customer = &this->customers[0];
+        if(customerPointer != nullptr){
             int customerCounter = customer->getCustomerCount();
             this->customerCount = customerCounter;
         }
@@ -517,7 +531,7 @@ using namespace std;
                 break;
             }
         }
-        if(customer == nullptr){
+        if(customerPointer == nullptr){
             cout << "Customer " << customerId << " does not exist" << endl;
             return;
         }

@@ -28,7 +28,7 @@ public:
     void addCustomer ( const int customerId , const string customerName ) ;
     void deleteCustomer ( const int customerId ) ;
     int addAccount ( const int branchId , const int customerId , const double amount ) ;
-    void deleteAccount ( const int accountId ) ;
+    void deleteAccount ( const int accountId, bool isBranchOrCustomerDeleted = false ) ;
     void showAllAccounts () ;
     void showBranch ( const int branchId ) ;
     void showCustomer ( const int customerId ) ;

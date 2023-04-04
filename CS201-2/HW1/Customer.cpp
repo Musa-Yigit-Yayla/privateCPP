@@ -237,7 +237,7 @@ using namespace std;
                 }
                 string accountIdString = std::to_string(this->accounts[i].getId());
                 string branchIdString = std::to_string(this->accounts[i].getBranch()->getBranchId());
-                s = accountIdString + " " + branchIdString + " " + this->accounts[i].getBranch()->getBranchName() + " " + balanceString + "\n";
+                s += accountIdString + " " + branchIdString + " " + this->accounts[i].getBranch()->getBranchName() + " " + balanceString + "\n";
             }
         }
         return s;
