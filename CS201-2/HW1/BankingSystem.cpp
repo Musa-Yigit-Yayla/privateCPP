@@ -243,7 +243,7 @@ using namespace std;
         //}
 
         int counter = 0;
-        for(int i = 0; i < this->customerLength && counter <= this->customerLength - 1; i++){ // switch counter <= this->cusLen to < this->cusLen !!!!!!!!!!!!!!!!!!!!!!!!!!
+        for(int i = 0; i < this->customerLength && counter < this->customerLength - 1; i++){ // switch counter <= this->cusLen to < this->cusLen !!!!!!!!!!!!!!!!!!!!!!!!!!
             Customer* currCustomer = &this->customers[i];
             Customer* currCustomerPointer = this->customerPointers[i];
             int id = currCustomer->getId();
