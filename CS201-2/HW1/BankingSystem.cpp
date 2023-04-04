@@ -1,3 +1,9 @@
+/*
+*Musa Yiğit Yayla
+*22003108
+*CS201-1
+*HW1
+*/
 #include "BankingSystem.h"
 #include "Branch.h"
 #include "Customer.h"
@@ -423,12 +429,13 @@ using namespace std;
             for(int j = 0; j < totalAccountLength && currAccount != nullptr; j++){
                 currAccount = &accounts[j];
                 Account* currAccountPointer = accountPointers[j];
-                Branch* currBranch;
+                Branch* currBranch = nullptr;
+                Branch* currBranchPointer = nullptr;
                 //Branch* currBranchPointer = currCustomer->
                 if(currAccountPointer != nullptr){
                     currBranch = currAccount->getBranch();
                     currCustomer = currAccount->getCustomer();
-                    //currBranchPointer
+                    //find currBranchPointer
                 }
                 if(currAccountPointer != nullptr && currBranch != nullptr){
                     //Branch* currBranch = currAccount->getBranch();
