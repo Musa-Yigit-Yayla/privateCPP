@@ -226,7 +226,7 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
             for(int i = 0; i < n - pass; i++){
 
                 int nextIndex = i + 1;
-                if(accounts[i].getId() > accounts[i].getId()){
+                if(accounts[i].getId() > accounts[nextIndex].getId()){
                     swap(accounts[i], accounts[nextIndex]);
                     swap(accountPointers[i], accountPointers[nextIndex]);
                     sorted = false;
