@@ -294,15 +294,15 @@ using namespace std;
         }
     }
     int BankingSystem::addAccount ( const int branchId , const int customerId , const double amount ){
-        Branch* branch;
-        Customer* customer;
+        Branch* branch = nullptr;
+        Customer* customer = nullptr;
         bool branchExists = false;
         for(int i = 0; i < this->branchLength; i++){
             Branch* currBranch = &this->branches[i];
-            //Branch* currBranchPointer = this->branchPointers[i];
-            //if(currBranch ==  nullptr){
-                //break;
-            //}
+            Branch* currBranchPointer = this->branchPointers[i];
+            if(currBranchPointer ==  nullptr){
+                break;
+            }
             if(currBranch->getBranchId() == branchId){
                 branchExists = true;
                 branch = currBranch;
