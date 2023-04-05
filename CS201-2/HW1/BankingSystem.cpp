@@ -60,10 +60,11 @@ using namespace std;
         while(ptr != nullptr && ptr - this->branchPointers[0] < this->branchLength){
             ptr++;
         }
-        if(this->branchLength == 1 && ptr == nullptr){ // ptr == nullptr yap branchCount u
+        if(this->branchLength == 1 && ptr == nullptr){ // CHANGE TO branch == nullptr the second loop continuation condition ptr == nullptr yap branchCount u
             //We are adding the first Account to the branch :)
             this->branches[0] = *branch;
             this->branchPointers[0] = branch;
+            this->branchCount++;
             //this->branchCount = 0;
             cout << "Branch " << branchId << " has been added" << endl;
             //this->branchLength += 1;
@@ -519,16 +520,18 @@ using namespace std;
         //int bl = this->branchLength;
         //int bc = this->branchCount;
 
+        bool branchFound = false;
         if(branch != nullptr){
             this->branchCount = branch->getBranchCount();
         }
         for(int i = 0; i < this->branchLength && i <= this->branchCount && branch != nullptr; i++){
             branch = &this->branches[i];
             if(branch->getBranchId() == branchId){
+                branchFound = true;
                 break;
             }
         }
-        if(branch == nullptr){
+        if(!branchFound){
             cout << "Branch " << branchId << " does not exist" << endl;
             return;
         }
@@ -538,6 +541,7 @@ using namespace std;
         //search whether the customer exists with the given id
         Customer* customerPointer = this->customerPointers[0];
         Customer* customer = &this->customers[0];
+        bool customerFound = false;
         if(customerPointer != nullptr){
             int customerCounter = customer->getCustomerCount();
             this->customerCount = customerCounter;
@@ -545,10 +549,11 @@ using namespace std;
         for(int i = 0; i < this->customerLength && i <= this->customerCount && customer != nullptr; i++){
             customer = &this->customers[i];
             if(customer->getId() == customerId){
+                customerFound = true;
                 break;
             }
         }
-        if(customerPointer == nullptr){
+        if(!customerFound){
             cout << "Customer " << customerId << " does not exist" << endl;
             return;
         }
