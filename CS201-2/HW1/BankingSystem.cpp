@@ -395,9 +395,9 @@ using namespace std;
             int initialTotalAccountLength = totalAccountLength;
             totalAccountLength += currAccountLength;
 
-            Account* prevAccounts;
+            Account* prevAccounts; //= nullptr;
             prevAccounts = accounts;
-            Account** prevAccountPointers;
+            Account** prevAccountPointers; //= nullptr;
             prevAccountPointers = accountPointers;
 
             accounts = new Account[totalAccountLength];
@@ -425,6 +425,7 @@ using namespace std;
         //display each account
 
         Account* currAccount = &accounts[0];
+        //Account* currAccountPointer = accountPointers[0];
             for(int j = 0; j < totalAccountLength && currAccount != nullptr; j++){
                 currAccount = &accounts[j];
                 Account* currAccountPointer = accountPointers[j];
@@ -440,6 +441,12 @@ using namespace std;
                     //Branch* currBranch = currAccount->getBranch();
                     int accountId = currAccount->getId();
                     //Branch* currBranch = currAccount->getBranch();
+                    /*if(accountId <= 0){ //IF YOU FACE ANY PROBLEMS REMOVE THIS IF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        continue;
+                    }*/
+                    if(accountId <= 0){ // YOU MAY HAVE TO REMOVE THIS !!!!!!!!!!!!!!!!!!
+                        continue;
+                    }
                     double balance = currAccount->getBalance();
                     string balanceString = "" + Branch::getBalanceString(balance);
                     string accountIdString = "" + std::to_string(currAccount->getId());

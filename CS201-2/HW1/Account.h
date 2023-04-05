@@ -45,7 +45,7 @@ public:
     int compareTo(Account& givenAccount);
 private:
     double balance = 0.0;
-    int id;
+    int id = 0;
     Branch* branch = nullptr;
     Customer* customer = nullptr;
     static int accountCount;
