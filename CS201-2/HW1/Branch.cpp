@@ -11,6 +11,8 @@
 #include <iostream>
 #include <cstdio>
 
+string getBalanceString(double x);
+
 using namespace std;
 //public:
     Branch::Branch(const int branchId, const string branchName){
@@ -286,10 +288,30 @@ using namespace std;
                 result += buffer[j];
             }*/
             result += std::to_string(currAccount->getId()) + " " + std::to_string(currAccount->getCustomer()->getId()) + " " + currAccount->getCustomer()->getCustomerName() + " ";
-            accountBalance += std::to_string(currAccount->getBalance());
+            accountBalance += getBalanceString(currAccount->getBalance());
+
             string s;
             s += accountBalance  + "\n";
             result += s;
+        }
+        return result;
+    }
+    //Receives a double value and returns it with 2 decimal precision as a string
+    string Branch::getBalanceString(double x){
+        string result = "";
+        string s = std::to_string(x);
+        int dotIndex = -1;
+        bool dotFound = false;
+        for(int i = 0; i < s.size(); i++){
+            char ch = s.at(i);
+            if(ch == '.'){
+                dotIndex = i;
+                dotFound = true;
+            }
+            result += ch;
+            if(dotFound && i >= dotIndex + 2){
+                break;
+            }
         }
         return result;
     }

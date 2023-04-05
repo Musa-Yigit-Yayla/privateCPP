@@ -14,7 +14,6 @@
 #include <algorithm>
 
 using namespace std;
-
 //public:
     BankingSystem::BankingSystem(){
         this->branches = new Branch[this->branchLength];
@@ -441,7 +440,8 @@ using namespace std;
                     //Branch* currBranch = currAccount->getBranch();
                     int accountId = currAccount->getId();
                     //Branch* currBranch = currAccount->getBranch();
-                    string balanceString = "" + std::to_string(currAccount->getBalance());
+                    double balance = currAccount->getBalance();
+                    string balanceString = "" + Branch::getBalanceString(balance);
                     string accountIdString = "" + std::to_string(currAccount->getId());
                     string branchIdString = "" + std::to_string(currBranch->getBranchId());
                     string customerIdString = "" + std::to_string(currCustomer->getId());
@@ -547,6 +547,7 @@ using namespace std;
         }
         cout << customer->to_string();
     }
+
     int BankingSystem::customerCount = 0;
     int BankingSystem::branchCount = 0;
 /*

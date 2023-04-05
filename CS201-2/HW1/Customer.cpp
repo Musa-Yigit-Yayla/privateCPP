@@ -12,6 +12,8 @@
 #include <cstdio>
 #include <string_view>
 
+
+
 using namespace std;
 //public:
 
@@ -191,7 +193,6 @@ using namespace std;
         }*/
         string s = "Customer id: " + std::to_string(this->customerId) + " Customer name: " + this->customerName + " Number of accounts: " + std::to_string(this->accountCount) + "\n"; //Might be problematic
         //s += std::to_string(this->accountCount);
-        s += "Accounts of this customer:\n";
         result += s;
         /*sprintf(buffer1, "Customer id:", "" + this->customerId, "Customer name:", this->customerName);
         string s1 = "" + std::to_string(this->accountCount) + "\n";
@@ -215,6 +216,7 @@ using namespace std;
                 //char buffer2[100];
                 if(i == 0){
                     //line = "%-12s%-16s%-20sBalance\n"; //57 chars
+                    line += "Accounts of this customer:\n";
                     line = "Account id Branch id Branch Name Balance\n";
                     /*for(int j = 0; i < line.size(); i++){
                         buffer2[j] = line.at(j);
@@ -226,7 +228,7 @@ using namespace std;
                 }
                 //CONTINUE FROM HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //char buffer3[100];
-                string balanceString = std::to_string(this->accounts[i].getBalance());
+                string balanceString = Branch::getBalanceString(this->accounts[i].getBalance());
                 /*string formatString = "%-12d%-16d%-20s";
                 line = formatString + balanceString + "\n";
                 char format[48];
