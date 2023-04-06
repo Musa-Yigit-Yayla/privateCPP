@@ -41,6 +41,28 @@ using namespace std;
         }
         this->branchCount++;
     }
+    //Does not increment or decrement the branchCount
+    Branch::Branch(const Branch& branch){
+        //copy data fields
+        this->branchId = branch.branchId;
+        this->branchName = branch.branchName;
+
+        Account* newAccounts = new Account[branch.accountsLength];
+        Account** newAccountPointers = new Account*[branch.accountsLength];
+        Account* givenAccounts = branch.getAllAccounts();
+        for(int i = 0; i < branch.accountsLength && i < branch.accountsCount; i++){
+            Account* newAccount = new Account(givenAccounts[i]);
+            newAccounts[i] = *newAccount;
+            newAccountPointers[i] = newAccount;
+        }
+        delete[] this->accounts;
+        delete[] this->accountPointers;
+        this->accounts = newAccounts;
+        this->accountPointers = newAccountPointers;
+
+        this->accountsLength = branch.accountsLength;
+        this->accountsCount = branch.accountsCount;
+    }
     Branch::~Branch(){
         /*//You may have to remove the below for loop if an error occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for(int i = 0; i < this->accountsLength; i++){
@@ -322,4 +344,6 @@ private:
     int branchId;
     string branchName;
     Account* accounts = new Account[8];
-    static int branchCount = 0;*/
+    static int branchCount = 0;
+
+    */

@@ -57,7 +57,7 @@ using namespace std;
         Branch* branch = new Branch(branchId, branchName);
         Branch* ptr = this->branchPointers[0];
 
-        while(ptr != nullptr && ptr - this->branchPointers[0] < this->branchLength){
+        while(ptr != nullptr && ptr - this->branchPointers[0] < this->branchCount && ptr - this->branchPointers[0] < this->branchLength){
             ptr++;
         }
         if(this->branchLength == 1 && ptr == nullptr){ // CHANGE TO branch == nullptr the second loop continuation condition ptr == nullptr yap branchCount u

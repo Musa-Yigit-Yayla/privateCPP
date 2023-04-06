@@ -55,6 +55,13 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
     Account::Account(Branch* branch){
         this->branch = branch;
     }
+    //Do not modify the account count since the given account is assumed to be deleted
+    Account::Account(const Account& account){
+        this->balance = account.balance;
+        this->branch = account.branch;
+        this->customer = account.customer;
+        this->id = account.id;
+    }
     Account::~Account(){
         this->accountCount--;
     }

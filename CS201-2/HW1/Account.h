@@ -28,6 +28,7 @@ public:
     Account(double amount);
     Account(double amount, Branch& branch, Customer& customer);
     Account(Branch* branch);
+    Account(const Account& account);
     ~Account();
     Branch* getBranch() const;
     Customer* getCustomer() const;
