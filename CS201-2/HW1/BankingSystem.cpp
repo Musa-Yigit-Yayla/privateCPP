@@ -33,6 +33,10 @@ using namespace std;
         delete[] this->branchPointers;
         delete[] this->customers;
         delete[] this->customerPointers;
+        this->branches = nullptr;
+        this->branchPointers = nullptr;
+        this->customers = nullptr;
+        this->customerPointers = nullptr;
     }
     void BankingSystem::addBranch ( const int branchId , const string branchName ){
 
