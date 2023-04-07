@@ -255,10 +255,12 @@ using namespace std;
         //}
 
         int counter = 0;
-        for(int i = 0; i < this->customerLength && counter < this->customerLength - 1; i++){ // switch counter <= this->cusLen to < this->cusLen !!!!!!!!!!!!!!!!!!!!!!!!!!
+        //int iValue; // value to hold i
+        for(int i = 0; i < this->customerLength && counter < this->customerLength - 1; i++){ // switch counter <= this->cusLen - 1 to < this->cusLen - 1 !!!!!!!!!!!!!!!!!!!!!!!!!!
             Customer* currCustomer = &this->customers[i];
             Customer* currCustomerPointer = this->customerPointers[i];
-            int id = currCustomer->getId();
+            //iValue = i;
+            //int id = currCustomer->getId();
             if(currCustomerPointer != nullptr && currCustomer->getId() == customerId){
                 //delete &this->customers[i];
                 //delete this->customerPointers[i];
@@ -275,7 +277,7 @@ using namespace std;
             }
             else if(currCustomerPointer != nullptr){
                 newCustomers[counter] = this->customers[i];
-                newCustomerPointers[counter++] = this->customerPointers[i];
+                newCustomerPointers[counter++] = &this->customers[i];
             }
             /*if(isDeleted && i < this->customerLength - 1){
                 this->customers[i] = this->customers[i + 1];
@@ -286,7 +288,6 @@ using namespace std;
                 this->customerPointers[i] = nullptr;
             }*/
         }
-
         if(!isDeleted){
             cout << "Customer " << customerId << " does not exist" << endl;
         }
