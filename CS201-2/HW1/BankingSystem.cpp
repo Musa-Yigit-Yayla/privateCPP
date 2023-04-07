@@ -266,6 +266,9 @@ using namespace std;
             newCustomers[customerLength] = *customer;
             newCustomerPointers[customerLength] = customer;
 
+            this->customers = nullptr;
+            delete[] this->customerPointers;
+
             this->customerCount++;
             this->customers = newCustomers;
             this->customerPointers = newCustomerPointers;
@@ -273,6 +276,8 @@ using namespace std;
 
             newCustomers = nullptr;
             newCustomerPointers = nullptr;
+            customer = nullptr;
+            ptr = nullptr;
             cout << "Customer " << customerId << " has been added" << endl;
         }
 
@@ -307,7 +312,7 @@ using namespace std;
         bool isDeleted = false;
 
         //Initially we handle the case where our customerLength is 1, hence we have only 1 customer or no customers
-        if(this->customerCount == 1){
+        if(this->customerLength == 1){
             if(this->customerCount == 0){
                 cout << "Customer " << customerId << " does not exist" << endl;
             }
@@ -338,15 +343,9 @@ using namespace std;
         Customer* newCustomers = nullptr; //= new Customer[this->customerLength - 1];
         Customer** newCustomerPointers = nullptr; //= new Customer*[this->customerLength - 1];
 
-        //IF YOU FACE ANY PROBLEMS REMOVE THE BELOW IF ELSE CONDITIONS
-        /*if(this->customerLength < 2){
-            newCustomers = new Customer[this->customerLength];
-            newCustomerPointers = new Customer*[this->customerLength];
-        }*/
-        //else{
-            newCustomers = new Customer[this->customerLength - 1];
-            newCustomerPointers = new Customer*[this->customerLength - 1];
-        //}
+
+        newCustomers = new Customer[this->customerLength - 1];
+        newCustomerPointers = new Customer*[this->customerLength - 1];
 
         int counter = 0;
         //int iValue; // value to hold i
@@ -462,8 +461,8 @@ using namespace std;
             bool isAccountNull = (accountPointer == nullptr);
             //cout << "Branch id is " << branch->getBranchId() << endl;
             if(!isAccountNull && account->getId() == accountId){
-                branch->deleteAccount(accountId, isBranchOrCustomerDeleted);
                 isDeleted = true;
+                branch->deleteAccount(accountId, isBranchOrCustomerDeleted);
                 break;
             }
 
@@ -473,6 +472,8 @@ using namespace std;
             cout << "Account " << accountId << " does not exist" << endl;
         }
         //Get the branch and the customer of the account if exists
+        branch = nullptr;
+        branchPointer = nullptr;
     }
     void BankingSystem::showAllAccounts() {
         //Account id Branch id Branch name Customer id Customer name Balance

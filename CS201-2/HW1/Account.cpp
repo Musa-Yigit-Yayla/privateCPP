@@ -64,6 +64,8 @@ static int partition(Account* accounts, Account** accountPointers, int low, int 
     }
     Account::~Account(){
         this->accountCount--;
+        this->branch = nullptr;
+        this->customer = nullptr;
     }
     Branch* Account::getBranch() const{
         return this->branch;

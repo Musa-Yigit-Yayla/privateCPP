@@ -118,8 +118,16 @@ using namespace std;
 
                 Account* accounts = new Account[1]{acc};
                 Account** accountPointers = new Account*[1]{&acc};
+
+                this->accounts = nullptr;
+                delete[] this->accountPointers;
+
                 this->accounts = accounts;
                 this->accountPointers = accountPointers;
+
+                accounts = nullptr;
+                accountPointers = nullptr;
+
                 this->accountsCount++;
                 return;
             }
@@ -135,8 +143,15 @@ using namespace std;
             newAccounts[this->accountsLength] = acc;
             newAccountPointers[this->accountsLength] = &acc;
             //this->accountsCount++;
+
+            delete[] this->accounts;
+            delete[] this->accountPointers;
+
             this->accounts = newAccounts;
             this->accountPointers = newAccountPointers;
+
+            newAccounts = nullptr;
+            newAccountPointers = nullptr;
             //cout << "Account " << acc.getId() << " added for customer " << acc.getCustomer()->getId() << " at branch " << acc.getBranch()->getBranchId() << endl;
 
             /*for(int i = this->accountsLength + 1; i < this->accountsLength * 2; i++){
@@ -222,9 +237,16 @@ using namespace std;
                 i++;
             }*/
             //This condition ensures that we have deleted successfully and can assign the new array to our data fields
+            customer = nullptr;
             if(result != -1){
+                delete[] this->accounts;
+                delete[] this->accountPointers;
+
                 this->accounts = newAccounts;
                 this->accountPointers = newAccountPointers;
+
+                newAccounts = nullptr;
+                newAccountPointers = nullptr;
                 this->accountsCount--;
             }
         }

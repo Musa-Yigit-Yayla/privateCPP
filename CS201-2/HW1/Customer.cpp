@@ -95,10 +95,16 @@ using namespace std;
             newAccounts[this->accountsLength] = acc;
             newAccountPointers[this->accountsLength] = &acc;
             //this->accountCount++;
+            this->accounts = nullptr;
+            delete[] this->accountPointers;
+
             this->accounts = newAccounts;
             this->accountPointers = newAccountPointers;
             this->accountsLength++;
             this->accountCount++;
+
+            newAccounts = nullptr;
+            newAccountPointers = nullptr;
     }
     //Is not a standalone function, invoked from Branch::deleteAccount
     //Removes the given account from the array by shifting elements by left once. Does not delete the account

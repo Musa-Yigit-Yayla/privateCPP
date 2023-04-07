@@ -143,15 +143,19 @@ void test4(){
     B.showCustomer(1);
     B.showCustomer(2);
     B.deleteBranch(11);
-    B.showCustomer(1);
-    B.showCustomer(2);
-    B.showAllAccounts();
+    //B.showCustomer(1);
+    //B.showCustomer(2);
+    //B.showAllAccounts();
+
+}
+void test5(){
+    BankingSystem B;
 
 }
 int main (){
 
 
-test2();
+test1();
 return 0;
 }
 /*Outputs
