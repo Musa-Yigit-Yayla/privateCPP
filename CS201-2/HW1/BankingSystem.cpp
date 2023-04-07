@@ -89,6 +89,10 @@ using namespace std;
             /*for(int i = this->branchLength + 1; i < this->branchLength * 2; i++){
                  (newBranchPointers[i]) = nullptr;
             }*/
+
+            this->branches = nullptr;
+            delete[] this->branchPointers;
+
             this->branches = newBranches;
             this->branchPointers = newBranchPointers;
             this->branchLength += 1;
@@ -118,10 +122,11 @@ using namespace std;
 
         Branch* newBranches = new Branch[this->branchLength - 1];
         Branch** newBranchPointers = new Branch*[this->branchLength - 1];
+        Branch* currBranch = &this->branches[0];
         int counter = 0; // counter representing newBranches index
         // add this to loop continuation condition if problem occurs counter < this->branchLength - 1  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        for(int i = 0; i < this->branchLength && counter <= this->branchLength - 1; i++){
-            Branch* currBranch = &this->branches[i];
+        for(int i = 0; i < this->branchLength && counter <= this->branchLength - 1 && currBranch != nullptr; i++){
+            currBranch = &this->branches[i];
             int id = currBranch->getBranchId();
             if(currBranch->getBranchId() == branchId){
                 //delete currBranch;
@@ -154,6 +159,8 @@ using namespace std;
         }
         if(!isDeleted){
             cout << "Branch " << branchId << " does not exist" << endl;
+            delete[] newBranchPointers;
+            newBranches = nullptr;
         }
         else{
 
