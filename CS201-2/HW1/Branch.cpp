@@ -33,12 +33,12 @@ using namespace std;
         this->branchCount += 1;
     }
     Branch::Branch(){
-        this->accounts = new Account[this->accountsLength];
+        /*this->accounts = new Account[this->accountsLength];
         this->accountPointers = new Account*[this->accountsLength];
         if(!this->isBranchCreated){
             this->branchCount = 0;
             this->isBranchCreated = true;
-        }
+        }*/
         this->branchCount++;
     }
     //Does not increment or decrement the branchCount
