@@ -42,8 +42,9 @@ using namespace std;
 
         //First check if a branch with the given ID already exists
         //bool isBranchFound = false;
+        Branch* curr = nullptr;
         for(int i = 0; i < this->branchLength; i++){
-            Branch* curr = &this->branches[i];
+            curr = &this->branches[i];
             int currBranchId;
             if(curr == nullptr){
                 //delete curr;
@@ -52,11 +53,13 @@ using namespace std;
             currBranchId = curr->getBranchId();
 
             if(currBranchId == branchId){
+                curr = nullptr;
                 cout << "Branch " << branchId << " already exists" << endl;
                 return;
             }
             //delete curr;
         }
+        //curr = nullptr; //remove curr pointer
 
         Branch* branch = new Branch(branchId, branchName);
         Branch* ptr = this->branchPointers[0];
@@ -71,6 +74,9 @@ using namespace std;
             this->branchCount++;
             //this->branchCount = 0;
             cout << "Branch " << branchId << " has been added" << endl;
+
+            //Remove below line if problem occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            branch = nullptr;
             //this->branchLength += 1;
         }
         //MIGHT BE PROBLEMATIC !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BELOW CODE Put the if else back maybe
@@ -93,6 +99,8 @@ using namespace std;
             /*for(int i = this->branchLength + 1; i < this->branchLength * 2; i++){
                  (newBranchPointers[i]) = nullptr;
             }*/
+            branch = nullptr;
+            ptr = nullptr;
 
             this->branches = nullptr;
             delete[] this->branchPointers;
@@ -100,6 +108,9 @@ using namespace std;
             this->branches = newBranches;
             this->branchPointers = newBranchPointers;
             this->branchLength += 1;
+
+            newBranches = nullptr;
+            newBranchPointers = nullptr;
         }
         //delete ptr;
         //}
@@ -145,8 +156,10 @@ using namespace std;
                         }
                         cout << "Branch " << branchId << " has been deleted" << endl;
                         if(this->branchLength > 1)
-                        this->branchLength -= 1;
+                         this->branchLength -= 1;
                         this->branchCount--;
+                        currBranch = nullptr;
+                        accounts = nullptr;
                     }
             }
             return;
@@ -190,6 +203,7 @@ using namespace std;
             }*/
 
         }
+        currBranch = nullptr; //remove the pointer of currBranch
         if(!isDeleted){
             cout << "Branch " << branchId << " does not exist" << endl;
             delete[] newBranchPointers;
@@ -201,6 +215,9 @@ using namespace std;
             //REMOVE BELOW TWO LINES FOR PROGRAM TO EXECUTE FURTHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             this->branches = newBranches;
             this->branchPointers = newBranchPointers;
+
+            newBranches = nullptr;
+            newBranchPointers = nullptr;
 
             if(this->branchLength > 1)
                 this->branchLength -= 1;
@@ -216,6 +233,7 @@ using namespace std;
                 break;
             }
             else if(curr->getId() == customerId){
+                curr = nullptr;
                 cout << "Customer " << customerId << " already exists" << endl;
                 return;
             }
@@ -231,6 +249,9 @@ using namespace std;
             this->customers[0] = *customer;
             this->customerPointers[0] = customer;
             this->customerCount++;
+
+            customer = nullptr;
+            ptr = nullptr;
             cout << "Customer " << customerId << " has been added" << endl;
         }
 
@@ -250,6 +271,8 @@ using namespace std;
             this->customerPointers = newCustomerPointers;
             this->customerLength += 1;
 
+            newCustomers = nullptr;
+            newCustomerPointers = nullptr;
             cout << "Customer " << customerId << " has been added" << endl;
         }
 
@@ -282,8 +305,38 @@ using namespace std;
     }
     void BankingSystem::deleteCustomer ( const int customerId ){
         bool isDeleted = false;
-        Customer* newCustomers; //= new Customer[this->customerLength - 1];
-        Customer** newCustomerPointers; //= new Customer*[this->customerLength - 1];
+
+        //Initially we handle the case where our customerLength is 1, hence we have only 1 customer or no customers
+        if(this->customerCount == 1){
+            if(this->customerCount == 0){
+                cout << "Customer " << customerId << " does not exist" << endl;
+            }
+            else{
+                Customer* currCustomer = &this->customers[0];
+                    if(currCustomer->getId() == customerId){
+                        //delete currBranch;
+                        //delete (&this->branches[i]); // might be problematic but it should work fine
+                        isDeleted = true;
+                        //this->branchCount--;
+                        Account* accounts = currCustomer->getAllAccounts();
+                        int accountLength = currCustomer->getAccountCount();
+                        for(int i = 0; i < accountLength && currCustomer->getAccountCount() > 0; i++){
+                            int accountId = accounts[i].getId();
+                            //this->deleteAccount(accountId, true); REMOVE THIS LINE IF YOU FACE ANY PROBLEMS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        }
+                        cout << "Customer " << customerId << " has been deleted" << endl;
+                        if(this->customerLength > 1)
+                         this->customerLength -= 1;
+                        this->customerCount--;
+                        currCustomer = nullptr;
+                        accounts = nullptr;
+                    }
+            }
+            return;
+        }
+
+        Customer* newCustomers = nullptr; //= new Customer[this->customerLength - 1];
+        Customer** newCustomerPointers = nullptr; //= new Customer*[this->customerLength - 1];
 
         //IF YOU FACE ANY PROBLEMS REMOVE THE BELOW IF ELSE CONDITIONS
         /*if(this->customerLength < 2){
@@ -330,11 +383,20 @@ using namespace std;
             }*/
         }
         if(!isDeleted){
+            newCustomers = nullptr;
+            delete[] newCustomerPointers;
             cout << "Customer " << customerId << " does not exist" << endl;
         }
         else{
+            this->customers = nullptr;
+            delete[] this->customerPointers;
+
             this->customers = newCustomers;
             this->customerPointers = newCustomerPointers;
+
+            newCustomers = nullptr;
+            newCustomerPointers = nullptr;
+
             if(this->customerLength > 1)
                 this->customerLength -= 1;
 

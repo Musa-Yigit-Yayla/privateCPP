@@ -78,6 +78,8 @@ using namespace std;
         }*/
         delete[] this->accounts;
         delete[] this->accountPointers;
+        this->accounts = nullptr;
+        this->accountPointers = nullptr;
         //this->branchCount--;
     }
     int Branch::getBranchId() const{
@@ -110,8 +112,8 @@ using namespace std;
 
             //Initial process to delete the garbage Account that has been instantiated during the Branch construction process
             if(this->accountsCount == 0){
-                delete[] this->accounts;
-                delete[] this->accountPointers;
+                //delete[] this->accounts;
+                //delete[] this->accountPointers;
                 //we have got no previous account so just  add this account and return
 
                 Account* accounts = new Account[1]{acc};

@@ -36,8 +36,8 @@ private:
     string customerName;
     int accountsLength = 1;
     int accountCount = 0;
-    Account* accounts; //= new Account[1];
-    Account** accountPointers; //= new Account*[1]; // pointer array for accounts
+    Account* accounts = nullptr; //= new Account[1];
+    Account** accountPointers = nullptr; //= new Account*[1]; // pointer array for accounts
     static int customerCount;
     static bool isCustomerCreated;
 };
