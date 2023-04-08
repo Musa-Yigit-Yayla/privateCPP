@@ -29,12 +29,12 @@ using namespace std;
         this->customerCount++;
     }
     Customer::Customer(){
-        /*this->accounts = new Account[this->accountsLength];
+        this->accounts = new Account[this->accountsLength];
         this->accountPointers = new Account*[this->accountsLength];
         if(!this->isCustomerCreated){
             this->customerCount = 0;
             this->isCustomerCreated = true;
-        }*/
+        }
         this->customerCount++;
     }
     Customer::~Customer(){
@@ -52,8 +52,6 @@ using namespace std;
         }*/
         delete[] this->accounts;
         delete[] this->accountPointers;
-        this->accounts = nullptr;
-        this->accountPointers = nullptr;
         //this->customerCount--;
     }
     int Customer::getId() const{
@@ -95,16 +93,10 @@ using namespace std;
             newAccounts[this->accountsLength] = acc;
             newAccountPointers[this->accountsLength] = &acc;
             //this->accountCount++;
-            this->accounts = nullptr;
-            delete[] this->accountPointers;
-
             this->accounts = newAccounts;
             this->accountPointers = newAccountPointers;
             this->accountsLength++;
             this->accountCount++;
-
-            newAccounts = nullptr;
-            newAccountPointers = nullptr;
     }
     //Is not a standalone function, invoked from Branch::deleteAccount
     //Removes the given account from the array by shifting elements by left once. Does not delete the account

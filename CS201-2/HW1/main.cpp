@@ -143,9 +143,9 @@ void test4(){
     B.showCustomer(1);
     B.showCustomer(2);
     B.deleteBranch(11);
-    //B.showCustomer(1);
-    //B.showCustomer(2);
-    //B.showAllAccounts();
+    B.showCustomer(1);
+    B.showCustomer(2);
+    B.showAllAccounts();
 
 }
 void test5(){
@@ -155,7 +155,7 @@ void test5(){
 int main (){
 
 
-test1();
+test4();
 return 0;
 }
 /*Outputs
