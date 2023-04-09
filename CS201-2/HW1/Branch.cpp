@@ -184,7 +184,7 @@ using namespace std;
         }*/
 
 
-        if(accountPointer != nullptr){
+        if(accountPointer != NULL){
             //First remove the Account from Customer's Account array
             Customer* customer = nullptr; //= account->getCustomer();
             /*if(customer != nullptr){
@@ -195,7 +195,7 @@ using namespace std;
             Account** newAccountPointers = new Account*[this->accountsLength - 1];
             int i = 0;
             int counter = 0;
-            while(i < this->accountsLength && counter < this->accountsLength && accountPointer != nullptr){
+            while(i < this->accountsLength && counter < this->accountsLength && accountPointer != NULL){
                 account = &this->accounts[i];
                 accountPointer = this->accountPointers[i];
                 int id = account->getId();

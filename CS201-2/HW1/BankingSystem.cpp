@@ -46,7 +46,7 @@ using namespace std;
         for(int i = 0; i < this->branchLength; i++){
             curr = &this->branches[i];
             int currBranchId;
-            if(curr == nullptr){
+            if(curr == NULL){
                 //delete curr;
                 break;
             }
@@ -64,10 +64,10 @@ using namespace std;
         Branch* branch = new Branch(branchId, branchName);
         Branch* ptr = this->branchPointers[0];
 
-        while(ptr != nullptr && ptr - this->branchPointers[0] < this->branchCount && ptr - this->branchPointers[0] < this->branchLength){
+        while(ptr != NULL && ptr - this->branchPointers[0] < this->branchCount && ptr - this->branchPointers[0] < this->branchLength){
             ptr++;
         }
-        if(this->branchLength == 1 && ptr == nullptr){ // CHANGE TO branch == nullptr the second loop continuation condition ptr == nullptr yap branchCount u
+        if(this->branchLength == 1 && ptr == NULL){ // CHANGE TO branch == nullptr the second loop continuation condition ptr == nullptr yap branchCount u
             //We are adding the first Account to the branch :)
             this->branches[0] = *branch;
             this->branchPointers[0] = branch;
@@ -171,7 +171,7 @@ using namespace std;
         Branch* currBranch = &this->branches[0];
         int counter = 0; // counter representing newBranches index
         // add this to loop continuation condition if problem occurs counter < this->branchLength - 1  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        for(int i = 0; i < this->branchLength && counter <= this->branchLength - 1 && currBranch != nullptr; i++){
+        for(int i = 0; i < this->branchLength && counter <= this->branchLength - 1 && currBranch != NULL; i++){
             currBranch = &this->branches[i];
             //int id = currBranch->getBranchId();
             if(currBranch->getBranchId() == branchId){
@@ -229,7 +229,7 @@ using namespace std;
         //Initially check whether a customer with the given Id exists
         for(int i = 0; i < this->customerLength; i++){
             Customer* curr = this->customerPointers[i];
-            if(curr == nullptr){
+            if(curr == NULL){
                 break;
             }
             else if(curr->getId() == customerId){
@@ -354,7 +354,7 @@ using namespace std;
             Customer* currCustomerPointer = this->customerPointers[i];
             //iValue = i;
             //int id = currCustomer->getId();
-            if(currCustomerPointer != nullptr && currCustomer->getId() == customerId){
+            if(currCustomerPointer != NULL && currCustomer->getId() == customerId){
                 //delete &this->customers[i];
                 //delete this->customerPointers[i];
                 //this->customerCount--;
@@ -368,7 +368,7 @@ using namespace std;
                 cout << "Customer " << customerId << " has been deleted" << endl;
                 isDeleted = true;
             }
-            else if(currCustomerPointer != nullptr){
+            else if(currCustomerPointer != NULL){
                 newCustomers[counter] = this->customers[i];
                 newCustomerPointers[counter++] = &this->customers[i];
             }
@@ -409,7 +409,7 @@ using namespace std;
         for(int i = 0; i < this->branchLength; i++){
             Branch* currBranch = &this->branches[i];
             Branch* currBranchPointer = this->branchPointers[i];
-            if(currBranchPointer ==  nullptr){
+            if(currBranchPointer ==  NULL){
                 break;
             }
             if(currBranch->getBranchId() == branchId){
@@ -453,12 +453,12 @@ using namespace std;
         Branch* branch = &this->branches[0];
         Branch* branchPointer = this->branchPointers[0];
         int i = 0;
-        while(i < this->branchLength && branchPointer != nullptr){
+        while(i < this->branchLength && branchPointer != NULL){
             branch = &this->branches[i];
             branchPointer = this->branchPointers[i];
             Account* account = branch->getAccount(accountId);
             Account* accountPointer = branch->getAccountPointer(accountId);
-            bool isAccountNull = (accountPointer == nullptr);
+            bool isAccountNull = (accountPointer == NULL);
             //cout << "Branch id is " << branch->getBranchId() << endl;
             if(!isAccountNull && account->getId() == accountId){
                 isDeleted = true;
@@ -532,18 +532,18 @@ using namespace std;
 
         Account* currAccount = &accounts[0];
         //Account* currAccountPointer = accountPointers[0];
-            for(int j = 0; j < totalAccountLength && currAccount != nullptr; j++){
+            for(int j = 0; j < totalAccountLength && currAccount != NULL; j++){
                 currAccount = &accounts[j];
                 Account* currAccountPointer = accountPointers[j];
                 Branch* currBranch = nullptr;
                 Branch* currBranchPointer = nullptr;
                 //Branch* currBranchPointer = currCustomer->
-                if(currAccountPointer != nullptr){
+                if(currAccountPointer != NULL){
                     currBranch = currAccount->getBranch();
                     currCustomer = currAccount->getCustomer();
                     //find currBranchPointer
                 }
-                if(currAccountPointer != nullptr && currBranch != nullptr){
+                if(currAccountPointer != NULL && currBranch != NULL){
                     //Branch* currBranch = currAccount->getBranch();
                     int accountId = currAccount->getId();
                     //Branch* currBranch = currAccount->getBranch();
@@ -626,10 +626,10 @@ using namespace std;
         //int bc = this->branchCount;
 
         bool branchFound = false;
-        if(branch != nullptr){
+        if(branch != NULL){
             this->branchCount = branch->getBranchCount();
         }
-        for(int i = 0; i < this->branchLength && i <= this->branchCount && branch != nullptr; i++){
+        for(int i = 0; i < this->branchLength && i <= this->branchCount && branch != NULL; i++){
             branch = &this->branches[i];
             if(branch->getBranchId() == branchId){
                 branchFound = true;
@@ -647,11 +647,11 @@ using namespace std;
         Customer* customerPointer = this->customerPointers[0];
         Customer* customer = &this->customers[0];
         bool customerFound = false;
-        if(customerPointer != nullptr){
+        if(customerPointer != NULL){
             int customerCounter = customer->getCustomerCount();
             this->customerCount = customerCounter;
         }
-        for(int i = 0; i < this->customerLength && i <= this->customerCount && customer != nullptr; i++){
+        for(int i = 0; i < this->customerLength && i <= this->customerCount && customer != NULL; i++){
             customer = &this->customers[i];
             if(customer->getId() == customerId){
                 customerFound = true;

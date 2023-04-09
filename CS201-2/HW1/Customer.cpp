@@ -139,13 +139,13 @@ using namespace std;
         }*/
 
 
-        if(accountPointer != nullptr){
+        if(accountPointer != NULL){
             //Then delete the actual account
             Account* newAccounts = new Account[this->accountsLength - 1];
             Account** newAccountPointers = new Account*[this->accountsLength - 1];
             int i = 0;
             int counter = 0;
-            while(i < this->accountsLength && counter < this->accountsLength && accountPointer != nullptr){
+            while(i < this->accountsLength && counter < this->accountsLength && accountPointer != NULL){
                 account = &this->accounts[i];
                 accountPointer = this->accountPointers[i];
                 int id = account->getId();
