@@ -155,7 +155,7 @@ void test5(){
 int main (){
 
 
-test1();
+test4();
 return 0;
 }
 /*Outputs

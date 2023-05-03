@@ -76,8 +76,9 @@ using namespace std;
                 currCustomer->deleteAccount(currAccount->getId());
             }
         }*/
-        delete[] this->accounts;
-        delete[] this->accountPointers;
+        //REMOVE THE BELOW 2 LINES FROM THE COMMENTS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //delete[] this->accounts;
+        //delete[] this->accountPointers;
         this->accounts = nullptr;
         this->accountPointers = nullptr;
         //this->branchCount--;

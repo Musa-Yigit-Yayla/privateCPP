@@ -50,9 +50,10 @@ using namespace std;
                 currBranch->deleteAccount(currAccount->getId());
             }
         }*/
-        delete[] this->accounts;
-        delete[] this->accountPointers;
-        //this->customerCount--;
+        //REMOVE BELOW 2 LINES FROM THE COMMENTS !!!!!!!!!!!!!!!!!!!!!
+        //delete[] this->accounts;
+        //delete[] this->accountPointers;
+        this->customerCount--;
     }
     int Customer::getId() const{
         return this->customerId;
@@ -71,8 +72,8 @@ using namespace std;
 
         //check whether we have an empty Account array in this customer
         if(this->accountCount == 0){
-            delete[] this->accounts;
-            delete[] this->accountPointers;
+            //delete[] this->accounts;
+            //delete[] this->accountPointers;
 
             //we have got no previous account so just  add this account and return
             Account* accounts = new Account[1]{acc};
