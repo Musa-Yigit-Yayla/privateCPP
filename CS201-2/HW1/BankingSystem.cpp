@@ -29,10 +29,14 @@ using namespace std;
         }
     }
     BankingSystem::~BankingSystem(){
-        delete[] this->branches;
-        delete[] this->branchPointers;
-        delete[] this->customers;
-        delete[] this->customerPointers;
+        if(this->branches != NULL && this->branchPointers != NULL){
+            delete[] this->branches;
+            delete[] this->branchPointers;
+        }
+        if(this->customers != NULL && this->customerPointers != NULL){
+            delete[] this->customers;
+            delete[] this->customerPointers;
+        }
         this->branches = nullptr;
         this->branchPointers = nullptr;
         this->customers = nullptr;

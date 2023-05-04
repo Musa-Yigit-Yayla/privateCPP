@@ -55,8 +55,8 @@ using namespace std;
             newAccounts[i] = *newAccount;
             newAccountPointers[i] = newAccount;
         }
-        delete[] this->accounts;
-        delete[] this->accountPointers;
+        //delete[] this->accounts;
+        //delete[] this->accountPointers;
         this->accounts = newAccounts;
         this->accountPointers = newAccountPointers;
 
@@ -128,7 +128,7 @@ using namespace std;
 
             Account* newAccounts = new Account[this->accountsLength + 1];
             Account** newAccountPointers = new Account*[this->accountsLength + 1];
-            for(int i = 0; i < this->accountsLength; i++){
+            for(int i = 0; i < this->accountsLength; i++){ // CHANGE TO accountsCount loop continuation condition
                 newAccounts[i] = this->accounts[i];
                 newAccountPointers[i] = this->accountPointers[i];
             }
@@ -227,6 +227,7 @@ using namespace std;
                 this->accounts = newAccounts;
                 this->accountPointers = newAccountPointers;
                 this->accountsCount--;
+                this->accountsLength--;
             }
         }
         if(result == - 1){
