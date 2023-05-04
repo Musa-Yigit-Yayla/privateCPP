@@ -360,6 +360,7 @@ using namespace std;
             Customer* currCustomerPointer = this->customerPointers[i];
             //iValue = i;
             //int id = currCustomer->getId();
+            int currId = currCustomer->getId();
             if(currCustomerPointer != NULL && currCustomer->getId() == customerId){
                 //delete &this->customers[i];
                 //delete this->customerPointers[i];
@@ -386,6 +387,17 @@ using namespace std;
                 //this->customers[i] = nullptr;
                 this->customerPointers[i] = nullptr;
             }*/
+        }
+        if(counter == this->customerLength - 1 && !isDeleted){
+            //that means that we have either disregarded the customer with the given id or it does not exist
+            Customer* lastCustomer = &this->customers[counter];
+            if(lastCustomer->getId() == customerId){
+                cout << "Customer " << customerId << " has been deleted" << endl;
+                isDeleted = true;
+            }
+            else{
+                isDeleted = false;
+            }
         }
         if(!isDeleted){
             newCustomers = nullptr;
