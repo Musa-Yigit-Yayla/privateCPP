@@ -45,15 +45,17 @@ using namespace std;
         Branch* curr = nullptr;
         for(int i = 0; i < this->branchLength; i++){
             curr = &this->branches[i];
+            Branch* branchPtr = this->branchPointers[i];
             int currBranchId;
-            if(curr == NULL){
+            if(curr == NULL || branchPtr == NULL || this->branchCount == 0){
                 //delete curr;
                 break;
             }
             currBranchId = curr->getBranchId();
-
-            if(currBranchId == branchId){
-                curr = nullptr;
+            int branchCount = this->branchCount;
+            int branchLength = this->branchLength;
+            if(!((this->branchCount == 1 && this->branchLength == 2) || !(currBranchId == branchId))){//if(currBranchId == branchId){
+                //curr = nullptr; // REMOVE FROM THE COMMENT IF PROBLEM OCCURS !!!!!!!!!!!!!!!!!!!!!!!!!
                 cout << "Branch " << branchId << " already exists" << endl;
                 return;
             }
@@ -76,7 +78,7 @@ using namespace std;
             cout << "Branch " << branchId << " has been added" << endl;
 
             //Remove below line if problem occurs !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            branch = nullptr;
+            //branch = nullptr;
             //this->branchLength += 1;
         }
         //MIGHT BE PROBLEMATIC !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BELOW CODE Put the if else back maybe
@@ -93,7 +95,7 @@ using namespace std;
             //Make the addition then set the rest to nullptr
             newBranches[branchLength] = *branch;
             newBranchPointers[branchLength] = branch;
-            this->branchCount = 0;
+            this->branchCount++;            //this->branchCount = 0;
             cout << "Branch " << branchId << " has been added" << endl;
 
             /*for(int i = this->branchLength + 1; i < this->branchLength * 2; i++){
@@ -138,9 +140,11 @@ using namespace std;
 
         //Initially we handle the case where our branchLength is 1, hence we have only 1 branch or no branches
         if(this->branchLength == 1){
-            if(this->branchCount == 0){
+            int branchCount = this->branchCount;
+            if(this->branchCount <= 0){ //CHANGE BACK TO == 0 IF PROBLEM OCCURS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 cout << "Branch " << branchId << " does not exist" << endl;
             }
+
             else{
                 Branch* currBranch = &this->branches[0];
                     if(currBranch->getBranchId() == branchId){
@@ -161,6 +165,8 @@ using namespace std;
                         currBranch = nullptr;
                         accounts = nullptr;
                     }
+                    else
+                        cout << "Branch " << branchId << " does not exist" << endl;
             }
             return;
         }
