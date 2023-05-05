@@ -9,9 +9,11 @@
 
 
 #include <vector>
+#include <cmath>
 
 using namespace std;
 class MaxSubsequenceSums{
+public:
     //O(N^3)
     int maxSubSum1(const vector<int>& a){
         int maxSum = 0;
@@ -59,8 +61,8 @@ class MaxSubsequenceSums{
         }
 
         int center = (left + right) / 2;
-        int maxLeftSum = this.maxSumRec(a, left, center);
-        int maxRightSum = this.maxSumRec(a, center + 1, right);
+        int maxLeftSum = this->maxSumRec(a, left, center);
+        int maxRightSum = this->maxSumRec(a, center + 1, right);
 
         int maxLeftBorderSum = 0, leftBorderSum = 0;
         for(int i = center; i >= left; i--){
@@ -78,5 +80,29 @@ class MaxSubsequenceSums{
                 maxRightBorderSum = rightBorderSum;
             }
         }
+        return max3(maxLeftSum, maxRightSum, maxLeftBorderSum + maxRightBorderSum);
+    }
+
+    int maxSubSum3(const vector<int>& a){
+        return this->maxSumRec(a, 0, a.size() - 1);
+    }
+
+    int maxSubSum4(const vector<int>& a){
+        int maxSum = 0, thisSum = 0;
+
+        for(int j = 0; j < a.size(); j++){
+            thisSum += a.at(j);
+            if(thisSum > maxSum){
+                maxSum = thisSum;
+            }
+            else if(thisSum < 0){
+                thisSum = 0;
+            }
+        }
+        return maxSum;
+    }
+    int max3(int n1, int n2, int n3){
+        int result = max(n1, n2);
+        return max(result, n3);
     }
 };
