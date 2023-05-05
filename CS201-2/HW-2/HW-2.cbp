@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="HW2.cpp" />
 		<Unit filename="MaxSubsequenceSums.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>

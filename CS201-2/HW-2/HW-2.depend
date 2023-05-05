@@ -1,4 +1,16 @@
 # depslib dependency file v1.0
-1584205420 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw-2\main.cpp
+1683319894 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw-2\main.cpp
 	<iostream>
+	"MaxSubsequenceSums.cpp"
+	<vector>
+	<cstdlib>
+	<chrono>
+
+1683305556 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw-2\maxsubsequencesums.cpp
+	<vector>
+	<cmath>
+
+1683305556 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw-2\maxsubsequencesums.cpp
+	<vector>
+	<cmath>
 
