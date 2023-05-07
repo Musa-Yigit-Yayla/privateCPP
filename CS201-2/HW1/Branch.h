@@ -37,6 +37,7 @@ public:
     Account* getAllAccounts() const;
     Account** getAllAccountPointers() const;
     int getAccountCount() const;
+    int getAccountLength() const;
     static string getBalanceString(double x);
     string to_string() const;
 private:

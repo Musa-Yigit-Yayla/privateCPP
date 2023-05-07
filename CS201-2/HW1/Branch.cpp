@@ -227,7 +227,8 @@ using namespace std;
                 this->accounts = newAccounts;
                 this->accountPointers = newAccountPointers;
                 this->accountsCount--;
-                this->accountsLength--;
+                if(this->accountsLength > 1) // YOU MIGHT WANT TO CHANGE THIS
+                 this->accountsLength--;
             }
         }
         if(result == - 1){
@@ -290,6 +291,9 @@ using namespace std;
     }
     int Branch::getAccountCount() const{
         return this->accountsCount;
+    }
+    int Branch::getAccountLength() const{
+        return this->accountsLength;
     }
     string Branch::to_string() const{
         string idString = std::to_string(this->branchId);
