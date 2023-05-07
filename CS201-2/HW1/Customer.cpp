@@ -220,7 +220,7 @@ using namespace std;
                 if(i == 0){
                     //line = "%-12s%-16s%-20sBalance\n"; //57 chars
                     line = "Accounts of this customer:\n";
-                    line += "Account id Branch id Branch Name Balance\n";
+                    line += "Account id Branch id Branch ame Balance\n";
                     /*for(int j = 0; i < line.size(); i++){
                         buffer2[j] = line.at(j);
                     }
