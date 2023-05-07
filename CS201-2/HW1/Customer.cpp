@@ -167,6 +167,8 @@ using namespace std;
                 this->accounts = newAccounts;
                 this->accountPointers = newAccountPointers;
                 this->accountCount--;
+                if(this->accountsLength > 1)
+                    this->accountsLength--;
             }
         }
         return result;
