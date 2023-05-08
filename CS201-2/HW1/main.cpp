@@ -151,11 +151,42 @@ void test4(){
 void test5(){
     BankingSystem B;
 
+
+    B.addBranch(1, "1");
+    B.addBranch(2, "2");
+    B.addCustomer(1, "1");
+    B.addCustomer(2, "2");
+
+    int acc1 = B.addAccount(1, 1, 100);
+    int acc2 = B.addAccount(1, 1, 200);
+    int acc3 = B.addAccount(1, 1, 300);
+    int acc4 = B.addAccount(2, 1, 400);
+    int acc5 = B.addAccount(1, 2, 500);
+    int acc6 = B.addAccount(2, 2, 600);
+
+    B.showAllAccounts();
+
+    B.deleteAccount(1);
+    B.deleteAccount(1);
+    B.deleteAccount(2);
+    B.deleteAccount(3);
+    B.deleteAccount(4);
+    B.deleteAccount(5);
+    B.deleteAccount(6);
+    B.deleteAccount(6);
+    B.deleteAccount(7);
+
+    B.deleteBranch(1);
+    B.deleteCustomer(1);
+    B.deleteBranch(2);
+    B.deleteCustomer(2);
+
+    B.showAllAccounts();
 }
 int main (){
 
 
-test4();
+test5();
 return 0;
 }
 /*Outputs
