@@ -149,44 +149,221 @@ void test4(){
 
 }
 void test5(){
-    BankingSystem B;
+     BankingSystem B;
 
+    B.addBranch(1, "b1");
+    B.addBranch(2, "b2");
+    B.addBranch(3, "b3");
+    B.addBranch(4, "b4");
+    B.deleteBranch(1);
+    B.deleteBranch(2);
+    B.deleteBranch(3);
+    B.deleteBranch(4);
 
-    B.addBranch(1, "1");
-    B.addBranch(2, "2");
-    B.addCustomer(1, "1");
-    B.addCustomer(2, "2");
+    B.addBranch(1, "b1");
+    B.addBranch(2, "b2");
+    B.addBranch(3, "b3");
+    B.addBranch(4, "b4");
+    B.deleteBranch(4);
+    B.deleteBranch(4);
+    B.deleteBranch(3);
+    B.deleteBranch(3);
+    B.deleteBranch(2);
+    B.deleteBranch(2);
+    B.deleteBranch(1);
+    B.deleteBranch(1);
 
-    int acc1 = B.addAccount(1, 1, 100);
-    int acc2 = B.addAccount(1, 1, 200);
-    int acc3 = B.addAccount(1, 1, 300);
-    int acc4 = B.addAccount(2, 1, 400);
-    int acc5 = B.addAccount(1, 2, 500);
-    int acc6 = B.addAccount(2, 2, 600);
+    B.addBranch(4, "b4");
+    B.addBranch(3, "b3");
+    B.addBranch(2, "b2");
+    B.addBranch(1, "b1");
 
+    B.deleteBranch(2);
+    B.deleteBranch(4);
+    B.deleteBranch(1);
+    B.deleteBranch(3);
+
+    B.addBranch(1, "b1");
+    B.addBranch(2, "b2");
+    B.addBranch(3, "b3");
+    B.addBranch(4, "b4");
+    B.addCustomer(1, "c1");
+    B.addAccount(1,1,100.0);
+    B.addAccount(2,1,100.0);
+    B.addAccount(3,1,100.0);
+    B.addAccount(4,1,100.0);
+    B.addAccount(1,1,200.0);
+    B.addAccount(2,1,200.0);
+    B.addAccount(3,1,200.0);
+    B.addAccount(4,1,200.0);
+    B.showAllAccounts();
+    B.deleteBranch(1);
+    B.deleteBranch(2);
+    B.deleteBranch(3);
+    B.deleteBranch(4);
     B.showAllAccounts();
 
-    B.deleteAccount(1);
-    B.deleteAccount(1);
-    B.deleteAccount(2);
-    B.deleteAccount(3);
+    B.addBranch(1, "b1");
+    B.addBranch(2, "b2");
+    B.addBranch(3, "b3");
+    B.addBranch(4, "b4");
+    B.showAllAccounts();
+    B.addCustomer(1, "c1");
+    B.addAccount(1,1,100.0);
+    B.addAccount(2,1,100.0);
+    B.addAccount(3,1,100.0);
+    B.addAccount(4,1,100.0);
+    B.addAccount(1,1,200.0);
+    B.addAccount(2,1,200.0);
+    B.addAccount(3,1,200.0);
+    B.addAccount(4,1,200.0);
+    B.showAllAccounts();
+    B.deleteCustomer(1);
+    B.showAllAccounts();
+    B.deleteBranch(1);
+    B.deleteBranch(2);
+    B.deleteBranch(3);
+    B.deleteBranch(4);
+
+}
+void test6(){
+   BankingSystem B;
+
+    B.addCustomer(1, "c1");
+    B.addCustomer(2, "c2");
+    B.addCustomer(3, "c3");
+    B.addCustomer(4, "c4");
+    B.deleteCustomer(1);
+    B.deleteCustomer(2);
+    B.deleteCustomer(3);
+    B.deleteCustomer(4);
+
+    B.addCustomer(1, "c1");
+    B.addCustomer(2, "c2");
+    B.addCustomer(3, "c3");
+    B.addCustomer(4, "c4");
+    B.addCustomer(1, "c1");
+    B.addCustomer(2, "c2");
+    B.addCustomer(3, "c3");
+    B.addCustomer(4, "c4");
+    B.showCustomer(1);
+    B.showCustomer(2);
+    B.showCustomer(3);
+    B.showCustomer(4);
+    B.deleteCustomer(4);
+    B.deleteCustomer(4);
+    B.deleteCustomer(3);
+    B.deleteCustomer(3);
+    B.deleteCustomer(2);
+    B.deleteCustomer(2);
+    B.deleteCustomer(1);
+    B.deleteCustomer(1);
+
+    B.addCustomer(1, "c1");
+    B.addCustomer(2, "c2");
+    B.addCustomer(3, "c3");
+    B.addCustomer(4, "c4");
+    B.addBranch(1, "b1");
+    B.addBranch(2, "b2");
+    B.addAccount(1,1,100.0);
+    B.addAccount(1,2,100.0);
+    B.addAccount(1,3,100.0);
+    B.addAccount(1,4,100.0);
+    B.addAccount(1,1,200.0);
+    B.addAccount(1,2,200.0);
+    B.addAccount(1,3,200.0);
+    B.addAccount(1,4,200.0);
+
+    B.addAccount(2,1,100.0);
+    B.addAccount(2,2,100.0);
+    B.addAccount(2,3,100.0);
+    B.addAccount(2,4,100.0);
+    B.addAccount(2,1,200.0);
+    B.addAccount(2,2,200.0);
+    B.addAccount(2,3,200.0);
+    B.addAccount(2,4,200.0);
+    B.showAllAccounts();
+    B.deleteBranch(2);
+    B.showAllAccounts();
+    B.deleteCustomer(1);
+    B.showCustomer(1);
+    B.showCustomer(2);
+    B.showCustomer(3);
+    B.showCustomer(4);
+    B.showAllAccounts();
+
+}
+void test7(){
+     BankingSystem B;
+
+    B.addCustomer(1,"c1");
+    B.addBranch(1,"b1");
+    B.addAccount(1,1,100.00);
+    B.addAccount(1,1,200.00);
+    B.addAccount(1,1,300.00);
+    B.addAccount(1,1,400.00);
     B.deleteAccount(4);
+    B.deleteAccount(4);
+    B.deleteAccount(3);
+    B.deleteAccount(3);
+    B.deleteAccount(2);
+    B.deleteAccount(2);
+    B.deleteAccount(1);
+    B.deleteAccount(1);
+    B.addAccount(1,1,100.0);
     B.deleteAccount(5);
-    B.deleteAccount(6);
-    B.deleteAccount(6);
-    B.deleteAccount(7);
+    B.addAccount(20,1,100.0);
+    B.addAccount(1,20,100.0);
+    B.addAccount(20,20,100.0);
 
     B.deleteBranch(1);
+    B.addAccount(1,1,100.0);
+    B.addAccount(1,1,100.0);
+    B.addBranch(1, "b1");
+    B.addAccount(1,1,100.0);
+    B.deleteCustomer(1);
+    B.addAccount(1,1,100.0);
+    B.addAccount(1,1,100.0);
+    B.addCustomer(1, "c1");
+    B.addAccount(1,1,100.0);
+    B.showCustomer(1);
+    B.deleteCustomer(1);
+    B.deleteBranch(1);
+
+    B.addCustomer(1,"c1");
+    B.addCustomer(2,"c2");
+    B.addCustomer(3,"c3");
+    B.addBranch(1, "b1");
+    B.addBranch(2, "b2");
+    B.addBranch(3, "b3");
+
+    B.addAccount(1,1,100.00);
+    B.addAccount(2,1,200.00);
+    B.addAccount(3,1,300.00);
+    B.addAccount(1,2,100.00);
+    B.addAccount(2,2,200.00);
+    B.addAccount(3,2,300.00);
+    B.addAccount(1,3,100.00);
+    B.addAccount(2,3,200.00);
+    B.addAccount(3,3,300.00);
     B.deleteCustomer(1);
     B.deleteBranch(2);
-    B.deleteCustomer(2);
 
-    B.showAllAccounts();
+    B.deleteAccount(8);
+    B.deleteAccount(9);
+    B.deleteAccount(10);
+    B.deleteAccount(11);
+    B.deleteAccount(12);
+    B.deleteAccount(13);
+    B.deleteAccount(14);
+    B.deleteAccount(15);
+    B.deleteAccount(16);
+
 }
 int main (){
 
 
-test5();
+test6();
 return 0;
 }
 /*Outputs

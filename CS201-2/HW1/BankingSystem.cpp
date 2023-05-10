@@ -345,6 +345,20 @@ using namespace std;
                         this->customerCount--;
                         currCustomer = nullptr;
                         accounts = nullptr;
+                        //check whether we have to reset the customers array
+                        if(this->customerCount == 0){
+                            delete[] this->customers;
+                            delete[] this->customerPointers; //might be problematic!!!!!
+
+                            this->customers = new Customer[this->customerLength];
+                            this->customerPointers = new Customer*[this->customerLength];
+                            for(int i = 0; i < customerLength; i++){
+                                (this->customerPointers[i]) = nullptr;
+                            }
+                        }
+                    }
+                    else{
+                        cout << "Customer " << customerId << " does not exist" << endl;
                     }
             }
             return;
