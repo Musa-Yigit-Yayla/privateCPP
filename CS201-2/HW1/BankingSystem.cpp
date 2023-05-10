@@ -346,6 +346,8 @@ using namespace std;
                         currCustomer = nullptr;
                         accounts = nullptr;
                         //check whether we have to reset the customers array
+                        int customerCount = this->customerCount;
+                        //cout << "Customer count " << customerCount << endl;
                         if(this->customerCount == 0){
                             delete[] this->customers;
                             delete[] this->customerPointers; //might be problematic!!!!!
@@ -685,7 +687,7 @@ using namespace std;
         bool customerFound = false;
         if(customerPointer != NULL){
             int customerCounter = customer->getCustomerCount();
-            this->customerCount = customerCounter;
+            //this->customerCount = customerCounter;
         }
         for(int i = 0; i < this->customerLength && i <= this->customerCount && customer != NULL; i++){
             customer = &this->customers[i];

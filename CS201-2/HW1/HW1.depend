@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1683642727 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\main.cpp
+1683717112 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\main.cpp
 	<iostream>
 	"BankingSystem.h"
 
@@ -19,7 +19,7 @@
 	<string>
 	"Account.h"
 
-1680972253 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\customer.h
+1683720466 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\customer.h
 	<string>
 	"Account.h"
 
@@ -36,7 +36,7 @@
 	<iostream>
 	<cstdio>
 
-1683644984 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\bankingsystem.cpp
+1683720612 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\bankingsystem.cpp
 	"BankingSystem.h"
 	"Branch.h"
 	"Customer.h"
@@ -46,7 +46,7 @@
 	<cstdio>
 	<algorithm>
 
-1683450926 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\customer.cpp
+1683720435 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw1\customer.cpp
 	"Customer.h"
 	"Account.h"
 	"Branch.h"
