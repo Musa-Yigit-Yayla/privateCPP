@@ -166,6 +166,17 @@ using namespace std;
                         if(this->branchLength > 1)
                          this->branchLength -= 1;
                         this->branchCount--;
+                        //check whether we have reset branch arrays
+                        if(this->branchCount == 0){
+                            delete[] this->branches;
+                            delete[] this->branchPointers; //might be problematic!!!!!
+
+                            this->branches = new Branch[this->branchLength];
+                            this->branchPointers = new Branch*[this->branchLength];
+                            for(int i = 0; i < branchLength; i++){
+                                (this->branchPointers[i]) = nullptr;
+                            }
+                        }
                         currBranch = nullptr;
                         accounts = nullptr;
                     }

@@ -206,6 +206,10 @@ void test5(){
     B.addBranch(1, "b1");
     B.addBranch(2, "b2");
     B.addBranch(3, "b3");
+    B.showBranch(1);
+    B.showBranch(2);
+    B.showBranch(3);
+    B.showBranch(4);
     B.addBranch(4, "b4");
     B.showAllAccounts();
     B.addCustomer(1, "c1");
@@ -490,7 +494,7 @@ void test8(){
 int main (){
 
 
-test6();
+test5();
 return 0;
 }
 /*Outputs
