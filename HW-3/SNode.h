@@ -3,16 +3,16 @@
 #pragma once
 
 //Represents the node for singly linked list
-class <ItemType it>
+template<class ItemType>
 class SNode{
 public:
     SNode();
     SNode(ItemType* it);
-    ~SNode;
+    ~SNode();
 
     //public datafields
     SNode* next = nullptr;
-    ItemType* data;
+    ItemType* data = nullptr;
 
 };
 #endif // SNODE_H

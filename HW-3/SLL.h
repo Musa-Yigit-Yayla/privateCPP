@@ -4,7 +4,7 @@
 
 #include "SNode.h"
 
-class<ItemType it>
+template<class it>
 class SLL{
 public:
     SLL();

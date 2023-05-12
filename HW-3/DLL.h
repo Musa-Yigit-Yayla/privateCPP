@@ -4,6 +4,7 @@
 
 #include "DNode.h"
 
+template<class ItemType>
 class DLL{
 public:
     DLL();
