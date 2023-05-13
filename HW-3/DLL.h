@@ -11,7 +11,8 @@ public:
     DLL(DNode<ItemType>* head);
     ~DLL();
     bool insert(DNode<ItemType>* node);
-    void printList(DNode<ItemType>* node);
+    DNode<ItemType>* remove(const int id)
+    void printList();
 
     DNode<ItemType>* head = nullptr;
 

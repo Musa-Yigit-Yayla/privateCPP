@@ -1,4 +1,6 @@
 #include "SLL.h"
+#include "Course.h"
+#include <typeinfo>
 
 /*private:
     SNode<ItemType>* head = nullptr;
@@ -21,6 +23,18 @@ SLL<ItemType>::~SLL(){
         delete curr;
         curr = nextNode;
     }
+}
+//Maintains the current order of the sorted list, by inserting the given node at the correct position
+//Does not insert if the same node already exists
+template<class ItemType>
+bool SLL<ItemType>::insert(SNode<ItemType>* node){
+    ItemType itemType;// for checking whether this itemType is an instance of Course
+    Course course;
+    if(typeid(itemType) == typeid(course)){
+        Course* currCourse = reinterpret_cast<Course*>(node->data);
+
+    }
+
 }
 
 

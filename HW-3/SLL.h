@@ -4,15 +4,17 @@
 
 #include "SNode.h"
 
-template<class it>
+template<class ItemType>
 class SLL{
 public:
     SLL();
     SLL(SNode<ItemType>* head);
     ~SLL();
     bool insert(SNode<ItemType>* node);
-    void printList(SNode<ItemType>* node);
+    SNode<ItemType>* remove(const int id); //removes the ItemType with given id (in our case Course)
+    void printList() const;
 
+private:
     SNode<ItemType>* head = nullptr;
 };
 #endif // SLL_H
