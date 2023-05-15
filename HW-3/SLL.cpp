@@ -86,6 +86,7 @@ SNode<ItemType>* SLL<ItemType>::insert(SNode<ItemType>* node){
     //Removes the element with the given id if it exists, if removal is not performed returns nullptr
     //In this case we will be removing courses
     //Does not decrement the coursesLength, hence the caller must be doing that
+    //Deletion must be taken care of in the caller
     template<class ItemType>
     SNode<ItemType>* SLL<ItemType>::remove(const int id){
         Course* course;
@@ -106,6 +107,7 @@ SNode<ItemType>* SLL<ItemType>::insert(SNode<ItemType>* node){
                     }
                     else{
                         prevNode->next = currNode->next;
+                        currNode->next = nullptr;
                         return currNode;
                     }
                 }

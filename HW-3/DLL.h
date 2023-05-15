@@ -12,7 +12,7 @@ public:
     ~DLL();
     DNode<ItemType>* insert(DNode<ItemType>* node);
     DNode<ItemType>* remove(const int id);
-    void printList();
+    void printList() const;
 
 private:
     DNode<ItemType>* head = nullptr;

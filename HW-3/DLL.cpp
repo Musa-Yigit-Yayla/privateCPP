@@ -39,7 +39,7 @@ DNode<ItemType>* DLL<ItemType>::insert(DNode<ItemType>* node){
         DNode<Student> initialHead = currNode;
         while(currStudent != NULL){
 
-            int = currStudent->getId();
+            int studentId = currStudent->getId();
             if(studentId == givenStudent->getId()){
                 return nullptr; //student already exists
             }
@@ -77,4 +77,44 @@ DNode<ItemType>* DLL<ItemType>::insert(DNode<ItemType>* node){
         }
 
     }
+    return nullptr;
+}
+//Deletion must take place in the caller!!!!
+template<class ItemType>
+DNode<ItemType>* DLL<ItemType>::remove(const int id){
+    Student* student;
+    ItemType* it;
+    if(typeid(student) == typeid(it)){
+        Student* currStudent = reinterpret_cast<Student*>(this->head->data);
+            DNode<Student>* currNode = reinterpret_cast<DNode<Student>>(this->head);
+            DNode<Course>* prevNode = nullptr;
+            Student* prevStudent = nullptr;
+            while(currStudent != NULL){
+                int currId = currStudent->getId();
+                if(currId == id){
+                    //we must remove the current course
+                    if(prevStudent == NULL){
+                        //this is the first student
+                        this->head = nullptr;
+                        return currNode; //it may return nullptr or the next node depending on the list length
+                    }
+                    else{
+                        prevNode->next = currNode->next;
+                        currNode->next->prev = prevNode;
+                        currNode->next = nullptr;
+                        currNode->prev = nullptr;
+                        return currNode;
+                    }
+                }
+                prevNode = currNode;
+                prevStudent = currStudent;
+                currNode = currNode->next;
+                currStudent = reinterpret_cast<Student*>(currNode->data);
+            }
+    }
+    return nullptr;
+}
+template<class ItemType>
+void DLL<ItemType>::printList() const{
+
 }
