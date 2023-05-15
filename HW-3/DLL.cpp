@@ -116,5 +116,18 @@ DNode<ItemType>* DLL<ItemType>::remove(const int id){
 }
 template<class ItemType>
 void DLL<ItemType>::printList() const{
+    Student* student;
+    ItemType* it;
 
+    if(typeid(it) == typeid(student)){
+        DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->head);
+        Student* currStudent = currNode->data;
+
+        cout << "Student id First name Last name" << endl;
+        while(currStudent != NULL){
+            cout << currStudent->getId() << " " << currStudent->getFirstName() << " " << currStudent->getLastName() << endl;
+            currNode = currNode->next;
+            currStudent = currNode->data;
+        }
+    }
 }
