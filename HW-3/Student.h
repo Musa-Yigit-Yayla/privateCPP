@@ -4,7 +4,9 @@
 
 #include <string>
 #include "DLL.h"
+#include "Course.h"
 
+using namespace std;
 class Student{
 public:
     Student();

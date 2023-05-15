@@ -3,6 +3,7 @@
 #include <typeinfo>
 #include "SNode.h"
 #include <cstddef>
+#include <iostream>
 
 using namespace std;
 /*private:
@@ -21,7 +22,7 @@ SLL<ItemType>::SLL(SNode<ItemType>* head){
 template<class ItemType>
 SLL<ItemType>::~SLL(){
     SNode<ItemType>* curr = this->head;
-    while(curr != nullptr){
+    while(curr != NULL){
         SNode<ItemType>* nextNode = curr->next;
         delete curr;
         curr = nextNode;

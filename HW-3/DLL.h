@@ -10,8 +10,8 @@ public:
     DLL();
     DLL(DNode<ItemType>* head);
     ~DLL();
-    DNode* insert(DNode<ItemType>* node);
-    DNode<ItemType>* remove(const int id)
+    DNode<ItemType>* insert(DNode<ItemType>* node);
+    DNode<ItemType>* remove(const int id);
     void printList();
 
     DNode<ItemType>* head = nullptr;

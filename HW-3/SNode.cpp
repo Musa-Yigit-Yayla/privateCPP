@@ -16,4 +16,5 @@ SNode<ItemType>::SNode(ItemType* it){
 template<class ItemType>
 SNode<ItemType>::~SNode(){
     delete this->data;
+    this->next = nullptr;
 }

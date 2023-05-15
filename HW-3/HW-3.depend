@@ -2,3 +2,33 @@
 1584205420 source:c:\users\yigit\documents\cs201\dsa-arrays\hw-3\main.cpp
 	<iostream>
 
+1684163057 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.cpp
+	"Course.h"
+
+1684163037 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.h
+	<string>
+
+1684164594 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.cpp
+	"DNode.h"
+
+1684162162 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.h
+
+1584205420 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\main.cpp
+	<iostream>
+
+1684164594 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.cpp
+	"SLL.h"
+	"Course.h"
+	<typeinfo>
+	"SNode.h"
+	<cstddef>
+	<iostream>
+
+1684162162 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.h
+	"SNode.h"
+
+1684162162 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.h
+
+1684163768 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.cpp
+	"SNode.h"
+
