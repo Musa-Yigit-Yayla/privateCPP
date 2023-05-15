@@ -68,10 +68,17 @@ SNode<ItemType>* SLL<ItemType>::insert(SNode<ItemType>* node){
             prevCourse = currCourse;
             prevNode = currNode;
             currNode = currNode->next;
+            currCourse = reinterpret_cast<Course*>(currNode->data);
         }
         //If we have completed this loop and haven't returned anything, this implies that we must certainly insert at the end
-        prevNode->next = node;
-        return initialHead;
+        if(prevNode != NULL){
+            prevNode->next = node;
+            return initialHead;
+        }
+        else{
+            this->head = node;
+            return this->head;
+        }
 
     }
     return nullptr; //YOU MAY HAVE TO REMOVE THIS !!!!!!!!!!!!!!!!!!!!!!11

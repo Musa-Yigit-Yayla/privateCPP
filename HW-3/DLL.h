@@ -14,6 +14,7 @@ public:
     DNode<ItemType>* remove(const int id);
     void printList();
 
+private:
     DNode<ItemType>* head = nullptr;
 
 };
