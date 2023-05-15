@@ -5,12 +5,13 @@
 #include <string>
 #include "DLL.h"
 #include "Course.h"
+#include "RegistrationSystem.h"
 
 using namespace std;
 class Student{
 public:
     Student();
-    Student(const int studentId, const string firstName, const string lastName);
+    Student(const int studentId, const string firstName, const string lastName, const RegistrationSystem& rs);
     ~Student();
     int getId() const;
     void setFirstName(const string firstName);
@@ -21,7 +22,7 @@ public:
     int getCoursesLength() const;
     void addCourse(const int courseId, const string courseName);
     bool withdrawCourse(const int courseId);
-
+    bool courseExists(const int courseId) const;
     string to_string() const;
 private:
     int studentId;
@@ -29,6 +30,7 @@ private:
     string lastName;
     DLL<Course> courses;
     int coursesLength = 0;
+    RegistrationSystem& rs;
 };
 
 #endif // STUDENT_H

@@ -1,5 +1,7 @@
 #include "Course.h"
+#include <string>
 
+using namespace std;
 //public:
 
 Course::Course(){

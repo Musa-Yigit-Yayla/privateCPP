@@ -14,7 +14,7 @@ public:
     SNode<ItemType>* remove(const int id); //removes the ItemType with given id (in our case Course)
     void printList() const;
 
-private:
+
     SNode<ItemType>* head = nullptr;
 };
 #endif // SLL_H

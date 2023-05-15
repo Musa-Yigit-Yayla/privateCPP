@@ -2,8 +2,9 @@
 1584205420 source:c:\users\yigit\documents\cs201\dsa-arrays\hw-3\main.cpp
 	<iostream>
 
-1684163057 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.cpp
+1684183474 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.cpp
 	"Course.h"
+	<string>
 
 1684163037 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.h
 	<string>
@@ -16,7 +17,7 @@
 1584205420 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\main.cpp
 	<iostream>
 
-1684164594 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.cpp
+1684167954 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.cpp
 	"SLL.h"
 	"Course.h"
 	<typeinfo>
@@ -24,11 +25,27 @@
 	<cstddef>
 	<iostream>
 
-1684162162 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.h
+1684180310 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.h
 	"SNode.h"
 
 1684162162 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.h
 
 1684163768 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.cpp
 	"SNode.h"
+
+1684168914 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.cpp
+	"DLL.H"
+	"DNode.H"
+	<iostream>
+	<cstddef>
+	"Student.h"
+	<typeinfo>
+
+1684180310 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.h
+	"DNode.h"
+
+1684164717 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\student.h
+	<string>
+	"DLL.h"
+	"Course.h"
 
