@@ -5,7 +5,7 @@
 template<class ItemType>
 class DNode{
 public:
-    DNode();
+    DNode<ItemType>();
     DNode(ItemType* it);
     ~DNode();
 

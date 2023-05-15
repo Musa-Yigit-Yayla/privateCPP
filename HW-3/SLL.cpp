@@ -73,7 +73,61 @@ SNode<ItemType>* SLL<ItemType>::insert(SNode<ItemType>* node){
         return initialHead;
 
     }
-
+    return nullptr; //YOU MAY HAVE TO REMOVE THIS !!!!!!!!!!!!!!!!!!!!!!11
 }
+    //Removes the element with the given id if it exists, if removal is not performed returns nullptr
+    //In this case we will be removing courses
+    //Does not decrement the coursesLength, hence the caller must be doing that
+    template<class ItemType>
+    SNode<ItemType>* SLL<ItemType>::remove(const int id){
+        Course* course;
+        ItemType* it;
+        if(typeid(course) == typeid(it)){
+            Course* currCourse = reinterpret_cast<Course*>(this->head->data);
+            SNode<Course>* currNode = reinterpret_cast<SNode<Course>>(this->head);
+            SNode<Course>* prevNode = nullptr;
+            Course* prevCourse = nullptr;
+            while(currCourse != NULL){
+                int currId = currCourse->getCourseId();
+                if(currId == id){
+                    //we must remove the current course
+                    if(prevCourse == NULL){
+                        //this is the first course
+                        this->head = nullptr;
+                        return currNode; //it may return nullptr or the next node depending on the list length
+                    }
+                    else{
+                        prevNode->next = currNode->next;
+                        return currNode;
+                    }
+                }
+                prevNode = currNode;
+                prevCourse = currCourse;
+                currNode = currNode->next;
+                currCourse = reinterpret_cast<Course*>(currNode->data);
+            }
+            //if no match is found return nullptr
+        }
+        return nullptr;
+    }
+
+    //Invoke from the showStudent
+    template<class ItemType>
+    void SLL<ItemType>::printList() const{
+        Course* course;
+        ItemType* it;
+
+        if(typeid(course) == typeid(it)){
+            SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->head);
+            Course* currCourse = currNode->data;
+
+            cout << "Course id Course name" << endl;
+            while(currCourse != NULL){
+                cout << currCourse->getCourseId() << " " << currCourse->getCourseName() << endl;
+                currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
+                currCourse = currNode->data;
+            }
+        }
+    }
 
 

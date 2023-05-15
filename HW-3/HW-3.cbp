@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Course.cpp" />
 		<Unit filename="Course.h" />
 		<Unit filename="DLL.h" />
 		<Unit filename="DNode.cpp" />
