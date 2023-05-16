@@ -177,6 +177,19 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
         }
     }
 }
+
+void RegistrationSystem::withdrawCourse ( const int studentId , const int courseId ){
+    if(this->courseExists(studentId, courseId)){
+        Student* student = this->getStudent(studentId);
+        SNode<
+    }
+    else{
+        cout << "Student " << studentId << " is not enrolled in course " << courseId << endl;
+    }
+}
+void RegistrationSystem::cancelCourse(const int courseId){
+
+}
 inline void RegistrationSystem::incrementStudentCount(){
     this->studentsCount++;
 }

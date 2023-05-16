@@ -118,7 +118,58 @@ bool Student::addCourse(const int courseId, const string courseName){
     this->coursesLength++;
     return true;
 }
+//returns true if the course with the given id is withdrawn successfuly
+bool Student::withdrawCourse(const int courseId){
+    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
+    Course* currCourse = nullptr;
+    if(currNode != NULL){
+        currCourse = reinterpret_cast<Course*>(currNode->data);
+    }
+    SNode<Course>* prevNode = nullptr;
+    Course* prevCourse = nullptr;
 
+    while(currNode != NULL){
+        int currId = currCourse->getCourseId();
+        if(courseId == currId){
+            //we have to remove the currCourse by adjusting the pointers then deleting the currCourse afterwards
+            SNode<Course>* nextNode = reinterpret_cast<SNode<Course>*>(currNode->next);
+            Course* nextCourse = nullptr;
+            if(prevCourse == NULL){
+                //we are about to remove the very first node of the linked list
+                if(nextNode != NULL){
+                    //nextCourse exists
+                    nextCourse = reinterpret_cast<Course*>(nextNode->data);
+                    delete currNode;
+                    this->courses->head = nextNode;
+                }
+                else{
+                    //this is the one and only one node
+                    delete currNode;
+                }
+            }
+            else{
+                //regular removal of the course
+                if(nextNode != NULL){
+                    nextCourse = reinterpret_cast<Course*>(nextNode->data);
+                    prevNode->next = nextNode;
+                    delete currNode;
+                }
+                else{
+                    delete currNode;
+                }
+            }
+            this->coursesLength--;
+            return true;
+        }
+        prevNode = currNode;
+        prevCourse = reinterpret_cast<Course*>(prevNode->data);
+        currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
+        if(currNode != NULL){
+            currCourse = reinterpret_cast<Course*>(currNode->data);
+        }
+    }
+    return false;
+}
 bool Student::courseExists(const int courseId) const{
     SNode<Course>* currNode = reinterpret_cast<DNode<Course>*>(this->courses);
     Course* currCourse = reinterpret_cast<Course*>(currNode->data);

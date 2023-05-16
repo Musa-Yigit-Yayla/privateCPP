@@ -1,5 +1,5 @@
 #include "DNode.h"
-
+#include <cstddef>
 /*public:
 DNode* prev = nullptr;
     DNode* next = nullptr;
@@ -16,7 +16,8 @@ DNode<ItemType>::DNode(ItemType* it){
 }
 template <class ItemType>
 DNode<ItemType>::~DNode(){
-    delete this->data;
+    if(this->data != NULL)
+        delete this->data;
     this->next = nullptr;
     this->prev = nullptr;
 }

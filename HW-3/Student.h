@@ -28,7 +28,7 @@ private:
     int studentId;
     string firstName;
     string lastName;
-    DLL<Course> courses;
+    SLL<Course>* courses;
     int coursesLength = 0;
     RegistrationSystem& rs;
 };

@@ -1,5 +1,5 @@
 #include "SNode.h"
-
+#include <cstddef>
 /*public:
 //public datafields
     SNode* next = nullptr;
@@ -15,6 +15,7 @@ SNode<ItemType>::SNode(ItemType* it){
 }
 template<class ItemType>
 SNode<ItemType>::~SNode(){
-    delete this->data;
+    if(this->data != NULL)
+        delete this->data;
     this->next = nullptr;
 }
