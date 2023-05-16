@@ -24,7 +24,7 @@ public :
     inline int getStudentCount() const;
     bool studentExists(const int studentId) const;
     bool courseExists(const int studentId, const int courseId) const;
-    Student* getStudent() const;
+    Student* getStudent(const int studentId) const;
     DLL<Student>* getStudents() const; // returns the head pointer of the DLL of students
     void showStudent ( const int studentId );
     void showCourse ( const int courseId );

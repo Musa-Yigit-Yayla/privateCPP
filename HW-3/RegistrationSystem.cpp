@@ -162,7 +162,20 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
         return;
     }
     //find the student with the given id
-    Student* givenStudent =
+    Student* givenStudent = this->getStudent(studentId);
+    if(givenStudent == NULL){
+        cout << "Student " << studentId << " does not exist" << endl;
+    }
+    else{
+        //both the student and the course exists proceed accordingly
+        bool isAdded = givenStudent->addCourse(courseId, courseName); // we expect this method to return true but we will double check anyways
+        if(isAdded){
+            cout << "Course " << courseId << " has been added to student " << studentId << endl;
+        }
+        else{
+            cout << "Course " << courseId << " already exists ?" << endl;
+        }
+    }
 }
 inline void RegistrationSystem::incrementStudentCount(){
     this->studentsCount++;
@@ -188,7 +201,7 @@ bool RegistrationSystem::studentExists(const int studentId) const{
     return false;
 }
 bool RegistrationSystem::courseExists(const int studentId, const int courseId) const{
-    DNode<Student*> currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+    DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
     Student* currStudent = reinterpret_cast<Student*>(currNode->data);
 
     while(currStudent != NULL && currNode != NULL){
