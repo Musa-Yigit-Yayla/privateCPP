@@ -34,14 +34,17 @@
 		</Compiler>
 		<Unit filename="Course.cpp" />
 		<Unit filename="Course.h" />
+		<Unit filename="DLL.cpp" />
 		<Unit filename="DLL.h" />
 		<Unit filename="DNode.cpp" />
 		<Unit filename="DNode.h" />
+		<Unit filename="RegistrationSystem.cpp" />
 		<Unit filename="RegistrationSystem.h" />
 		<Unit filename="SLL.cpp" />
 		<Unit filename="SLL.h" />
 		<Unit filename="SNode.cpp" />
 		<Unit filename="SNode.h" />
+		<Unit filename="Student.cpp" />
 		<Unit filename="Student.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

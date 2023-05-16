@@ -1,5 +1,6 @@
 #include "Student.h"
 #include "RegistrationSystem.h"
+#include "SNode.h"
 #include <string>
 
 using namespace std;
@@ -15,12 +16,12 @@ Student::Student(const int studentId, const string firstName, const string lastN
 }
 Student::~Student(){
     //delete the courses which do not exist in other students
-    SNode<Student>* students = this->rs->getStudents();
-    SNode<Course>* currNode = reinterpret_cast<DNode<Course>*>(this->courses);
+    DNode<Student>* students = this->rs.getStudents();
+    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses);
     Course* currCourse = reinterpret_cast<Course*>(currNode->data);
 
     while(currCourse != NULL){
-        SNode<Student>* currStudentNode = students;
+        DNode<Student>* currStudentNode = students;
         Student* currStudent = reinterpret_cast<Student*>(currStudentNode->data);
 
         bool isDeletable = true;//check whether the current course is deletable
@@ -30,7 +31,7 @@ Student::~Student(){
                 isDeletable = false;
                 break;
             }
-            currStudentNode = reinterpret_cast<SNode<Student>*>(currStudentNode->next);
+            currStudentNode = reinterpret_cast<DNode<Student>*>(currStudentNode->next);
             currStudent = currStudentNode->data;
         }
         if(isDeletable){
@@ -43,7 +44,6 @@ Student::~Student(){
             currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
             currCourse = reinterpret_cast<Course*>(currNode->data);
         }
-
     }
 }
 
