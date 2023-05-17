@@ -281,3 +281,14 @@ Student* RegistrationSystem::getStudent(const int studentId) const{
 DLL<Student>* RegistrationSystem::getStudents() const{
     return this->students;
 }
+void RegistrationSystem::showAllStudents() const{
+    DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+    Student* currStudent = nullptr;
+
+    while(currNode != NULL){
+        currStudent = reinterpret_cast<Student*>(currNode->data);
+        cout << currStudent->to_string() << endl;
+
+        currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
+    }
+}
