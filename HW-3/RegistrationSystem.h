@@ -6,6 +6,9 @@
 #include "DNode.h"
 #include <string>
 #include "Student.h"
+#include <functional>
+
+class Student;
 
 using namespace std;
 class RegistrationSystem {
@@ -26,9 +29,9 @@ public :
     bool courseExists(const int studentId, const int courseId) const;
     Student* getStudent(const int studentId) const;
     DLL<Student>* getStudents() const; // returns the head pointer of the DLL of students
-    void showStudent ( const int studentId );
-    void showCourse ( const int courseId );
-    void showAllStudents ();
+    void showStudent ( const int studentId ) const;
+    void showCourse ( const int courseId ) const;
+    void showAllStudents () const;
 private:
     DLL<Student>* students = nullptr;
     int studentsCount = 0;

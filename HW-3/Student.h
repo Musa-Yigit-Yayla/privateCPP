@@ -4,14 +4,17 @@
 
 #include <string>
 #include "DLL.h"
+#include "SLL.h"
 #include "Course.h"
 #include "RegistrationSystem.h"
+
+class RegistrationSystem; //forward declaration
 
 using namespace std;
 class Student{
 public:
-    Student();
-    Student(const int studentId, const string firstName, const string lastName, const RegistrationSystem& rs);
+    Student(RegistrationSystem& rs);
+    Student(const int studentId, const string firstName, const string lastName, RegistrationSystem& rs);
     ~Student();
     int getId() const;
     void setFirstName(const string firstName);
@@ -20,7 +23,8 @@ public:
     string getLastName() const;
     void incrementCoursesLength();
     int getCoursesLength() const;
-    void addCourse(const int courseId, const string courseName);
+    Course* getCourse(const int courseId) const;
+    bool addCourse(const int courseId, const string courseName);
     bool withdrawCourse(const int courseId);
     bool courseExists(const int courseId) const;
     string to_string() const;
@@ -30,7 +34,7 @@ private:
     string lastName;
     SLL<Course>* courses;
     int coursesLength = 0;
-    RegistrationSystem& rs;
+    RegistrationSystem* rs;
 };
 
 #endif // STUDENT_H

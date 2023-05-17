@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <cstddef>
+#include <functional>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ void RegistrationSystem::addStudent(const int studentId, const string firstName,
     if(currNode == NULL){
         //first student is going to be added
         DNode<Student>* newNode = new DNode<Student>();
-        Student* givenStudent = new Student(studentId, firstName, lastName, this);
+        Student* givenStudent = new Student(studentId, firstName, lastName, *this);
         newNode->data = givenStudent;
         cout << "Student " << studentId << " has been added" << endl;
         this->incrementStudentCount();
@@ -45,7 +46,7 @@ void RegistrationSystem::addStudent(const int studentId, const string firstName,
         return;
     }
     DNode<Student>* initialHead = reinterpret_cast<DNode<Student>*>(this->students->head);
-    Student* givenStudent = new Student(studentId, firstName, lastName, this);
+    Student* givenStudent = new Student(studentId, firstName, lastName, *this);
     DNode<Student>* givenNode = new DNode<Student>();
     givenNode->data = givenStudent;
     //add the given student at the correct position
@@ -126,7 +127,7 @@ void RegistrationSystem::deleteStudent(const int studentId){
 
             }
             else{
-                DNode<Student*> nextNode = reinterpret_cast<DNode<Student>*>(currNode->next);
+                DNode<Student>* nextNode = reinterpret_cast<DNode<Student>*>(currNode->next);
                 Student* nextStudent = reinterpret_cast<Student*>(nextNode->data);
                 if(nextStudent == NULL){
                     //deletion of the last student
@@ -157,7 +158,7 @@ void RegistrationSystem::deleteStudent(const int studentId){
 }
 void RegistrationSystem::addCourse(const int studentId, const int courseId, const string courseName){
     //Check whether the course exists
-    if(this->courseExists(studentId)){
+    if(this->courseExists(studentId, courseId)){
         cout << "Course " << courseId << " already exists ?" << endl;
         return;
     }
@@ -217,7 +218,7 @@ void RegistrationSystem::cancelCourse(const int courseId){
         cout << "Course " << courseId << " has been cancelled" << endl;
     }
     else{
-        "Course " << courseId << " does not exist" << endl;
+        cout << "Course " << std::to_string(courseId) << " does not exist" << endl;
     }
 }
 inline void RegistrationSystem::incrementStudentCount(){
@@ -290,5 +291,62 @@ void RegistrationSystem::showAllStudents() const{
         cout << currStudent->to_string() << endl;
 
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
+    }
+}
+void RegistrationSystem::showCourse(const int courseId) const{
+    //first check whether the course exists in any of the students
+    DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+    Student* currStudent = nullptr;
+    bool courseFound = false;
+    Course* course = nullptr;
+    while(currNode != NULL){
+        currStudent = reinterpret_cast<Student*>(currNode->data);
+        if(currStudent->courseExists(courseId)){
+            courseFound = true;
+            course = currStudent->getCourse(courseId);
+            break;
+        }
+        currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
+    }
+    if(courseFound){
+        cout << "Course id Course Name" << endl;
+        cout << courseId << course->getCourseName() << endl;
+        cout << "Student id First name Last name" << endl;
+
+        currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+        currStudent = nullptr;
+        while(currNode != NULL){
+            currStudent = reinterpret_cast<Student*>(currNode->data);
+            //recall that sorted property is already satisfied in the student dll
+            if(currStudent->courseExists(courseId)){
+                cout << currStudent->getId() << " " << currStudent->getFirstName() << " " << currStudent->getLastName() << endl;
+            }
+            currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
+        }
+    }
+    else{
+        cout << "Course " << courseId << " does not exist" << endl;
+    }
+}
+//show the contents of the specified student if it exists, if not display a warning message
+void RegistrationSystem::showStudent(const int studentId) const{
+    DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+    Student* givenStudent = nullptr;
+    Student* currStudent = nullptr;
+
+    while(currNode != nullptr){
+        currStudent = reinterpret_cast<Student*>(currNode->data);
+        if(currStudent->getId() == studentId){
+            givenStudent = currStudent;
+            break;
+        }
+        currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
+    }
+    if(currStudent != NULL){
+        //we have found the specified student
+        cout << currStudent->to_string();
+    }
+    else{
+
     }
 }

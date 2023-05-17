@@ -2,15 +2,16 @@
 1584205420 source:c:\users\yigit\documents\cs201\dsa-arrays\hw-3\main.cpp
 	<iostream>
 
-1684183474 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.cpp
+1684359544 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.cpp
 	"Course.h"
 	<string>
 
-1684163037 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.h
+1684325961 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.h
 	<string>
 
-1684164594 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.cpp
+1684267330 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.cpp
 	"DNode.h"
+	<cstddef>
 
 1684162162 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.h
 
@@ -30,10 +31,11 @@
 
 1684162162 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.h
 
-1684163768 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.cpp
+1684267238 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.cpp
 	"SNode.h"
+	<cstddef>
 
-1684168914 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.cpp
+1684266764 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.cpp
 	"DLL.H"
 	"DNode.H"
 	<iostream>
@@ -44,8 +46,17 @@
 1684180310 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.h
 	"DNode.h"
 
-1684164717 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\student.h
+1684361067 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\student.h
 	<string>
 	"DLL.h"
+	"SLL.h"
 	"Course.h"
+	"RegistrationSystem.h"
+
+1684361001 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\registrationsystem.h
+	"DLL.h"
+	"DNode.h"
+	<string>
+	"Student.h"
+	<functional>
 

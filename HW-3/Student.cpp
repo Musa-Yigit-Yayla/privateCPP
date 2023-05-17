@@ -6,13 +6,13 @@
 using namespace std;
 //public:
 Student::Student(RegistrationSystem& rs){
-    this->rs = rs;
+    this->rs = &rs;
 }
 Student::Student(const int studentId, const string firstName, const string lastName, RegistrationSystem& rs){
     this->studentId = studentId;
     this->firstName = firstName;
     this->lastName = lastName;
-    this->rs = rs;
+    this->rs = &rs;
 }
 Student::~Student(){
     //delete the courses which do not exist in other students
@@ -78,21 +78,21 @@ bool Student::addCourse(const int courseId, const string courseName){
         }
         else if(currCourse->getCourseId() > courseId){
             //insert the course right before the currCourse
-            SNode<Course>* givenNode = new SNode();
+            SNode<Course>* givenNode = new SNode<Course>();
             Course* givenCourse = new Course(courseId, courseName);
             givenNode->data = givenCourse;
             if(prevCourse == NULL){
                 //insert at the very beginning
 
-                this->courses->head = givenCourse;
-                givenCourse->next = currCourse;
+                this->courses->head = givenNode; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MIGHT BE PROBLEMATIC HERE ?????
+                givenNode->next = currNode;
                 this->coursesLength++;
                 return true;
             }
             else{
                 //regular insertion
                 prevNode->next = givenNode;
-                givenNode->next = currCourse;
+                givenNode->next = currNode;
                 this->coursesLength++;
                 return true;
             }
@@ -105,7 +105,7 @@ bool Student::addCourse(const int courseId, const string courseName){
         }
     }
     //If we have left this loop without insertion this implies that we must add the course to the very end by the help of prevNode pointer
-    SNode<Course>* givenNode = new SNode();
+    SNode<Course>* givenNode = new SNode<Course>();
     Course* givenCourse = new Course(courseId, courseName);
     givenNode->data = givenCourse;
     if(prevNode == NULL){
@@ -171,18 +171,47 @@ bool Student::withdrawCourse(const int courseId){
     return false;
 }
 bool Student::courseExists(const int courseId) const{
-    SNode<Course>* currNode = reinterpret_cast<DNode<Course>*>(this->courses);
+    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses);
     Course* currCourse = reinterpret_cast<Course*>(currNode->data);
 
     while(currCourse != NULL){
         if(currCourse->getCourseId() == courseId){
             return true;
         }
-        currNode = reinterpret_cast<DNode<Course>*>(currNode->next);
+        currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
         currCourse = reinterpret_cast<Course*>(currNode->data);
     }
     return false;
 }
-string Student::to_string() const{
+//If the course with the given id exists, returns a pointer to it, else returns nullptr
+Course* Student::getCourse(const int courseId) const{
+    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
+    Course* currCourse = nullptr;
 
+    while(currNode != NULL){
+        currCourse = reinterpret_cast<Course*>(currNode->data);
+        if(currCourse->getCourseId() == courseId){
+            break;
+        }
+    }
+    return currCourse;
+}
+string Student::to_string() const{
+    string result = "";
+
+    result += "Student id First name Last name\n";
+    result += std::to_string(this->getId()) + "" + this->getFirstName() + " " + this->getLastName() + "\n";
+
+    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
+    Course* currCourse = nullptr;
+
+    int counter = 0;
+    while(currNode != NULL){
+        if(counter == 0){
+            result += "Course id Course name\n";
+        }
+        currCourse = reinterpret_cast<Course*>(currNode->data);
+        result += std::to_string(currCourse->getCourseId()) + " " + currCourse->getCourseName() + "\n";
+        counter++;
+    }
 }
