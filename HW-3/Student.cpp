@@ -118,7 +118,7 @@ bool Student::addCourse(const int courseId, const string courseName){
     this->coursesLength++;
     return true;
 }
-//returns true if the course with the given id is withdrawn successfuly
+//returns true if the course with the given id is withdrawn successfully
 bool Student::withdrawCourse(const int courseId){
     SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
     Course* currCourse = nullptr;
@@ -182,4 +182,7 @@ bool Student::courseExists(const int courseId) const{
         currCourse = reinterpret_cast<Course*>(currNode->data);
     }
     return false;
+}
+string Student::to_string() const{
+
 }

@@ -181,14 +181,44 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
 void RegistrationSystem::withdrawCourse ( const int studentId , const int courseId ){
     if(this->courseExists(studentId, courseId)){
         Student* student = this->getStudent(studentId);
-        SNode<
+        bool isWithdrawn = student->withdrawCourse(courseId);
+        if(isWithdrawn){
+            cout << "Student " << studentId << " has been withdrawn from course " << courseId << endl;
+        }
+        else{
+            //Student is not enrolled in this course ?????
+            cout << "Student " << studentId << " is not enrolled in course " << courseId << endl;
+        }
     }
     else{
         cout << "Student " << studentId << " is not enrolled in course " << courseId << endl;
     }
 }
 void RegistrationSystem::cancelCourse(const int courseId){
-
+    //check whether the course exists in the currStudent and if so remove the course
+    DNode<Student>* currStudentNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+    Student* currStudent = nullptr;
+    if(currStudentNode != NULL){
+        currStudent = reinterpret_cast<Student*>(currStudentNode->data);
+    }
+    bool isCancelled = false;
+    while(currStudentNode != NULL){
+        if(currStudent->courseExists(courseId)){
+            //we must remove the course and also delete the retrieved node
+            currStudent->withdrawCourse(courseId);
+            isCancelled = true;
+        }
+        currStudentNode = reinterpret_cast<DNode<Student>*>(currStudentNode->next);
+        if(currStudentNode != NULL){
+            currStudent = reinterpret_cast<Student*>(currStudentNode->data);
+        }
+    }
+    if(isCancelled){
+        cout << "Course " << courseId << " has been cancelled" << endl;
+    }
+    else{
+        "Course " << courseId << " does not exist" << endl;
+    }
 }
 inline void RegistrationSystem::incrementStudentCount(){
     this->studentsCount++;
