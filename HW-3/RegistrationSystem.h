@@ -67,37 +67,41 @@ RegistrationSystem::~RegistrationSystem(){
 }
 //If student id is non positive integer or it already exists we should display a warning msg and not add the student
 void RegistrationSystem::addStudent(const int studentId, const string firstName, const string lastName){
-    DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students);
-    if(currNode == NULL){
+    DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+    if(currNode == NULL || this->studentsCount == 0){ // !!!!! YOU MIGHT WANT TO REMOVE THE SECOND CONDITION OF THE IF !!!!!
         //first student is going to be added
         DNode<Student>* newNode = new DNode<Student>();
         Student* givenStudent = new Student(studentId, firstName, lastName, *this);
         newNode->data = givenStudent;
-        cout << "Student " << studentId << " has been added" << endl;
+        this->students->head = newNode;
         this->incrementStudentCount();
+        cout << "Student " << studentId << " has been added" << endl;
         return;
     }
     Student* currStudent = currNode->data;
 
-    while(currStudent != NULL){
+    while(currNode != NULL){
+        currStudent = currNode->data;
         int currId = currStudent->getId();
         if(studentId <= 0 || currId == studentId){
             cout << "Student " << studentId << " already exists" << endl;
+            return;
         }
-        return;
+        currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
     }
     DNode<Student>* initialHead = reinterpret_cast<DNode<Student>*>(this->students->head);
     Student* givenStudent = new Student(studentId, firstName, lastName, *this);
     DNode<Student>* givenNode = new DNode<Student>();
     givenNode->data = givenStudent;
     //add the given student at the correct position
-    currNode = reinterpret_cast<DNode<Student>*>(this->students);
+    currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
     currStudent = currNode->data;
 
     DNode<Student>* prevNode = nullptr;
     Student* prevStudent = nullptr;
 
-    while(currStudent != NULL){
+    while(currNode != NULL){
+        currStudent = reinterpret_cast<Student*>(currNode->data);
         if(currStudent->getId() > studentId){
             if(prevStudent == NULL){
                 //insert at the beginning
@@ -121,7 +125,6 @@ void RegistrationSystem::addStudent(const int studentId, const string firstName,
         prevNode = currNode;
         prevStudent = currStudent;
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
-        currStudent = reinterpret_cast<Student*>(currNode->data);
     }
     //If we haven't added anything and left the loop, then we must insert at the end or at the very beginning
     if(prevStudent == NULL){
