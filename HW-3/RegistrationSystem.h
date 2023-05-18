@@ -204,7 +204,7 @@ void RegistrationSystem::deleteStudent(const int studentId){
 void RegistrationSystem::addCourse(const int studentId, const int courseId, const string courseName){
     //Check whether the course exists
     if(this->courseExists(studentId, courseId)){
-        cout << "Course " << courseId << " already exists ?" << endl;
+        cout << "Student " << studentId << " is already enrolled in course " << courseId << endl;
         return;
     }
     //find the student with the given id
@@ -219,7 +219,7 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
             cout << "Course " << courseId << " has been added to student " << studentId << endl;
         }
         else{
-            cout << "Course " << courseId << " already exists ?" << endl;
+            cout << "Student " << studentId << " is already enrolled in course ? " << courseId << endl;
         }
     }
 }

@@ -108,7 +108,7 @@ Student::~Student(){
 //Returns true if the insertion is successful
 //Maintains the sorted property of the sll after having added the course
 bool Student::addCourse(const int courseId, const string courseName){
-    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses);
+    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
     Course* currCourse = nullptr;
 
     if(currNode != NULL){
@@ -217,15 +217,15 @@ bool Student::withdrawCourse(const int courseId){
     return false;
 }
 bool Student::courseExists(const int courseId) const{
-    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses);
-    Course* currCourse = reinterpret_cast<Course*>(currNode->data);
+    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
+    Course* currCourse = nullptr;
 
-    while(currCourse != NULL){
+    while(currNode != NULL){
+        currCourse = reinterpret_cast<Course*>(currNode->data);
         if(currCourse->getCourseId() == courseId){
             return true;
         }
         currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
-        currCourse = reinterpret_cast<Course*>(currNode->data);
     }
     return false;
 }
