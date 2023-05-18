@@ -1,10 +1,11 @@
-#include "SNode.h"
+/*#include "SNode.h"
 #include <cstddef>
 /*public:
 //public datafields
     SNode* next = nullptr;
     ItemType* data = nullptr;
 */
+/*
 template<class ItemType>
 SNode<ItemType>::SNode(){
 
@@ -18,4 +19,4 @@ SNode<ItemType>::~SNode(){
     if(this->data != NULL)
         delete this->data;
     this->next = nullptr;
-}
+}*/

@@ -1,4 +1,4 @@
-#include "RegistrationSystem.h"
+/*#include "RegistrationSystem.h"
 #include "SLL.h"
 #include "SNode.h"
 #include "DLL.h"
@@ -14,7 +14,7 @@ using namespace std;
 
 //public:
 RegistrationSystem::RegistrationSystem(){
-
+    this->students = new DLL<Student>();
 }
 RegistrationSystem::~RegistrationSystem(){
     DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students);
@@ -23,6 +23,7 @@ RegistrationSystem::~RegistrationSystem(){
         delete currNode;
         currNode = nextNode;
     }
+    delete this->students;
 }
 //If student id is non positive integer or it already exists we should display a warning msg and not add the student
 void RegistrationSystem::addStudent(const int studentId, const string firstName, const string lastName){
@@ -350,3 +351,4 @@ void RegistrationSystem::showStudent(const int studentId) const{
 
     }
 }
+*/

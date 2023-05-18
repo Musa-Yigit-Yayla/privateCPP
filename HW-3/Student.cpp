@@ -1,4 +1,4 @@
-#include "Student.h"
+/*#include "Student.h"
 #include "RegistrationSystem.h"
 #include "SNode.h"
 #include <string>
@@ -45,6 +45,7 @@ Student::~Student(){
             currCourse = reinterpret_cast<Course*>(currNode->data);
         }
     }*/
+/*
     SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
     Course* currCourse = reinterpret_cast<Course*>(currNode->data);
 
@@ -215,3 +216,4 @@ string Student::to_string() const{
         counter++;
     }
 }
+*/

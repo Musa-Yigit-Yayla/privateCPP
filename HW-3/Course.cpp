@@ -1,4 +1,4 @@
-#include "Course.h"
+/*#include "Course.h"
 #include <string>
 
 using namespace std;
@@ -26,3 +26,4 @@ void Course::setCourseName(const string courseName){
 string Course::getCourseName() const{
     return this->courseName;
 }
+*/

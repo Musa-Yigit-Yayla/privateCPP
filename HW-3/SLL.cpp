@@ -1,4 +1,4 @@
-#include "SLL.h"
+/*#include "SLL.h"
 #include "Course.h"
 #include <typeinfo>
 #include "SNode.h"
@@ -9,6 +9,7 @@ using namespace std;
 /*private:
     SNode<ItemType>* head = nullptr;
 public:*/
+/*
 template<class ItemType>
 SLL<ItemType>::SLL(){
 
@@ -140,4 +141,4 @@ SNode<ItemType>* SLL<ItemType>::insert(SNode<ItemType>* node){
         }
     }
 
-
+*/
