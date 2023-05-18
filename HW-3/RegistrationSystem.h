@@ -107,6 +107,7 @@ void RegistrationSystem::addStudent(const int studentId, const string firstName,
                 //insert at the beginning
                 givenNode->next = this->students->head;
                 this->students->head->prev = givenNode;
+                this->students->head = givenNode;
                 this->incrementStudentCount();
                 cout << "Student " << studentId << " has been added" << endl;
                 return;
@@ -327,13 +328,16 @@ DLL<Student>* RegistrationSystem::getStudents() const{
     return this->students;
 }
 void RegistrationSystem::showAllStudents() const{
+    if(this->studentsCount == 0){
+        cout << "There are no students in the system" << endl;
+        return;
+    }
     DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
     Student* currStudent = nullptr;
-
+    cout << "Student id First name Last name" << endl;
     while(currNode != NULL){
         currStudent = reinterpret_cast<Student*>(currNode->data);
-        cout << currStudent->to_string() << endl;
-
+        cout << currStudent->to_string();
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
     }
 }

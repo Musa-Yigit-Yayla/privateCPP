@@ -13,6 +13,7 @@ class RegistrationSystem; //forward declaration
 using namespace std;
 class Student{
 public:
+    Student();
     Student(RegistrationSystem& rs);
     Student(const int studentId, const string firstName, const string lastName, RegistrationSystem& rs);
     ~Student();
@@ -47,6 +48,9 @@ private:
 
 using namespace std;
 //public:
+Student::Student(){
+
+}
 Student::Student(RegistrationSystem& rs){
     this->rs = &rs;
 }
@@ -263,8 +267,7 @@ void Student::decrementCoursesLength(){
 string Student::to_string() const{
     string result = "";
 
-    result += "Student id First name Last name\n";
-    result += std::to_string(this->getId()) + "" + this->getFirstName() + " " + this->getLastName() + "\n";
+    result += std::to_string(this->getId()) + " " + this->getFirstName() + " " + this->getLastName() + "\n";
 
     SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
     Course* currCourse = nullptr;
@@ -278,4 +281,5 @@ string Student::to_string() const{
         result += std::to_string(currCourse->getCourseId()) + " " + currCourse->getCourseName() + "\n";
         counter++;
     }
+    return result;
 }
