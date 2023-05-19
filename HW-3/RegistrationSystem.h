@@ -393,12 +393,12 @@ void RegistrationSystem::showStudent(const int studentId) const{
         }
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
     }
-    if(currStudent != NULL){
+    if(givenStudent != NULL){
         //we have found the specified student
-        cout << currStudent->to_string();
+        cout << givenStudent->to_string();
     }
     else{
-
+        cout << "Student " << studentId << " does not exist" << endl;
     }
 }
 

@@ -280,6 +280,7 @@ string Student::to_string() const{
         currCourse = reinterpret_cast<Course*>(currNode->data);
         result += std::to_string(currCourse->getCourseId()) + " " + currCourse->getCourseName() + "\n";
         counter++;
+        currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
     }
     return result;
 }
