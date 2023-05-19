@@ -394,6 +394,7 @@ void RegistrationSystem::showStudent(const int studentId) const{
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
     }
     if(givenStudent != NULL){
+        cout << "Student id First name Last name" << endl;
         //we have found the specified student
         cout << givenStudent->to_string();
     }
