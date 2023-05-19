@@ -140,12 +140,13 @@ void RegistrationSystem::addStudent(const int studentId, const string firstName,
 }
 void RegistrationSystem::deleteStudent(const int studentId){
     //traverse the whole dll to check whether we have the desired student
-    Student* currStudent = reinterpret_cast<Student*>(this->students->head->data);
+    Student* currStudent = nullptr;//reinterpret_cast<Student*>(this->students->head->data);
     DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
     Student* prevStudent = nullptr;
     DNode<Student>* prevNode = nullptr;
 
-    while(currStudent != NULL){
+    while(currNode != NULL){
+        currStudent = reinterpret_cast<Student*>(currNode->data);
         int currId = currStudent->getId();
         bool isDeleted = false;
         if(currId == studentId){
@@ -166,6 +167,7 @@ void RegistrationSystem::deleteStudent(const int studentId){
                     isDeleted = true;
                     delete currNode;
                     this->decrementStudentCount();
+                    this->students->head = nullptr;
                     cout << "Student " << studentId << " has been deleted" << endl;
                     return;
                 }
@@ -198,8 +200,9 @@ void RegistrationSystem::deleteStudent(const int studentId){
         prevNode = currNode;
         prevStudent = currStudent;
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
-        currStudent = reinterpret_cast<Student*>(currNode->data);
     }
+    //If we have finished this loop without returning this implies that the given student does not exist
+    cout << "Student " << studentId << " does not exist" << endl;
 }
 void RegistrationSystem::addCourse(const int studentId, const int courseId, const string courseName){
     //Check whether the course exists
@@ -219,7 +222,7 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
             cout << "Course " << courseId << " has been added to student " << studentId << endl;
         }
         else{
-            cout << "Student " << studentId << " is already enrolled in course ? " << courseId << endl;
+            cout << "Student " << studentId << " is already enrolled in course" << courseId << endl; //?????
         }
     }
 }

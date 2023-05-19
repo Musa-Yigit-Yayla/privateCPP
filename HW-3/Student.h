@@ -96,11 +96,11 @@ Student::~Student(){
 
     while(currNode != NULL){
         SNode<Course>* nextNode = reinterpret_cast<SNode<Course>*>(currNode->next);
-        Course* nextCourse = reinterpret_cast<Course*>(nextNode->data);
+        //Course* nextCourse = reinterpret_cast<Course*>(nextNode->data);
 
         delete currNode;
         currNode = nextNode;
-        currCourse = nextCourse;
+        //currCourse = nextCourse;
     }
 }
 //This method has a precondition that the student object is not already enrolled in the given student
