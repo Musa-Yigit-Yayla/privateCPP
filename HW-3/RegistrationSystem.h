@@ -228,8 +228,11 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
 }
 
 void RegistrationSystem::withdrawCourse ( const int studentId , const int courseId ){
-    if(this->courseExists(studentId, courseId)){
+    //if(this->courseExists(studentId, courseId)){
         Student* student = this->getStudent(studentId);
+        if(student == NULL){
+            cout << "Student " << studentId << " does not exist" << endl;
+        }
         bool isWithdrawn = student->withdrawCourse(courseId);
         if(isWithdrawn){
             cout << "Student " << studentId << " has been withdrawn from course " << courseId << endl;
@@ -238,10 +241,10 @@ void RegistrationSystem::withdrawCourse ( const int studentId , const int course
             //Student is not enrolled in this course ?????
             cout << "Student " << studentId << " is not enrolled in course " << courseId << endl;
         }
-    }
-    else{
+    //}
+    /*else{
         cout << "Student " << studentId << " is not enrolled in course " << courseId << endl;
-    }
+    }*/
 }
 void RegistrationSystem::cancelCourse(const int courseId){
     //check whether the course exists in the currStudent and if so remove the course
@@ -300,9 +303,7 @@ bool RegistrationSystem::courseExists(const int studentId, const int courseId) c
         if(currStudent->getId() == studentId){
             //if the student exists then we must check its enrolled courses to verify the existence of the given course
             bool doesExist = currStudent->courseExists(courseId);
-            if(doesExist){
-                return true;
-            }
+            return doesExist;
 
         }
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);

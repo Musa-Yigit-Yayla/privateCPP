@@ -165,6 +165,7 @@ bool Student::addCourse(const int courseId, const string courseName){
     return true;
 }
 //returns true if the course with the given id is withdrawn successfully
+//THERE MIGHT BE MEMORY LEAK IN A STUDENT OBJECT'S COURSES SLL, YOU MUST CHECK IT CAREFULLY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 bool Student::withdrawCourse(const int courseId){
     SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
     Course* currCourse = nullptr;
@@ -173,8 +174,9 @@ bool Student::withdrawCourse(const int courseId){
     }
     SNode<Course>* prevNode = nullptr;
     Course* prevCourse = nullptr;
+    int counter = 0;
 
-    while(currNode != NULL){
+    while(currNode != NULL && counter < this->coursesLength){
         int currId = currCourse->getCourseId();
         if(courseId == currId){
             //we have to remove the currCourse by adjusting the pointers then deleting the currCourse afterwards
@@ -191,6 +193,7 @@ bool Student::withdrawCourse(const int courseId){
                 else{
                     //this is the one and only one node
                     delete currNode;
+                    this->courses->head = nullptr;
                 }
             }
             else{
@@ -213,6 +216,7 @@ bool Student::withdrawCourse(const int courseId){
         if(currNode != NULL){
             currCourse = reinterpret_cast<Course*>(currNode->data);
         }
+        counter++;
     }
     return false;
 }
