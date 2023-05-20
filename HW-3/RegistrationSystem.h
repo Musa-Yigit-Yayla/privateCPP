@@ -232,6 +232,7 @@ void RegistrationSystem::withdrawCourse ( const int studentId , const int course
         Student* student = this->getStudent(studentId);
         if(student == NULL){
             cout << "Student " << studentId << " does not exist" << endl;
+            return;
         }
         bool isWithdrawn = student->withdrawCourse(courseId);
         if(isWithdrawn){
