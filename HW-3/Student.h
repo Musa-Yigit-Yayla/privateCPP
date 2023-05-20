@@ -224,12 +224,14 @@ bool Student::courseExists(const int courseId) const{
     SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
     Course* currCourse = nullptr;
 
-    while(currNode != NULL){
+    int counter = 0;
+    while(currNode != NULL && counter < this->coursesLength){
         currCourse = reinterpret_cast<Course*>(currNode->data);
         if(currCourse->getCourseId() == courseId){
             return true;
         }
         currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
+        counter++;
     }
     return false;
 }
