@@ -345,7 +345,7 @@ void RegistrationSystem::showAllStudents() const{
     cout << "Student id First name Last name" << endl;
     while(currNode != NULL){
         currStudent = reinterpret_cast<Student*>(currNode->data);
-        cout << currStudent->to_string();
+        cout << currStudent->to_string() << endl;
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
     }
 }

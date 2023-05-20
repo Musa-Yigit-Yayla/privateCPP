@@ -280,7 +280,7 @@ string Student::to_string() const{
     Course* currCourse = nullptr;
 
     int counter = 0;
-    while(currNode != NULL){
+    while(currNode != NULL && counter < this->coursesLength){
         if(counter == 0){
             result += "Course id Course name\n";
         }
