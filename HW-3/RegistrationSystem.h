@@ -256,11 +256,13 @@ void RegistrationSystem::cancelCourse(const int courseId){
     }
     bool isCancelled = false;
     while(currStudentNode != NULL){
-        if(currStudent->courseExists(courseId)){
+        //if(currStudent->courseExists(courseId)){
             //we must remove the course and also delete the retrieved node
-            currStudent->withdrawCourse(courseId);
-            isCancelled = true;
-        }
+            bool isWithdrawn = currStudent->withdrawCourse(courseId);
+            if(isWithdrawn){
+                isCancelled = true;
+            }
+        //}
         currStudentNode = reinterpret_cast<DNode<Student>*>(currStudentNode->next);
         if(currStudentNode != NULL){
             currStudent = reinterpret_cast<Student*>(currStudentNode->data);
@@ -363,7 +365,7 @@ void RegistrationSystem::showCourse(const int courseId) const{
     }
     if(courseFound){
         cout << "Course id Course Name" << endl;
-        cout << courseId << course->getCourseName() << endl;
+        cout << courseId << " " << course->getCourseName() << endl;
         cout << "Student id First name Last name" << endl;
 
         currNode = reinterpret_cast<DNode<Student>*>(this->students->head);
