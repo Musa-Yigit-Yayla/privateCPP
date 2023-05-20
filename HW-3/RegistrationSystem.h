@@ -259,6 +259,7 @@ void RegistrationSystem::cancelCourse(const int courseId){
         //if(currStudent->courseExists(courseId)){
             //we must remove the course and also delete the retrieved node
             bool isWithdrawn = currStudent->withdrawCourse(courseId);
+            int currStudentId = currStudent->getId();
             if(isWithdrawn){
                 isCancelled = true;
             }

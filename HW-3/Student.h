@@ -176,7 +176,8 @@ bool Student::withdrawCourse(const int courseId){
     Course* prevCourse = nullptr;
     int counter = 0;
 
-    while(currNode != NULL && counter < this->coursesLength){
+    int initialCoursesLength = this->coursesLength;
+    while(currNode != NULL && counter < initialCoursesLength){
         int currId = currCourse->getCourseId();
         if(courseId == currId){
             //we have to remove the currCourse by adjusting the pointers then deleting the currCourse afterwards
