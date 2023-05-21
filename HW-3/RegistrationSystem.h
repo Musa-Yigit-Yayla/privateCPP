@@ -57,12 +57,12 @@ RegistrationSystem::RegistrationSystem(){
     this->students = new DLL<Student>();
 }
 RegistrationSystem::~RegistrationSystem(){
-    DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students);
+    /*DNode<Student>* currNode = reinterpret_cast<DNode<Student>*>(this->students);
     while(currNode != NULL){
         DNode<Student>* nextNode = reinterpret_cast<DNode<Student>*>(currNode->next);
         delete currNode;
         currNode = nextNode;
-    }
+    }*/
     delete this->students;
 }
 //If student id is non positive integer or it already exists we should display a warning msg and not add the student
@@ -175,8 +175,8 @@ void RegistrationSystem::deleteStudent(const int studentId){
             }
             else{
                 DNode<Student>* nextNode = reinterpret_cast<DNode<Student>*>(currNode->next);
-                Student* nextStudent = reinterpret_cast<Student*>(nextNode->data);
-                if(nextStudent == NULL){
+                //Student* nextStudent = reinterpret_cast<Student*>(nextNode->data);
+                if(nextNode == NULL){
                     //deletion of the last student
                     prevNode->next = nullptr;
                     delete currNode;

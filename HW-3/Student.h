@@ -60,6 +60,7 @@ Student::Student(const int studentId, const string firstName, const string lastN
     this->lastName = lastName;
     this->rs = &rs;
 }
+//ATTENTION, MIGHT BE MEMORY LEAK RELATED ISSUES HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Student::~Student(){
     //delete the courses which do not exist in other students
     /*DNode<Student>* students = this->rs.getStudents();
@@ -91,8 +92,8 @@ Student::~Student(){
             currCourse = reinterpret_cast<Course*>(currNode->data);
         }
     }*/
-    SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
-    Course* currCourse = reinterpret_cast<Course*>(currNode->data);
+    /*SNode<Course>* currNode = reinterpret_cast<SNode<Course>*>(this->courses->head);
+    //Course* currCourse = reinterpret_cast<Course*>(currNode->data);
 
     while(currNode != NULL){
         SNode<Course>* nextNode = reinterpret_cast<SNode<Course>*>(currNode->next);
@@ -101,7 +102,8 @@ Student::~Student(){
         delete currNode;
         currNode = nextNode;
         //currCourse = nextCourse;
-    }
+    }*/
+    delete this->courses;
 }
 //This method has a precondition that the student object is not already enrolled in the given student
 //Instantiates a new course when adding to the student
