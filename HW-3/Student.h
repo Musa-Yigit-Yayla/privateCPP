@@ -206,7 +206,7 @@ bool Student::withdrawCourse(const int courseId){
                     prevNode->next = nextNode;
                     delete currNode;
                 }
-                else{
+                else if(currNode != NULL && this->coursesLength != 0){ //useless if statement condition, solely else was adequate but added for debugging purposes.
                     delete currNode;
                 }
             }
@@ -248,6 +248,7 @@ Course* Student::getCourse(const int courseId) const{
         if(currCourse->getCourseId() == courseId){
             break;
         }
+        currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
     }
     return currCourse;
 }
