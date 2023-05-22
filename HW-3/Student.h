@@ -1,3 +1,8 @@
+/*
+*Musa Yiğit Yayla
+*CS201-1
+*22003108
+*/
 #ifndef STUDENT_H
 #define STUDENT_H
 #pragma once
@@ -292,5 +297,7 @@ string Student::to_string() const{
         counter++;
         currNode = reinterpret_cast<SNode<Course>*>(currNode->next);
     }
+    if(result != "")
+        result = result.substr(0, result.size() - 1);
     return result;
 }

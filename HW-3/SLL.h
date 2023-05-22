@@ -1,3 +1,8 @@
+/*
+*Musa Yiğit Yayla
+*CS201-1
+*22003108
+*/
 #ifndef SLL_H
 #define SLL_H
 #pragma once

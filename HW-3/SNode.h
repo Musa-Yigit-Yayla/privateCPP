@@ -1,3 +1,8 @@
+/*
+*Musa Yiğit Yayla
+*CS201-1
+*22003108
+*/
 #ifndef SNODE_H
 #define SNODE_H
 #pragma once

@@ -1,3 +1,9 @@
+/*
+*Musa Yiğit Yayla
+*CS201-1
+*22003108
+*/
+
 #ifndef REGISTRATIONSYSTEM_H
 #define REGISTRATIONSYSTEM_H
 #pragma once
@@ -370,7 +376,7 @@ void RegistrationSystem::showCourse(const int courseId) const{
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
     }
     if(courseFound){
-        cout << "Course id Course Name" << endl;
+        cout << "Course id Course name" << endl;
         cout << courseId << " " << course->getCourseName() << endl;
         cout << "Student id First name Last name" << endl;
 
@@ -406,7 +412,7 @@ void RegistrationSystem::showStudent(const int studentId) const{
     if(givenStudent != NULL){
         cout << "Student id First name Last name" << endl;
         //we have found the specified student
-        cout << givenStudent->to_string();
+        cout << givenStudent->to_string() << endl;
     }
     else{
         cout << "Student " << studentId << " does not exist" << endl;

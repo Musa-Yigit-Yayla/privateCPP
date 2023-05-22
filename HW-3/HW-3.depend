@@ -2,30 +2,30 @@
 1584205420 source:c:\users\yigit\documents\cs201\dsa-arrays\hw-3\main.cpp
 	<iostream>
 
-1684702328 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.cpp
+1684771808 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.cpp
 	<string>
 
-1684702328 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.h
+1684771808 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\course.h
 	<string>
 	<string>
 
-1684702328 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.cpp
+1684771808 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.cpp
 	<cstddef>
 
-1684702328 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.h
+1684771808 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dnode.h
 	<cstddef>
 
 1684769634 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\main.cpp
 	"RegistrationSystem.h"
 
-1684702328 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.cpp
+1684771808 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.cpp
 	"Course.h"
 	<typeinfo>
 	"SNode.h"
 	<cstddef>
 	<iostream>
 
-1684762806 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.h
+1684771808 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\sll.h
 	"SNode.h"
 	"Course.h"
 	<typeinfo>
@@ -33,27 +33,27 @@
 	<cstddef>
 	<iostream>
 
-1684702328 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.h
+1684771808 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.h
 	<cstddef>
 
-1684702328 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.cpp
+1684771808 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\snode.cpp
 	<cstddef>
 
-1684702328 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.cpp
+1684771808 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.cpp
 	"DNode.H"
 	<iostream>
 	<cstddef>
 	"Student.h"
 	<typeinfo>
 
-1684759981 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.h
+1684771808 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\dll.h
 	"DNode.h"
 	<iostream>
 	<cstddef>
 	"Student.h"
 	<typeinfo>
 
-1684770586 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\student.h
+1684771808 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\student.h
 	<string>
 	"DLL.h"
 	"SLL.h"
@@ -63,7 +63,7 @@
 	"SNode.h"
 	<string>
 
-1684769404 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\registrationsystem.h
+1684771743 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\registrationsystem.h
 	"DLL.h"
 	"DNode.h"
 	<string>
@@ -80,7 +80,7 @@
 	<cstddef>
 	<functional>
 
-1684702328 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\registrationsystem.cpp
+1684771808 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\registrationsystem.cpp
 	"SLL.h"
 	"SNode.h"
 	"DLL.h"
@@ -92,7 +92,7 @@
 	<cstddef>
 	<functional>
 
-1684702328 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\student.cpp
+1684771808 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\hw-3\student.cpp
 	"RegistrationSystem.h"
 	"SNode.h"
 	<string>
