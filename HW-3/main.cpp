@@ -321,7 +321,7 @@ void myTest(){
     rs.deleteStudent(4000);
 }
 int main () {
-test0();
+test3();
 return 0;
 }
 

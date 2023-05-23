@@ -231,6 +231,7 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
         //check whether the course exists with another name in another student with another name
         if(this->courseExistsWithOtherName(courseId, courseName)){
             cout << "Course " << courseId << " already exists with another name" << endl;
+            return;
         }
         //both the student and the course exists proceed accordingly
         bool isAdded = givenStudent->addCourse(courseId, courseName); // we expect this method to return true but we will double check anyways
