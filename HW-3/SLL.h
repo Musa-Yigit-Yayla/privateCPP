@@ -21,6 +21,7 @@ public:
 
 
     SNode<ItemType>* head = nullptr;
+    int listLength = -1; //-1 specifies that we haven't set the list length, setting this data field will be useful on deletion of the list
 };
 #endif // SLL_H
 
@@ -46,11 +47,30 @@ SLL<ItemType>::SLL(SNode<ItemType>* head){
 //Must be invoked automatically when the code is finished
 template<class ItemType>
 SLL<ItemType>::~SLL(){
+    //initially find length of the list
+    /*SNode<ItemType>* currNode = this->head;
+    int length = 0;
+    while(currNode != NULL){
+        currNode = currNode->next;
+        length++;
+    }*/
+    bool isListLengthSet = (this->listLength != -1);
     SNode<ItemType>* curr = this->head;
-    while(curr != NULL){
-        SNode<ItemType>* nextNode = curr->next;
-        delete curr;
-        curr = nextNode;
+    if(!isListLengthSet){
+        while(curr != NULL){ // MIGHT BE PROBLEMATIC IN SOME CASES
+            SNode<ItemType>* nextNode = curr->next;
+            delete curr;
+            curr = nextNode;
+        }
+    }
+    else{
+        int currLength = 0;
+        while(currLength < this->listLength){
+            SNode<ItemType>* nextNode = curr->next;
+            delete curr;
+            curr = nextNode;
+            currLength++;
+        }
     }
 }
 //Maintains the current order of the sorted list, by inserting the given node at the correct position

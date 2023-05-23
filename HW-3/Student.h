@@ -108,6 +108,9 @@ Student::~Student(){
         currNode = nextNode;
         //currCourse = nextCourse;
     }*/
+
+    int currCoursesLength = this->coursesLength; // for debugging purposes
+    this->courses->listLength = coursesLength;
     delete this->courses;
 }
 //This method has a precondition that the student object is not already enrolled in the given student
