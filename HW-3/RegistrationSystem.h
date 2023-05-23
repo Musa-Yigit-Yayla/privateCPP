@@ -33,6 +33,7 @@ public :
     inline int getStudentCount() const;
     bool studentExists(const int studentId) const;
     bool courseExists(const int studentId, const int courseId) const;
+    bool courseExistsWithOtherName(const int courseId, const string& courseName) const;
     Student* getStudent(const int studentId) const;
     DLL<Student>* getStudents() const; // returns the head pointer of the DLL of students
     void showStudent ( const int studentId ) const;
@@ -227,6 +228,10 @@ void RegistrationSystem::addCourse(const int studentId, const int courseId, cons
         cout << "Student " << studentId << " does not exist" << endl;
     }
     else{
+        //check whether the course exists with another name in another student with another name
+        if(this->courseExistsWithOtherName(courseId, courseName)){
+            cout << "Course " << courseId << " already exists with another name" << endl;
+        }
         //both the student and the course exists proceed accordingly
         bool isAdded = givenStudent->addCourse(courseId, courseName); // we expect this method to return true but we will double check anyways
         if(isAdded){
@@ -324,6 +329,21 @@ bool RegistrationSystem::courseExists(const int studentId, const int courseId) c
         currNode = reinterpret_cast<DNode<Student>*>(currNode->next);
         if(currNode != NULL)
             currStudent = reinterpret_cast<Student*>(currNode->data);
+    }
+    return false;
+}
+bool RegistrationSystem::courseExistsWithOtherName(const int courseId, const string& courseName) const{
+    DNode<Student>* currStudentNode = reinterpret_cast<DNode<Student>*>(this->students->head);
+    Student* currStudent = nullptr;
+    while(currStudentNode != NULL){
+        currStudent = reinterpret_cast<Student*>(currStudentNode->data);
+        if(currStudent->courseExists(courseId)){
+            Course* currCourse = currStudent->getCourse(courseId);
+            if(currCourse->getCourseName() != courseName){
+                return true;
+            }
+        }
+        currStudentNode = reinterpret_cast<DNode<Student>*>(currStudentNode->next);
     }
     return false;
 }
