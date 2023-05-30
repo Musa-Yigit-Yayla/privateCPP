@@ -15,12 +15,15 @@ double operate(char op, double n1, double n2){
         case '+': result = n1 + n2; break;
         case '-': result = n1 - n2; break;
         case '*': result = n1 * n2; break;
-        case '/': result = n1 / n2; break;
+        case '/': result = n1 / (n2 * 1.0); break;
     }
     return result;
 }
 int getPrecedence(char ch){
-    if(ch == '*' || ch == '/'){
+    if(ch == '(' || ch == ')'){
+        return 3;
+    }
+    else if(ch == '*' || ch == '/'){
         return 2;
     }
     else if(ch == '+' || ch == '-'){
