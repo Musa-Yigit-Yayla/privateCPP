@@ -9,7 +9,7 @@ bool isOperand(char ch){
     return (ch == '0' || ch == '1' || ch == '2' || ch == '3' || ch == '4' || ch == '5' || ch == '6' || ch == '7' || ch == '8' || ch == '9');
 }
 //The given operands are assumed to exclude 0
-int operate(char op, int n1, int n2){
+double operate(char op, double n1, double n2){
     int result;
     switch(op){
         case '+': result = n1 + n2; break;
@@ -75,7 +75,7 @@ double evaluatePostfix ( const string exp ){
         }
         if(isOperand(ch)){
             //push the operand
-            string currCh = "" + ch;
+            string currCh(1, ch);
             newStack.push(currCh);
         }
         else{
