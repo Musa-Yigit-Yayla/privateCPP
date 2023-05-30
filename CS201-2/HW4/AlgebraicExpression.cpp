@@ -10,7 +10,7 @@ bool isOperand(char ch){
 }
 //The given operands are assumed to exclude 0
 double operate(char op, double n1, double n2){
-    int result;
+    double result;
     switch(op){
         case '+': result = n1 + n2; break;
         case '-': result = n1 - n2; break;
@@ -85,6 +85,9 @@ double evaluatePostfix ( const string exp ){
             newStack.pop();
             double operand2 = stoi(s1);
             double operand1 = stoi(s2);
+            double temp = operand2;
+            operand2 = operand1;
+            operand1 = temp;
             double value = operate(ch, operand1, operand2);
             newStack.push(to_string(value));
         }
