@@ -1,5 +1,11 @@
+/**
+*Musa Yiğit Yayla
+*22003108
+*/
+
 #include "AlgebraicExpression.h"
 #include <iostream>
+#include <climits>
 
 using namespace std;
 
