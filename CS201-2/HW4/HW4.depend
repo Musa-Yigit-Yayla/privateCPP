@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1685482101 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw4\main.cpp
+1685649764 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw4\main.cpp
 	<iostream>
 	"AlgebraicExpression.h"
 
-1685482041 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw4\algebraicexpression.cpp
+1685649470 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw4\algebraicexpression.cpp
 	"AlgebraicExpression.h"
+	<iostream>
 
 1685454344 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs201-2\hw4\algebraicexpression.h
 	<stack>

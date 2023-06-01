@@ -1,4 +1,5 @@
 #include "AlgebraicExpression.h"
+#include <iostream>
 
 using namespace std;
 
@@ -86,8 +87,8 @@ double evaluatePostfix ( const string exp ){
             newStack.pop();
             string s1 = (string)(newStack.top());
             newStack.pop();
-            double operand2 = stoi(s1);
-            double operand1 = stoi(s2);
+            double operand2 = stod(s1);
+            double operand1 = stod(s2);
             double temp = operand2;
             operand2 = operand1;
             operand1 = temp;
