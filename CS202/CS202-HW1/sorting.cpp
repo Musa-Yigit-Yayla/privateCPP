@@ -1,5 +1,17 @@
-#include "sorting.h"
+/*
+* Title: Sorting and Algorithm Efficiency
+* Author: Name Surname
+* ID: 21000000
+* Section: 1
+* Assignment: 1
+* Description: description of your code
+*/
 
+#include "sorting.h"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
 int maxArraySize; //will be used when merging
 void bubbleSort(int *arr, const int size, int &compCount, int &moveCount){
     bool sorted = false; //false when swaps occur
@@ -90,4 +102,52 @@ void merge(int* arr, int first, int mid, int last, int& compCount, int& moveCoun
     }
     //delete tempArray for avoiding memory leak
     delete[] tempArray;
+}
+void displayArray(const int *arr, const int size){
+    for(int i = 0; i < size; i++){
+        cout << arr[i] << endl;
+    }
+}
+//Creates 3 completely identical arrays
+void createRandomArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
+    arr1 = new int[size];
+    arr2 = new int[size];
+    arr3 = new int[size];
+
+    for(int i = 0; i < size; i++){
+        int currValue = rand() % INT_MAX;//curr value that has been generated, (curr generation)
+        int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
+        if(sign == 0){
+            currValue *= -1;
+        }
+        arr1[i] = currValue;
+        arr2[i] = currValue;
+        arr3[i] = currValue;
+    }
+}
+void createAscendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
+    arr1 = new int[size];
+    arr2 = new int[size];
+    arr3 = new int[size];
+
+
+    int prev = INT_MIN;
+    for(int i = 0; i < size; i++){
+        int currValue;
+        do{
+            currValue = rand() % INT_MAX;//curr value that has been generated, (curr generation)
+            int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
+            if(sign == 0){
+                currValue *= -1;
+            }
+        }while(currValue <= prev);
+        arr1[i] = currValue;
+        arr2[i] = currValue;
+        arr3[i] = currValue;
+        prev = currValue;
+    }
+
+}
+void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
+
 }
