@@ -193,7 +193,6 @@ void createAscendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
         arr3[i] = currValue;
         prev = currValue;
     }
-
 }
 void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
     arr1 = new int[size];
@@ -217,5 +216,4 @@ void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
         arr3[i] = currValue;
         prev = currValue;
     }
-
 }
