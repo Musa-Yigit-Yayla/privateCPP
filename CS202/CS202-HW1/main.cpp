@@ -42,7 +42,7 @@ int main()
     displayArray(arr1, size);
 
     mergeSort(arr2, 0, size - 1, compCount2, moveCount2);
-    cout << "MeRge Sort" << endl;
+    cout << "Merge Sort" << endl;
     cout << "Comparisons Movements" << endl;
 
     cout << compCount2 << " " << moveCount2 << endl;

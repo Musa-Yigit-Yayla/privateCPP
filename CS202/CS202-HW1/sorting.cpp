@@ -59,6 +59,12 @@ void merge(int* arr, int first, int mid, int last, int& compCount, int& moveCoun
     }
 
     //Add the remaining part of exhausted array if any exists
+    while(first1 <= last1){
+        tempArray[index] = arr[first1];
+        first1++;
+        index++;
+        moveCount++;
+    }
     while(first2 <= last2){
         tempArray[index] = arr[first2];
         first2++;
@@ -77,26 +83,28 @@ void mergeSort(int* arr, const int first, const int last, int &compCount, int &m
     static int initialFirst; //we will use these variables to determine whether invokeCount must be reset to 0 for later usage of the function
     static int initialLast;
     //we will use this function to set max array size when necessary
-    if(invokeCount == 0){
-        ::maxArraySize = last - first;
-        initialFirst = first;
-        initialLast = last;
-    }
-    invokeCount++;
-    int mid = first + (last - first) / 2; //sort each half
-    /*int length1 = mid - first; //lengths of each subarray when original array is split in two almost equal pieces
-    int length2 = last - (mid + 1);
+    if(first < last){
+        if(invokeCount == 0){
+            ::maxArraySize = last - first;
+            initialFirst = first;
+            initialLast = last;
+        }
+        invokeCount++;
+        int mid = (first + last) / 2; //sort each half
+        /*int length1 = mid - first; //lengths of each subarray when original array is split in two almost equal pieces
+        int length2 = last - (mid + 1);
 
-    maxArraySize = length1;*/
-    mergeSort(arr, first, mid, compCount, moveCount);
+        maxArraySize = length1;*/
+        mergeSort(arr, first, mid, compCount, moveCount);
 
-    //maxArraySize = length2;
-    mergeSort(arr, mid + 1, last, compCount, moveCount);
+        //maxArraySize = length2;
+        mergeSort(arr, mid + 1, last, compCount, moveCount);
 
-    merge(arr, first, mid, last, compCount, moveCount);
-    if(first == initialFirst && last == initialLast){
-        invokeCount = 0;
-        //initialFirst and initialLast variables will be set to desired values after the next time function has been invoked
+        merge(arr, first, mid, last, compCount, moveCount);
+        if(first == initialFirst && last == initialLast){
+            invokeCount = 0;
+            //initialFirst and initialLast variables will be set to desired values after the next time function has been invoked
+        }
     }
 
 }
@@ -143,6 +151,7 @@ void displayArray(const int *arr, const int size){
     for(int i = 0; i < size; i++){
         cout << arr[i] << " ";
     }
+    cout << endl;
 }
 //Creates 3 completely identical arrays
 void createRandomArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
