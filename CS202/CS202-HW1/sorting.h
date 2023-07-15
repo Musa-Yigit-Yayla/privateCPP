@@ -9,10 +9,10 @@
 #ifndef SORTING_H
 #define SORTING_H
     void bubbleSort(int *arr, const int size, int &compCount, int &moveCount);
-    void mergeSort(int *arr, const int size, int &compCount, int &moveCount);
-    void merge(int* arr, int first, int mid, int last, int& compCount, int& moveCount);
-    void quickSort(int *arr, const int size, int &compCount, int &moveCount);
-    void partition(int* arr, int first, int last, int& compCount, int& moveCount, int& pivotIndex)
+    void mergeSort(int* arr, const int first, const int last, int &compCount, int &moveCount);
+    void merge(int* arr, int first, int mid, int last, int const& compCount, int const& moveCount);
+    void quickSort(int *arr, const int first, const int last, int &compCount, int &moveCount);
+    void partition(int* arr, int first, int last, int& compCount, int const& moveCount, int const& pivotIndex);
     void displayArray(const int *arr, const int size);
     void createRandomArrays(int *&arr1, int *&arr2, int *&arr3, const int size);
     void createAscendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size);

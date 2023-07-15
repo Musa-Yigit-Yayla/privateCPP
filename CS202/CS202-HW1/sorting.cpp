@@ -1,10 +1,10 @@
 /*
 * Title: Sorting and Algorithm Efficiency
-* Author: Name Surname
-* ID: 21000000
+* Author: Musa Yiğit Yayla
+* ID: 22003108
 * Section: 1
 * Assignment: 1
-* Description: description of your code
+* Description: This file has implementations of some sorting algorithms and some other utility functions regarding generating arrays etc.
 */
 
 #include "sorting.h"
@@ -141,7 +141,7 @@ void quickSort(int *arr, const int first, const int last, int &compCount, int &m
 }
 void displayArray(const int *arr, const int size){
     for(int i = 0; i < size; i++){
-        cout << arr[i] << endl;
+        cout << arr[i] << " ";
     }
 }
 //Creates 3 completely identical arrays
