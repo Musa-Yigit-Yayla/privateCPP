@@ -113,13 +113,14 @@ void partition(int* arr, int first, int last, int& compCount, int& moveCount, in
    int lastS1 = first;           // index of last item in S1
    int firstUnknown = first + 1; // index of first item in unknown
 
+    int pivot = arr[first];
 	// move one item at a time until unknown region is empty
    for (  ; firstUnknown <= last; ++firstUnknown) {
       // Invariant: theArray[first+1..lastS1] < pivot
       //            theArray[lastS1+1..firstUnknown-1] >= pivot
 
       // move item from unknown to proper region
-      if (arr[firstUnknown] < pivotIndex) {  	// belongs to S1
+      if (arr[firstUnknown] < pivot) {  	// belongs to S1
 		  ++lastS1;
 
     	  int temp = arr[firstUnknown];
