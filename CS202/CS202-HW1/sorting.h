@@ -17,4 +17,5 @@
     void createRandomArrays(int *&arr1, int *&arr2, int *&arr3, const int size);
     void createAscendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size);
     void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size);
+    void performanceAnalysis();
 #endif // SORTING_H

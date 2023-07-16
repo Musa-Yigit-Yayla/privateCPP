@@ -10,6 +10,9 @@
 #include "sorting.h"
 #include <iostream>
 #include <cmath>
+#include <climits>
+#include <chrono>
+#include <cstddef>
 
 using namespace std;
 int maxArraySize; //will be used when merging
@@ -216,4 +219,114 @@ void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
         arr3[i] = currValue;
         prev = currValue;
     }
+}
+/*
+*algorithmVariation: int, specifies whether algorithm should be bubble, merge or quick sorting. 0, 1, 2 must be passed respectively for desired attributes.
+*/
+void printAlgorithm(int* arr, int size, int algorithmVariation){
+    int compCount = 0;
+    int moveCount = 0;
+    auto startTime = std::chrono::steady_clock::now();
+
+
+
+
+    auto endTime = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+    if(algorithmVariation == 0){
+        //bubble sort
+        bubbleSort(arr, size, compCount, moveCount);
+    }
+    else if(algorithmVariation == 1){
+        //merge sort
+        mergeSort(arr, 0, size - 1, compCount, moveCount);
+    }
+    else if(algorithmVariation == 2){
+        //quick sort
+        quickSort(arr, 0, size - 1, compCount, moveCount);
+    }
+    //cout << duration.count() << endl;
+    cout << size << " ";
+    std::cout << std::chrono::high_resolution_clock::duration::period::den << " ms ";
+    cout << compCount << " ";
+    cout << moveCount << endl;
+}
+//Systematically calls various functions to generate different array variations and invoke various sorting algorithms to measure time efficiency.
+void performanceAnalysis(){
+    //initially we will call all 3 algorithms on random arrays with different sizes
+    const int sizeCoefficient = 4000;
+    const int sizeVariation = 10;
+
+    int sc = sizeCoefficient;
+    int sv = sizeVariation;
+
+    int** arr1Pointers = new int*[sizeVariation]; //for bubble sort
+    int** arr2Pointers = new int*[sizeVariation]; //for merge sort
+    int** arr3Pointers = new int*[sizeVariation]; //for quick sort
+
+    //instantiate random arrays sequentially
+    for(int i = 1; i <= sv; i++){
+        int currSize = sc * i;
+
+        int* arr1 = nullptr;
+        int* arr2 = nullptr;
+        int* arr3 = nullptr;
+        createRandomArrays(arr1, arr2, arr3, currSize);
+
+        arr1Pointers[i - 1] = arr1;
+        arr2Pointers[i - 1] = arr2;
+        arr3Pointers[i - 1] = arr3;
+    }
+    //execute bubble sort for each arrays in arr1Pointers
+    cout << "Random Order Arrays" << endl;
+    cout << "-----------------------------------------------------" << endl;
+    cout << "Analysis of Bubble Sort" << endl;
+    cout << "Array SizeElapsed timecompCount moveCount" << endl;
+
+    for(int i = 0; i < sv; i++){
+        int compCount = 0;
+        int moveCount = 0;
+        printAlgorithm(arr1Pointers[i], (i + 1) * sc, 0);
+    }
+    //deallocate arrays in arr1Pointers then arr1Pointers
+    for(int i = 0; i < sv; i++){
+        delete[] arr1Pointers[i];
+    }
+    delete[] arr1Pointers;
+
+    cout << "-----------------------------------------------------" << endl;
+    cout << "Analysis of Merge Sort" << endl;
+    cout << "Array SizeElapsed timecompCount moveCount" << endl;
+
+    for(int i = 0; i < sv; i++){
+        int compCount = 0;
+        int moveCount = 0;
+        printAlgorithm(arr2Pointers[i], (i + 1) * sc, 1);
+    }
+    //deallocate arrays in arr1Pointers then arr1Pointers
+    for(int i = 0; i < sv; i++){
+        delete[] arr2Pointers[i];
+    }
+    delete[] arr2Pointers;
+
+    cout << "-----------------------------------------------------" << endl;
+    cout << "Analysis of Quick Sort" << endl;
+    cout << "Array SizeElapsed timecompCount moveCount" << endl;
+
+    for(int i = 0; i < sv; i++){
+        int compCount = 0;
+        int moveCount = 0;
+        printAlgorithm(arr3Pointers[i], (i + 1) * sc, 2);
+    }
+    //deallocate arrays in arr1Pointers then arr1Pointers
+    for(int i = 0; i < sv; i++){
+        delete[] arr3Pointers[i];
+    }
+    delete[] arr3Pointers;
+
+    arr1Pointers = nullptr;
+    arr2Pointers = nullptr;
+    arr3Pointers = nullptr; //for increasing readibility
+
+
 }
