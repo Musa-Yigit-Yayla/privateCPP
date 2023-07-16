@@ -54,5 +54,8 @@ int main()
 
     cout << compCount3 << " " << moveCount3 << endl;
     displayArray(arr3, size);
+
+    cout << "Invoke Performance Analysis" << endl;
+    performanceAnalysis();
     return 0;
 }

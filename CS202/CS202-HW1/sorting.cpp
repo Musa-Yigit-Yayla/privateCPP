@@ -222,6 +222,7 @@ void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
 }
 /*
 *algorithmVariation: int, specifies whether algorithm should be bubble, merge or quick sorting. 0, 1, 2 must be passed respectively for desired attributes.
+* Implicit helper of performanceAnalysis
 */
 void printAlgorithm(int* arr, int size, int algorithmVariation){
     int compCount = 0;
@@ -251,34 +252,17 @@ void printAlgorithm(int* arr, int size, int algorithmVariation){
     cout << compCount << " ";
     cout << moveCount << endl;
 }
-//Systematically calls various functions to generate different array variations and invoke various sorting algorithms to measure time efficiency.
-void performanceAnalysis(){
-    //initially we will call all 3 algorithms on random arrays with different sizes
+//Invoke when we are executing each and every sorting algorithms
+//helper of performanceAnalysis
+void executeSortingAlgorithms(int**& arr1Pointers, int**& arr2Pointers, int**& arr3Pointers){
     const int sizeCoefficient = 4000;
     const int sizeVariation = 10;
 
     int sc = sizeCoefficient;
     int sv = sizeVariation;
 
-    int** arr1Pointers = new int*[sizeVariation]; //for bubble sort
-    int** arr2Pointers = new int*[sizeVariation]; //for merge sort
-    int** arr3Pointers = new int*[sizeVariation]; //for quick sort
 
-    //instantiate random arrays sequentially
-    for(int i = 1; i <= sv; i++){
-        int currSize = sc * i;
-
-        int* arr1 = nullptr;
-        int* arr2 = nullptr;
-        int* arr3 = nullptr;
-        createRandomArrays(arr1, arr2, arr3, currSize);
-
-        arr1Pointers[i - 1] = arr1;
-        arr2Pointers[i - 1] = arr2;
-        arr3Pointers[i - 1] = arr3;
-    }
     //execute bubble sort for each arrays in arr1Pointers
-    cout << "Random Order Arrays" << endl;
     cout << "-----------------------------------------------------" << endl;
     cout << "Analysis of Bubble Sort" << endl;
     cout << "Array SizeElapsed timecompCount moveCount" << endl;
@@ -327,6 +311,74 @@ void performanceAnalysis(){
     arr1Pointers = nullptr;
     arr2Pointers = nullptr;
     arr3Pointers = nullptr; //for increasing readibility
+}
+//Systematically calls various functions to generate different array variations and invoke various sorting algorithms to measure time efficiency.
+void performanceAnalysis(){
+    //initially we will call all 3 algorithms on random arrays with different sizes
+    const int sizeCoefficient = 4000;
+    const int sizeVariation = 10;
 
+    int sc = sizeCoefficient;
+    int sv = sizeVariation;
 
+    int** arr1Pointers = new int*[sizeVariation]; //for bubble sort
+    int** arr2Pointers = new int*[sizeVariation]; //for merge sort
+    int** arr3Pointers = new int*[sizeVariation]; //for quick sort
+
+    //instantiate random arrays sequentially
+    for(int i = 1; i <= sv; i++){
+        int currSize = sc * i;
+
+        int* arr1 = nullptr;
+        int* arr2 = nullptr;
+        int* arr3 = nullptr;
+        createRandomArrays(arr1, arr2, arr3, currSize);
+
+        arr1Pointers[i - 1] = arr1;
+        arr2Pointers[i - 1] = arr2;
+        arr3Pointers[i - 1] = arr3;
+    }
+
+    cout << "Random Order Arrays" << endl;
+    executeSortingAlgorithms(arr1Pointers, arr2Pointers, arr3Pointers);
+
+    //these arrays have been deallocated in the helper method
+    arr1Pointers = new int*[sizeVariation]; //for bubble sort
+    arr2Pointers = new int*[sizeVariation]; //for merge sort
+    arr3Pointers = new int*[sizeVariation]; //for quick sort
+
+    //instantiate ascending arrays sequentially
+    for(int i = 1; i <= sv; i++){
+        int currSize = sc * i;
+
+        int* arr1 = nullptr;
+        int* arr2 = nullptr;
+        int* arr3 = nullptr;
+        createAscendingArrays(arr1, arr2, arr3, currSize);
+
+        arr1Pointers[i - 1] = arr1;
+        arr2Pointers[i - 1] = arr2;
+        arr3Pointers[i - 1] = arr3;
+    }
+    cout << "Descending Order Arrays" << endl;
+    executeSortingAlgorithms(arr1Pointers, arr2Pointers, arr3Pointers);
+
+    //these arrays have been deallocated in the helper method
+    arr1Pointers = new int*[sizeVariation]; //for bubble sort
+    arr2Pointers = new int*[sizeVariation]; //for merge sort
+    arr3Pointers = new int*[sizeVariation]; //for quick sort
+
+    //instantiate ascending arrays sequentially
+    for(int i = 1; i <= sv; i++){
+        int currSize = sc * i;
+
+        int* arr1 = nullptr;
+        int* arr2 = nullptr;
+        int* arr3 = nullptr;
+        createDescendingArrays(arr1, arr2, arr3, currSize);
+
+        arr1Pointers[i - 1] = arr1;
+        arr2Pointers[i - 1] = arr2;
+        arr3Pointers[i - 1] = arr3;
+    }
 }
