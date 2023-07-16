@@ -22,6 +22,28 @@ void bubbleSort(int *arr, const int size, int &compCount, int &moveCount){
     int n = size;
     while(!sorted && (pass < n)){
         sorted = true;
+        for(int index = 0; index < n - pass; index++){
+
+            int nextIndex = index + 1;
+            if(arr[index] > arr[nextIndex]){
+                int temp = arr[index];
+                arr[index] = arr[nextIndex];
+                arr[nextIndex] = temp;
+                sorted = false; //signal exchange
+                moveCount += 3; // 3 operations for swapping
+            }
+            compCount++;
+        }
+        pass++;
+    }
+}
+//It is the exact overloaded version and same implementation of bubble sort but suitable for larger array sizes
+void bubbleSort(int *arr, const int size, long long &compCount, long long &moveCount){
+    bool sorted = false; //false when swaps occur
+    int pass = 1; //start pass from 1 since at most n - 1 passes may occur
+    int n = size;
+    while(!sorted && (pass < n)){
+        sorted = true;
         for(int index = 0; index < n; index++){
 
             int nextIndex = index + 1;
@@ -227,16 +249,13 @@ void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
 void printAlgorithm(int* arr, int size, int algorithmVariation){
     int compCount = 0;
     int moveCount = 0;
+    long long comparisonCount = 0;
+    long long movementCount = 0;
     auto startTime = std::chrono::steady_clock::now();
 
-
-
-
-    auto endTime = std::chrono::steady_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     if(algorithmVariation == 0){
         //bubble sort
-        bubbleSort(arr, size, compCount, moveCount);
+        bubbleSort(arr, size, comparisonCount, movementCount);
     }
     else if(algorithmVariation == 1){
         //merge sort
@@ -246,11 +265,21 @@ void printAlgorithm(int* arr, int size, int algorithmVariation){
         //quick sort
         quickSort(arr, 0, size - 1, compCount, moveCount);
     }
+    auto endTime = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     //cout << duration.count() << endl;
     cout << size << " ";
-    std::cout << std::chrono::high_resolution_clock::duration::period::den << " ms ";
-    cout << compCount << " ";
-    cout << moveCount << endl;
+    //std::cout << std::chrono::high_resolution_clock::duration::period::den << " ms ";
+    cout << duration.count() << " ms ";
+    if(algorithmVariation == 0){
+        //use long values for comp and move counts
+        cout << comparisonCount << " ";
+        cout << movementCount << endl;
+    }
+    else{
+        cout << compCount << " ";
+        cout << moveCount << endl;
+    }
 }
 //Invoke when we are executing each and every sorting algorithms
 //helper of performanceAnalysis
@@ -368,7 +397,7 @@ void performanceAnalysis(){
     arr2Pointers = new int*[sizeVariation]; //for merge sort
     arr3Pointers = new int*[sizeVariation]; //for quick sort
 
-    //instantiate ascending arrays sequentially
+    //instantiate descending arrays sequentially
     for(int i = 1; i <= sv; i++){
         int currSize = sc * i;
 

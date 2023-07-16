@@ -12,9 +12,20 @@
 #include "sorting.h"
 
 using namespace std;
+
+//for debugging purposes
+void debug(){
+    //test the case for sorted arrays
+    int arr[] = { 1, 2, 3, 4, 5, 6};
+    int size = 6;
+    int mc = 0, cv = 0;
+    bubbleSort(arr, size, mc, cv);
+    displayArray(arr, 6);
+
+}
 int main()
 {
-    int arr1[] = {10, 5, 9, 16, 17, 7, 4, 12, 19, 1, 15, 18, 3, 11, 13, 6};
+    /*int arr1[] = {10, 5, 9, 16, 17, 7, 4, 12, 19, 1, 15, 18, 3, 11, 13, 6};
     int arr2[] = {10, 5, 9, 16, 17, 7, 4, 12, 19, 1, 15, 18, 3, 11, 13, 6};
     int arr3[] = {10, 5, 9, 16, 17, 7, 4, 12, 19, 1, 15, 18, 3, 11, 13, 6};
 
@@ -32,7 +43,7 @@ int main()
     int& refc3 = compCount3;
     int& refmc3 = moveCount3;*/
 
-    const int size = 16;
+    /*const int size = 16;
     int mid = (size - 1) / 2;
     bubbleSort(arr1, size, compCount1, moveCount1);
     cout << "Bubble Sort" << endl;
@@ -56,6 +67,7 @@ int main()
     displayArray(arr3, size);
 
     cout << "Invoke Performance Analysis" << endl;
-    performanceAnalysis();
+    performanceAnalysis();*/
+    debug();
     return 0;
 }

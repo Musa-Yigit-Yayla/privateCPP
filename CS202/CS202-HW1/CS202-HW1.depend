@@ -1,13 +1,16 @@
 # depslib dependency file v1.0
-1689429756 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw1\main.cpp
+1689539353 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw1\main.cpp
 	<iostream>
 	<string>
 	"sorting.h"
 
-1689429953 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw1\sorting.cpp
+1689539300 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw1\sorting.cpp
 	"sorting.h"
 	<iostream>
 	<cmath>
+	<climits>
+	<chrono>
+	<cstddef>
 
-1689513853 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw1\sorting.h
+1689538541 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw1\sorting.h
 
