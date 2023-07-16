@@ -38,7 +38,7 @@ void bubbleSort(int *arr, const int size, int &compCount, int &moveCount){
     }
 }
 //It is the exact overloaded version and same implementation of bubble sort but suitable for larger array sizes
-void bubbleSort(int *arr, const int size, long long &compCount, long long &moveCount){
+/*void bubbleSort(int *arr, const int size, long long &compCount, long long &moveCount){
     bool sorted = false; //false when swaps occur
     int pass = 1; //start pass from 1 since at most n - 1 passes may occur
     int n = size;
@@ -58,7 +58,7 @@ void bubbleSort(int *arr, const int size, long long &compCount, long long &moveC
         }
         pass++;
     }
-}
+}*/
 void merge(int* arr, int first, int mid, int last, int& compCount, int& moveCount){
     int* tempArray = new int[::maxArraySize];
 
@@ -185,12 +185,13 @@ void createRandomArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
     arr2 = new int[size];
     arr3 = new int[size];
 
+    const int delimeter = 8000000;
     for(int i = 0; i < size; i++){
-        int currValue = rand() % INT_MAX;//curr value that has been generated, (curr generation)
-        int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
+        int currValue = rand() % delimeter;//curr value that has been generated, (curr generation)
+        /*int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
         if(sign == 0){
             currValue *= -1;
-        }
+        }*/
         arr1[i] = currValue;
         arr2[i] = currValue;
         arr3[i] = currValue;
@@ -202,16 +203,26 @@ void createAscendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
     arr3 = new int[size];
 
 
-    int prev = INT_MIN;
+    /*int prev = INT_MIN;
     for(int i = 0; i < size; i++){
         int currValue;
         do{
             currValue = rand() % INT_MAX;//curr value that has been generated, (curr generation)
-            int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
+            /*int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
             if(sign == 0){
                 currValue *= -1;
-            }
-        }while(currValue <= prev);
+            }*/
+        /*}while(currValue <= prev);
+
+        arr1[i] = currValue;
+        arr2[i] = currValue;
+        arr3[i] = currValue;
+        prev = currValue;
+    }*/
+    int divisor = (INT_MAX / (size * 2));
+    int prev = 0;
+    for(int i = 0; i < size; i++){
+        int currValue = rand() % divisor + prev;
 
         arr1[i] = currValue;
         arr2[i] = currValue;
@@ -225,16 +236,26 @@ void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
     arr3 = new int[size];
 
 
-    int prev = INT_MAX;
+    /*int prev = INT_MAX;
     for(int i = 0; i < size; i++){
         int currValue;
         do{
-            currValue = rand() % INT_MAX;//curr value that has been generated, (curr generation)
-            int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
+            currValue = rand() % (INT_MAX / 2);//curr value that has been generated, (curr generation)
+            /*int sign = rand() % 2; //if 0 the sign is negative, if 1 the sign is positive
             if(sign == 0){
                 currValue *= -1;
-            }
-        }while(currValue >= prev);
+            }*/
+        /*}while(currValue >= prev);
+
+        arr1[i] = currValue;
+        arr2[i] = currValue;
+        arr3[i] = currValue;
+        prev = currValue;
+    }*/
+    int divisor = (INT_MAX / (size * 2));
+    int prev = 0;
+    for(int i = 0; i < size; i++){
+        int currValue = rand() % divisor - prev;
 
         arr1[i] = currValue;
         arr2[i] = currValue;
@@ -249,13 +270,13 @@ void createDescendingArrays(int *&arr1, int *&arr2, int *&arr3, const int size){
 void printAlgorithm(int* arr, int size, int algorithmVariation){
     int compCount = 0;
     int moveCount = 0;
-    long long comparisonCount = 0;
-    long long movementCount = 0;
+    //long long comparisonCount = 0;
+    //long long movementCount = 0;
     auto startTime = std::chrono::steady_clock::now();
 
     if(algorithmVariation == 0){
         //bubble sort
-        bubbleSort(arr, size, comparisonCount, movementCount);
+        bubbleSort(arr, size, compCount, moveCount);
     }
     else if(algorithmVariation == 1){
         //merge sort
@@ -271,15 +292,15 @@ void printAlgorithm(int* arr, int size, int algorithmVariation){
     cout << size << " ";
     //std::cout << std::chrono::high_resolution_clock::duration::period::den << " ms ";
     cout << duration.count() << " ms ";
-    if(algorithmVariation == 0){
+    /*if(algorithmVariation == 0){
         //use long values for comp and move counts
         cout << comparisonCount << " ";
         cout << movementCount << endl;
-    }
-    else{
+    }*/
+    //else{
         cout << compCount << " ";
         cout << moveCount << endl;
-    }
+    //}
 }
 //Invoke when we are executing each and every sorting algorithms
 //helper of performanceAnalysis
@@ -389,7 +410,7 @@ void performanceAnalysis(){
         arr2Pointers[i - 1] = arr2;
         arr3Pointers[i - 1] = arr3;
     }
-    cout << "Descending Order Arrays" << endl;
+    cout << "Ascending Order Arrays" << endl;
     executeSortingAlgorithms(arr1Pointers, arr2Pointers, arr3Pointers);
 
     //these arrays have been deallocated in the helper method
@@ -410,4 +431,6 @@ void performanceAnalysis(){
         arr2Pointers[i - 1] = arr2;
         arr3Pointers[i - 1] = arr3;
     }
+    cout << "Descending Order Arrays" << endl;
+    executeSortingAlgorithms(arr1Pointers, arr2Pointers, arr3Pointers);
 }
