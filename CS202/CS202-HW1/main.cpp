@@ -43,7 +43,7 @@ int main()
     int& refc3 = compCount3;
     int& refmc3 = moveCount3;*/
 
-    /*const int size = 16;
+    const int size = 16;
     int mid = (size - 1) / 2;
     bubbleSort(arr1, size, compCount1, moveCount1);
     cout << "Bubble Sort" << endl;
@@ -67,7 +67,7 @@ int main()
     displayArray(arr3, size);
 
     cout << "Invoke Performance Analysis" << endl;
-    performanceAnalysis();*/
-    debug();
+    performanceAnalysis();
+    //debug();
     return 0;
 }
