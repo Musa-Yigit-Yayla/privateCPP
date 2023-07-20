@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1689862148 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw2\bstnode.cpp
+	"BSTNode.h"
+
+1689862224 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw2\bstnode.h
+	<string>
+	<cstddef>
+
+1689862776 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw2\ngramtree.cpp
+	"NgramTree.h"
+	"BSTNode.h"
+
+1689863897 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw2\ngramtree.h
+	<string>
+	"BSTNode.h"
+
