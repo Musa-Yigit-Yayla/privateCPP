@@ -5,6 +5,8 @@ using namespace std;
 
 //Global utility function prototypes
 int stringCompare(string s1, string s2);
+void countNodes(BSTNode* currNode);
+
 
 //NgramTree functions
 NgramTree::NgramTree(){
@@ -48,10 +50,10 @@ void NgramTree::addNgramHelper(BSTNode* currNode, const string& ngram){
         currNode = new BSTNode(ngram);
     }
 }
-int NgramTree::getTotalNgramCount() const{
+int NgramTree::getTotalNgramCount(){
     //postorder traverse the tree and count the total number of nodes
     int result = 0;
-    this->postorderTraverse(void(*this->countNodes(this->root, result)));
+    this->postorderTraverse(&countNodes);
     return result;
 }
 bool NgramTree::isComplete() const{
@@ -91,14 +93,14 @@ bool NgramTree::nodeExists(string givenData) const{
 
 }
 //Functions passed to travers
-void NgramTree::preorderTraverse(void (*visit(BSTNode* currNode))){
+void NgramTree::preorderTraverse(void (*function)(BSTNode*)){
     //pass the client defined function and root node as parameters
-    this->preorderHelper(this->root, visit);
+    this->preorderHelper(this->root, function);
 } //perform an operation to each node in preorder traversal or display them based on visit function argument
-void NgramTree::inorderTraverse(void (*visit(BSTNode* currNode))){
+void NgramTree::inorderTraverse(void (*visit)(BSTNode*)){
     this->inorderHelper(this->root, visit);
 }
-void NgramTree::postorderTraverse(void (*visit(BSTNode* currNode))){
+void NgramTree::postorderTraverse(void (*visit(BSTNode*))){
     this->postorderHelper(this->root, visit);
 }
 //Private functions and overloaded operators
@@ -137,10 +139,13 @@ void NgramTree::deleteGivenNode(BSTNode* currNode){
 *will increment the given parameter by 1
 *given int parameter is passed by reference so it will be incremented in the caller
 */
-void NgramTree::countNodes(BSTNode* currNode, int& sum) const{
+/*void NgramTree::countNodes(BSTNode* currNode){
     if(currNode != NULL){
         sum++;
     }
+}*/
+void countNodes(BSTNode* currNode){
+    static int counter = 0;
 }
 //DON'T FORGET TO IMPLEMENT << operator given in header file
 
@@ -149,3 +154,4 @@ void NgramTree::countNodes(BSTNode* currNode, int& sum) const{
 int stringCompare(const string& s1, const string& s2){
     return strcmp(s1, s2);
 }
+

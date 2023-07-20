@@ -8,7 +8,7 @@ public:
     NgramTree();
     ~NgramTree();
     void addNgram( const string& ngram );
-    int getTotalNgramCount() const;
+    int getTotalNgramCount();
     bool isComplete() const;
     bool isFull() const;
     void generateTree( const string& fileName, const int n );
@@ -21,20 +21,21 @@ public:
     void clear();
     int getCounter(string givenData) const; //returns the counter of a node in bst, returns -1 if node does not exist
     bool nodeExists(string givenData) const;
-    void preorderTraverse(void (*visit(BSTNode* currNode))); //perform an operation to each node in preorder traversal or display them based on visit function argument
-    void inorderTraverse(void (*visit(BSTNode* currNode)));
-    void postorderTraverse(void (*visit(BSTNode* currNode)));
-
+    void preorderTraverse(void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
+    void inorderTraverse(void (*visit)(BSTNode* currNode));
+    void postorderTraverse(void (*visit)(BSTNode*));
 private:
     BSTNode* root = nullptr;
 
     //private functions and overloaded operators
     friend ostream& operator<<( ostream& out, const NgramTree& tree );
+    //for invoking with global functions
     void preorderHelper(BSTNode* root, void (*visit(BSTNode* currNode))); //perform an operation to each node in preorder traversal or display them based on visit function argument
     void inorderHelper(BSTNode* root, void (*visit(BSTNode* currNode)));
     void postorderHelper(BSTNode* root, void (*visit(BSTNode* currNode)));
+
     void deleteGivenNode(BSTNode* currNode);
-    void countNodes(BSTNode* currNode, int& sum) const;
+    //void countNodes(BSTNode* currNode);
     void addNgramHelper(BSTNode* currNode, const string& ngram);
 };
 #endif // NGRAMTREE_H
