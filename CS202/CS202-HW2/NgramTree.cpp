@@ -100,11 +100,11 @@ void NgramTree::preorderTraverse(void (*function)(BSTNode*)){
 void NgramTree::inorderTraverse(void (*visit)(BSTNode*)){
     this->inorderHelper(this->root, visit);
 }
-void NgramTree::postorderTraverse(void (*visit(BSTNode*))){
+void NgramTree::postorderTraverse(void (*visit)(BSTNode*)){
     this->postorderHelper(this->root, visit);
 }
 //Private functions and overloaded operators
-void NgramTree::preorderHelper(BSTNode* givenNode, void (*visit(BSTNode* currNode ))){
+void NgramTree::preorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode )){
     //perform visit operation on our current root, then visit left and right nodes respectively
     if(givenNode != NULL){
         visit(root); //perform the given function
@@ -113,14 +113,14 @@ void NgramTree::preorderHelper(BSTNode* givenNode, void (*visit(BSTNode* currNod
     }
 
 } //perform an operation to each node in preorder traversal or display them based on visit function argument
-void NgramTree::inorderHelper(BSTNode* givenNode, void (*visit(BSTNode* currNode))){
+void NgramTree::inorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){
     if(givenNode != NULL){
         inorderHelper(givenNode->leftChild, visit);
         visit(givenNode);
         inorderHelper(givenNode->rightChild, visit);
     }
 }
-void NgramTree::postorderHelper(BSTNode* givenNode, void (*visit(BSTNode* currNode))){
+void NgramTree::postorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){
     if(givenNode != NULL){
         postorderHelper(givenNode->leftChild, visit);
         postorderHelper(givenNode->rightChild, visit);
