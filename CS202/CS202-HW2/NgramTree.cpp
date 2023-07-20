@@ -5,7 +5,7 @@ using namespace std;
 
 //Global utility function prototypes
 int stringCompare(string s1, string s2);
-void countNodes(BSTNode* currNode);
+//void countNodes(BSTNode* currNode);
 
 
 //NgramTree functions
@@ -53,7 +53,7 @@ void NgramTree::addNgramHelper(BSTNode* currNode, const string& ngram){
 int NgramTree::getTotalNgramCount(){
     //postorder traverse the tree and count the total number of nodes
     int result = 0;
-    this->postorderTraverse(&countNodes);
+    result += this->postorderTraverse();
     return result;
 }
 bool NgramTree::isComplete() const{
@@ -103,6 +103,9 @@ void NgramTree::inorderTraverse(void (*visit)(BSTNode*)){
 void NgramTree::postorderTraverse(void (*visit)(BSTNode*)){
     this->postorderHelper(this->root, visit);
 }
+int NgramTree::postorderTraverse(){
+    return this->postorderHelper(this->root);
+}
 //Private functions and overloaded operators
 void NgramTree::preorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode )){
     //perform visit operation on our current root, then visit left and right nodes respectively
@@ -127,6 +130,15 @@ void NgramTree::postorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currN
         visit(givenNode);
     }
 }
+
+int NgramTree::postorderHelper(BSTNode* currNode){
+    int subtreeResult = 0; // result that will be attained from current subtree
+    if(currNode != NULL){
+        subtreeResult += postorderHelper(currNode->leftChild);
+        subtreeResult += postorderHelper(currNode->rightChild);
+    }
+    return subtreeResult;
+}
 //private modifier
 //will delete the given node regardless of whether it belongs to the NgramTree instance that our function is being invoked on
 //Given node is assumed to be a leaf node
@@ -144,9 +156,6 @@ void NgramTree::deleteGivenNode(BSTNode* currNode){
         sum++;
     }
 }*/
-void countNodes(BSTNode* currNode){
-    static int counter = 0;
-}
 //DON'T FORGET TO IMPLEMENT << operator given in header file
 
 //Global utility functions

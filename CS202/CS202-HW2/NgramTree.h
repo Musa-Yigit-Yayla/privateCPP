@@ -24,6 +24,7 @@ public:
     void preorderTraverse(void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
     void inorderTraverse(void (*visit)(BSTNode* currNode));
     void postorderTraverse(void (*visit)(BSTNode*));
+    int postorderTraverse();
 private:
     BSTNode* root = nullptr;
 
@@ -33,6 +34,7 @@ private:
     void preorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
     void inorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     void postorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
+    int postorderHelper(BSTNode* root);
 
     void deleteGivenNode(BSTNode* currNode);
     //void countNodes(BSTNode* currNode);
