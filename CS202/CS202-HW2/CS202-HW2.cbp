@@ -32,6 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="BSTNode.cpp" />
+		<Unit filename="BSTNode.h" />
+		<Unit filename="NgramTree.cpp" />
+		<Unit filename="NgramTree.h" />
+		<Unit filename="hw2.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
