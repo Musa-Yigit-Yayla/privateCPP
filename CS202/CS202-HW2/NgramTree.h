@@ -33,6 +33,9 @@ private:
     void preorderHelper(BSTNode* root, void (*visit(BSTNode* currNode))); //perform an operation to each node in preorder traversal or display them based on visit function argument
     void inorderHelper(BSTNode* root, void (*visit(BSTNode* currNode)));
     void postorderHelper(BSTNode* root, void (*visit(BSTNode* currNode)));
+    void deleteGivenNode(BSTNode* currNode);
+    void countNodes(BSTNode* currNode, int& sum) const;
+    void addNgramHelper(BSTNode* currNode, const string& ngram);
 };
 #endif // NGRAMTREE_H
 

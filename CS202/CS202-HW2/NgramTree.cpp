@@ -1,5 +1,6 @@
 #include "NgramTree.h"
 #include "BSTNode.h"
+#include "string.h"
 using namespace std;
 
 //Global utility function prototypes
@@ -10,8 +11,8 @@ NgramTree::NgramTree(){
     //generate empty bst
 }
 NgramTree::~NgramTree(){
-    //delete each and every node by applying post order traversal
-    this->postorderTraverse(this->deleteGivenNode());
+    //invoke clear function to delete each and every node of the tree
+    this->clear();
 }
 //Add ngram to our bst if it doesn't exist
 //If it does exist then increment its count by one
@@ -29,10 +30,10 @@ void NgramTree::addNgram( const string& ngram ){
 //Private modifier so as to avoid futile calls made by client
 void NgramTree::addNgramHelper(BSTNode* currNode, const string& ngram){
     if(currNode != NULL){
+        int comparisonValue = stringCompare(currNode->str, ngram);
         if(currNode->str == ngram){
             currNode->counter++;
         }
-        int comparisonValue = stringCompare(currNode->str, ngram);
         else if(comparisonValue < 0){
             //search right subtree
             this->addNgramHelper(currNode->rightChild, ngram);
@@ -48,7 +49,10 @@ void NgramTree::addNgramHelper(BSTNode* currNode, const string& ngram){
     }
 }
 int NgramTree::getTotalNgramCount() const{
-
+    //postorder traverse the tree and count the total number of nodes
+    int result = 0;
+    this->postorderTraverse(void(*this->countNodes(this->root, result)));
+    return result;
 }
 bool NgramTree::isComplete() const{
 
@@ -124,14 +128,24 @@ void NgramTree::postorderHelper(BSTNode* givenNode, void (*visit(BSTNode* currNo
 //private modifier
 //will delete the given node regardless of whether it belongs to the NgramTree instance that our function is being invoked on
 //Given node is assumed to be a leaf node
-//Invoke sequentially by passing this function as a parameter to postorderTraverse during destruction
 void NgramTree::deleteGivenNode(BSTNode* currNode){
     delete currNode;
+}
+/*private modifier
+*will be used to count the total nodes in our bst
+*will be passed as an argument to postorderTraverse
+*will increment the given parameter by 1
+*given int parameter is passed by reference so it will be incremented in the caller
+*/
+void NgramTree::countNodes(BSTNode* currNode, int& sum) const{
+    if(currNode != NULL){
+        sum++;
+    }
 }
 //DON'T FORGET TO IMPLEMENT << operator given in header file
 
 //Global utility functions
 //It returns negative value if s1 precedes s2 lexicographically
-int stringCompare(string s1, string s2){
+int stringCompare(const string& s1, const string& s2){
     return strcmp(s1, s2);
 }
