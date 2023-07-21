@@ -6,7 +6,7 @@
 class NgramTree {
 public:
     NgramTree();
-    NgramTree(NgramTree& copyValue);
+    NgramTree(const NgramTree& copyValue);
     ~NgramTree();
     void addNgram( const string& ngram );
     int getTotalNgramCount();
@@ -26,6 +26,7 @@ public:
     void inorderTraverse(void (*visit)(BSTNode* currNode));
     void postorderTraverse(void (*visit)(BSTNode*));
     int postorderTraverse();
+    int getMaxNodeCount() const;
 private:
     BSTNode* root = nullptr;
 
@@ -33,11 +34,13 @@ private:
     friend ostream& operator<<( ostream& out, const NgramTree& tree );
     //for invoking with global functions
     void preorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
+    bool preorderHelper(BSTNode* root, BSTNode* givenNode, const int height); //will be invoked when we are checking whether a tree is a complete tree
     void inorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     void postorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     int postorderHelper(BSTNode* root);
     BSTNode* postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTNode* currNode)); //helper for copy constructor
     void deleteGivenNode(BSTNode* currNode);
+    int getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int currHeight); //private utility function to return a node's height if it exists in our tree
     //void countNodes(BSTNode* currNode);
     void addNgramHelper(BSTNode* currNode, const string& ngram);
 };

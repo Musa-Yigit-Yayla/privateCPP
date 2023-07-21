@@ -1,10 +1,12 @@
 #include "NgramTree.h"
 #include "BSTNode.h"
 #include "string.h"
+#include <cmath>
 using namespace std;
 
 //Global utility function prototypes
 int stringCompare(string s1, string s2);
+BSTNode* copyNode(BSTNode* givenNode);
 //void countNodes(BSTNode* currNode);
 
 
@@ -13,8 +15,11 @@ NgramTree::NgramTree(){
     //generate empty bst
 }
 //Copy constructor
-NgramTree::NgramTree(NgramTree& copyValue){
-
+NgramTree::NgramTree(const NgramTree& copyValue){
+    BSTNode* newRoot = nullptr;
+    newRoot = this->postorderHelper(copyValue.root, copyNode); //WARNING MIGHT BE PROBLEMATIC TO CALL INSTANCE FUNCTION ON OBJECT THAT IS
+    //CURRENTLY BEING INITIALIZED
+    this->root = newRoot;
 }
 NgramTree::~NgramTree(){
     //invoke clear function to delete each and every node of the tree
@@ -67,6 +72,17 @@ bool NgramTree::isComplete() const{
     //Subsequently we will remove the nodes which are at the level of the height, namely farthest leaf nodes, from copied bst
     //Then we will check whether remaining bst is a full tree
     //If it's a full tree we will create another copy, then check whether the children of nodes at height h - 1 satisfy complete tree properties for leaf nodes
+
+    //1-) copy our bst
+    NgramTree* copiedTree = new NgramTree(*this);
+    //2-)Retrieve the height
+    int height = this->getHeight();
+    if(height == 0){
+        return true; //an empty tree is a complete tree
+    }
+
+    //invoke the correlated postorderHelper function on copied tree so we can remove its leaf nodes
+    bool isLeafRemoved = copiedTree->preorderHelper(copiedTree->root, height);
 
 }
 bool NgramTree::isFull() const{
@@ -126,6 +142,14 @@ void NgramTree::preorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNo
     }
 
 } //perform an operation to each node in preorder traversal or display them based on visit function argument
+
+//Deletes leaf nodes on height h
+bool NgramTree::preorderHelper(BSTNode* currNode, BSTNode* givenNode, const int height){
+    //Since we will perform remove operation on farthest leaf nodes without any children, we can perform in preorder manner
+    if(currNode != NULL){
+        int currNodeHeight = this->getNodeHeight(currNode,);
+    }
+}
 void NgramTree::inorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){
     if(givenNode != NULL){
         inorderHelper(givenNode->leftChild, visit);
@@ -162,12 +186,38 @@ BSTNode* NgramTree::postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTN
     }
     return returnValue;
 }
+int NgramTree::getMaxNodeCount() const{
+    int currHeight = this->getHeight();
+    return ceil(log2(currHeight + 1));
+}
 //private modifier
 //will delete the given node regardless of whether it belongs to the NgramTree instance that our function is being invoked on
 //Given node is assumed to be a leaf node
 void NgramTree::deleteGivenNode(BSTNode* currNode){
     delete currNode;
 }
+
+//Return -1 if given node does not exist in this tree or the tree is empty
+int NgramTree::getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int currHeight){
+    static int invokeCount = 0;
+    static int maxPossibleNodeCount = this->getMaxNodeCount();
+    int currResult = -1;
+    if(this->root == NULL){
+        return -1;
+    }
+    else{
+        if(currNode == givenNode){
+            return currHeight;
+        }
+        //preorder traverse here
+        int h1 = this->getNodeHeight(currNode->leftChild, givenNode, currHeight + 1);
+        int h2 = this->getNodeHeight(currNode->leftChild, givenNode, currHeight + 1);
+        currResult = max(h1, h2);
+    }
+    return currResult;
+
+}
+
 /*private modifier
 *will be used to count the total nodes in our bst
 *will be passed as an argument to postorderTraverse
@@ -182,6 +232,16 @@ void NgramTree::deleteGivenNode(BSTNode* currNode){
 //DON'T FORGET TO IMPLEMENT << operator given in header file
 
 //Global utility functions
+
+//Copies the given BSTNode instance by copying its string and counter value
+BSTNode* copyNode(BSTNode* givenNode){
+    BSTNode* returnValue = nullptr;
+    if(givenNode != NULL){
+        returnValue = new BSTNode(givenNode->str);
+        returnValue->counter = givenNode->counter;
+    }
+    return returnValue;
+}
 //It returns negative value if s1 precedes s2 lexicographically
 int stringCompare(const string& s1, const string& s2){
     return strcmp(s1, s2);
