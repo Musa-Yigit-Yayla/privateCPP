@@ -6,6 +6,7 @@
 class NgramTree {
 public:
     NgramTree();
+    NgramTree(NgramTree& copyValue);
     ~NgramTree();
     void addNgram( const string& ngram );
     int getTotalNgramCount();
@@ -35,7 +36,7 @@ private:
     void inorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     void postorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     int postorderHelper(BSTNode* root);
-
+    BSTNode* postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTNode* currNode)); //helper for copy constructor
     void deleteGivenNode(BSTNode* currNode);
     //void countNodes(BSTNode* currNode);
     void addNgramHelper(BSTNode* currNode, const string& ngram);

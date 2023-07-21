@@ -12,6 +12,10 @@ int stringCompare(string s1, string s2);
 NgramTree::NgramTree(){
     //generate empty bst
 }
+//Copy constructor
+NgramTree::NgramTree(NgramTree& copyValue){
+
+}
 NgramTree::~NgramTree(){
     //invoke clear function to delete each and every node of the tree
     this->clear();
@@ -56,7 +60,13 @@ int NgramTree::getTotalNgramCount(){
     result += this->postorderTraverse();
     return result;
 }
+//Will be invoked when user needs to check whether current bst is a complete bst
+//Returns true when the current state of our tree satisfies a complete tree
 bool NgramTree::isComplete() const{
+    //The idea is to initially make a deep copy of our bst, then retrieve the height of our bst
+    //Subsequently we will remove the nodes which are at the level of the height, namely farthest leaf nodes, from copied bst
+    //Then we will check whether remaining bst is a full tree
+    //If it's a full tree we will create another copy, then check whether the children of nodes at height h - 1 satisfy complete tree properties for leaf nodes
 
 }
 bool NgramTree::isFull() const{
@@ -136,8 +146,21 @@ int NgramTree::postorderHelper(BSTNode* currNode){
     if(currNode != NULL){
         subtreeResult += postorderHelper(currNode->leftChild);
         subtreeResult += postorderHelper(currNode->rightChild);
+        subtreeResult++; //increment by one since we are counting the current node aswell
     }
     return subtreeResult;
+}
+BSTNode* NgramTree::postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTNode* currNode)){
+    BSTNode* returnValue = nullptr;
+    if(currNode != NULL){
+        BSTNode* leftSubtree = this->postorderHelper(currNode->leftChild, copyNode); //the node assigned to this pointer reference is the root node of our copied
+        //left subtree
+        BSTNode* rightSubtree = this->postorderHelper(currNode->rightChild, copyNode);
+        returnValue = copyNode(currNode);
+        returnValue->leftChild = leftSubtree;
+        returnValue->rightChild = rightSubtree;
+    }
+    return returnValue;
 }
 //private modifier
 //will delete the given node regardless of whether it belongs to the NgramTree instance that our function is being invoked on
