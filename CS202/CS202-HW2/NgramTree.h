@@ -22,6 +22,7 @@ public:
     void clear();
     int getCounter(string givenData) const; //returns the counter of a node in bst, returns -1 if node does not exist
     bool nodeExists(string givenData) const;
+    bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
     void preorderTraverse(void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
     void inorderTraverse(void (*visit)(BSTNode* currNode));
     void postorderTraverse(void (*visit)(BSTNode*));
@@ -34,7 +35,8 @@ private:
     friend ostream& operator<<( ostream& out, const NgramTree& tree );
     //for invoking with global functions
     void preorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
-    bool preorderHelper(BSTNode* root, BSTNode* givenNode, const int height); //will be invoked when we are checking whether a tree is a complete tree
+    bool preorderHelper(BSTNode* root, const int height); //will be invoked when we are checking whether a tree is a complete tree
+    BSTNode* preorderHelper(BSTNode* currNode, BSTNode* searchNode, bool (*visit)(BSTNode*, BSTNode*));
     void inorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     void postorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     int postorderHelper(BSTNode* root);

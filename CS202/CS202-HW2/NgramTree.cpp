@@ -77,8 +77,8 @@ bool NgramTree::isComplete() const{
     NgramTree* copiedTree = new NgramTree(*this);
     //2-)Retrieve the height
     int height = this->getHeight();
-    if(height == 0){
-        return true; //an empty tree is a complete tree
+    if(height == 0 || height == 1){
+        return true; //an empty tree is a complete tree just like a tree with a single node
     }
 
     //invoke the correlated postorderHelper function on copied tree so we can remove its leaf nodes
@@ -144,11 +144,32 @@ void NgramTree::preorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNo
 } //perform an operation to each node in preorder traversal or display them based on visit function argument
 
 //Deletes leaf nodes on height h
-bool NgramTree::preorderHelper(BSTNode* currNode, BSTNode* givenNode, const int height){
+bool NgramTree::preorderHelper(BSTNode* currNode, const int height){
     //Since we will perform remove operation on farthest leaf nodes without any children, we can perform in preorder manner
     if(currNode != NULL){
-        int currNodeHeight = this->getNodeHeight(currNode,);
+        int currNodeHeight = this->getNodeHeight(this->root, currNode, 1); //retrieve the height of currNode
+        if(currNodeHeight == height){
+            //delete the current node as it's one of the farthest leaf nodes
+            //Before deletion retrieve its parent node
+        }
     }
+}
+//We want to invoke isParentNode function so we can retrieve the parent node of the searchNode if it exists
+//Returns the parent node if it exists, otherwise returns nullptr
+BSTNode* NgramTree::preorderHelper(BSTNode* currNode, BSTNode* searchNode, bool (*visit)(BSTNode*, BSTNode*)){
+    if(visit(currNode, searchNode)){
+        return currNode;
+    }
+    BSTNode* result = this->preorderHelper(currNode->leftChild, searchNode, visit);
+    if(result != NULL){
+        return result;
+    }
+    result = this->preorderHelper(currNode->rightChild, searchNode, visit);
+    if(result != NULL){
+        return result;
+    }
+    result = nullptr;
+    return result;
 }
 void NgramTree::inorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){
     if(givenNode != NULL){
@@ -174,6 +195,7 @@ int NgramTree::postorderHelper(BSTNode* currNode){
     }
     return subtreeResult;
 }
+//Will be used to copy a tree given its root node
 BSTNode* NgramTree::postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTNode* currNode)){
     BSTNode* returnValue = nullptr;
     if(currNode != NULL){
@@ -189,6 +211,17 @@ BSTNode* NgramTree::postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTN
 int NgramTree::getMaxNodeCount() const{
     int currHeight = this->getHeight();
     return ceil(log2(currHeight + 1));
+}
+//Has public modifier
+//Will be used when the parent of a child node has to be retrieved
+//If the given node is a null pointer or an irrelevant node the function will return false
+//If the given node is the predecessor of child node return true
+bool NgramTree::isParentNode(BSTNode* givenNode, BSTNode* childNode){
+    bool isParent = false;
+    if(givenNode != NULL && (givenNode->leftChild == childNode || givenNode->rightChild == childNode)){
+        isParent = true;
+    }
+    return isParent;
 }
 //private modifier
 //will delete the given node regardless of whether it belongs to the NgramTree instance that our function is being invoked on
