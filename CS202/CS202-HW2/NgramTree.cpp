@@ -7,6 +7,7 @@ using namespace std;
 //Global utility function prototypes
 int stringCompare(string s1, string s2);
 BSTNode* copyNode(BSTNode* givenNode);
+bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
 //void countNodes(BSTNode* currNode);
 
 
@@ -82,7 +83,15 @@ bool NgramTree::isComplete() const{
     }
 
     //invoke the correlated postorderHelper function on copied tree so we can remove its leaf nodes
-    bool isLeafRemoved = copiedTree->preorderHelper(copiedTree->root, height);
+    bool isLeafRemoved = copiedTree->preorderHelper(copiedTree->root, height); //this bool variable is useless, just written it for increasing readability
+    if(!copiedTree->isComplete()){
+        delete copiedTree;
+        return false; //return false as the subtree is not a complete tree
+    }
+    delete copiedTree;
+    copiedTree = new NgramTree(*this); //copy this tree object by using all of the nodes again
+    //Traverse each and every node at level height - 1 and ensure that the order of their children satisfy a complete tree's properties for
+    //leaf nodes
 
 }
 bool NgramTree::isFull() const{
@@ -151,8 +160,21 @@ bool NgramTree::preorderHelper(BSTNode* currNode, const int height){
         if(currNodeHeight == height){
             //delete the current node as it's one of the farthest leaf nodes
             //Before deletion retrieve its parent node
+            BSTNode* parent = this->preorderHelper(this->root, currNode, isParentNode);
+            if(parent->leftChild == currNode){
+                parent->leftChild = nullptr;
+            }
+            else{
+                parent->rightChild = nullptr; //CAREFUL, SOME ERRORS MAY OCCUR
+            }
+            delete currNode;
+            return true;
         }
+        bool isDeleted = this->preorderHelper(currNode->leftChild, height);
+        isDeleted = isDeleted || this->preorderHelper(currNode->rightChild, height);
+        return isDeleted;
     }
+    return false;
 }
 //We want to invoke isParentNode function so we can retrieve the parent node of the searchNode if it exists
 //Returns the parent node if it exists, otherwise returns nullptr
@@ -216,7 +238,7 @@ int NgramTree::getMaxNodeCount() const{
 //Will be used when the parent of a child node has to be retrieved
 //If the given node is a null pointer or an irrelevant node the function will return false
 //If the given node is the predecessor of child node return true
-bool NgramTree::isParentNode(BSTNode* givenNode, BSTNode* childNode){
+bool isParentNode(BSTNode* givenNode, BSTNode* childNode){
     bool isParent = false;
     if(givenNode != NULL && (givenNode->leftChild == childNode || givenNode->rightChild == childNode)){
         isParent = true;

@@ -22,7 +22,6 @@ public:
     void clear();
     int getCounter(string givenData) const; //returns the counter of a node in bst, returns -1 if node does not exist
     bool nodeExists(string givenData) const;
-    bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
     void preorderTraverse(void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
     void inorderTraverse(void (*visit)(BSTNode* currNode));
     void postorderTraverse(void (*visit)(BSTNode*));
