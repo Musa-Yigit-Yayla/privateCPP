@@ -84,15 +84,62 @@ bool NgramTree::isComplete() const{
 
     //invoke the correlated postorderHelper function on copied tree so we can remove its leaf nodes
     bool isLeafRemoved = copiedTree->preorderHelper(copiedTree->root, height); //this bool variable is useless, just written it for increasing readability
-    if(!copiedTree->isComplete()){
+    if(!copiedTree->isFull()){
         delete copiedTree;
-        return false; //return false as the subtree is not a complete tree
+        return false; //return false as the subtree is not a full tree
     }
     delete copiedTree;
     copiedTree = new NgramTree(*this); //copy this tree object by using all of the nodes again
     //Traverse each and every node at level height - 1 and ensure that the order of their children satisfy a complete tree's properties for
     //leaf nodes
+    const int size = pow(2, height - 1);
+    const int searchLevel = height - 1;
+    BSTNode** leafNodes = new BSTNode*[size]; //we will store the nodes at level height - 1 in this pointer array
+    int leafIndex = 0;
+    copiedTree->inorderHelper(levelNodes, copiedTree->root, leafIndex, size, searchLevel); //with this function we now have desired nodes
 
+    //Now we will check the children of leafNodes, notice that leafNodes stands for nodes at level height - 1
+    int prevChildStatus = 0;
+    for(int i = 0; i < leafIndex; i++){
+        BSTNode* currNode = leafNodes[i];
+        if(currNode->leftChild == NULL && currNode->rightChild != NULL){ //this condition fails a tree for being a complete tree
+            //deallocate the memory we allocated for only this function's purposes and return false
+            delete[] leafNodes;
+            delete copiedTree;
+            return false;
+        }
+        if(i == 0){
+            if(currNode->leftChild != NULL){
+                prevChildStatus++;
+            }
+            if(currNode->rightChild != NULL){
+                prevChildStatus++;
+            }
+        }
+        else{
+            int currChildStatus = 0; //status of current node's child count
+            if(currNode->leftChild != NULL){
+                currChildStatus++;
+            }
+            if(currNode->rightChild != NULL){
+                currChildStatus++;
+            }
+
+            if(prevChildStatus == 0 && currChildStatus != 0){
+                delete[] leafNodes;
+                delete copiedTree;
+                return false; //fails to be a complete tree
+            }
+            else if(prevChildStatus == 1 && currChildStatus != 0){
+                delete[] leafNodes;
+                delete copiedTree;
+                return false;
+            }
+            //reset the prevChildStatus to a value based on this node's corresponding state
+            prevChildStatus = currChildStatus;
+        }
+    }
+    return true;
 }
 bool NgramTree::isFull() const{
 
@@ -198,6 +245,24 @@ void NgramTree::inorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNod
         inorderHelper(givenNode->leftChild, visit);
         visit(givenNode);
         inorderHelper(givenNode->rightChild, visit);
+    }
+}
+//Store the nodes at the given levelNodes node array if they have the same height as the given level
+//It's caller's responsibility to create the pointer array of right size and specify correct parameters starting currNode as root and level as 1
+//and currIndex as 0
+//currIndex represents the current index that the next array element will be inserted onto
+void NgramTree::inorderHelper(BSTNode** levelNodes, BSTNode* currNode, int& currIndex, const int arrSize, const int level){
+    if(currNode != NULL){
+
+
+        this->inorderHelper(levelNodes, currNode->leftChild, currIndex, arrSize, level);
+        //calculate the height of the current node
+        int currHeight = this->getNodeHeight(this->root, currNode, 1);
+        if(currHeight == level){
+            //add the currNode to our array
+            levelNodes[currIndex++] = currNode;
+        }
+        this->inorderHelper(levelNodes, currNode->rightChild, currIndex, arrSize, level);
     }
 }
 void NgramTree::postorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){

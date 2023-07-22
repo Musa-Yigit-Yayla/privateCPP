@@ -37,6 +37,7 @@ private:
     bool preorderHelper(BSTNode* root, const int height); //will be invoked when we are checking whether a tree is a complete tree
     BSTNode* preorderHelper(BSTNode* currNode, BSTNode* searchNode, bool (*visit)(BSTNode*, BSTNode*));
     void inorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
+    void inorderHelper(BSTNode** leafNodes, BSTNode* currNode, int& currIndex, const int arrSize, const int level);
     void postorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     int postorderHelper(BSTNode* root);
     BSTNode* postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTNode* currNode)); //helper for copy constructor
