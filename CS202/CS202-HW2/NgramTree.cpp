@@ -1,6 +1,7 @@
 #include "NgramTree.h"
 #include "BSTNode.h"
 #include "string.h"
+#include <fstream>
 #include <cmath>
 using namespace std;
 
@@ -142,10 +143,28 @@ bool NgramTree::isComplete() const{
     return true;
 }
 bool NgramTree::isFull() const{
+    //retrieve the max height of this tree
+    int height = this->getHeight();
+    if(height == 0){
+        return true;
+    }
+    int nodeCount = 0;
+    int maxPossibleNodes = pow(2, height) - 1;
+    this->inorderHelper(this->root, nodeCount);
+
+    bool result = (nodeCount == maxPossibleNodes);
+    return result;
 
 }
 void NgramTree::generateTree( const string& fileName, const int n ){
+    //create a file object representing current input file
+    ifstream inputFile(fileName);
+    //below loop is executed while we haven't reached the end of file
+    while(!inputFile.eof()){
+        string currLine;
+        getline(inputFile, currLine);
 
+    }
 }
 bool NgramTree::isEmpty() const{
 
@@ -265,6 +284,15 @@ void NgramTree::inorderHelper(BSTNode** levelNodes, BSTNode* currNode, int& curr
         this->inorderHelper(levelNodes, currNode->rightChild, currIndex, arrSize, level);
     }
 }
+//We will invoke this function to count the overall occurrences of a node in the tree
+//We must pass the root node of this tree and pass the nodeCount as 0
+void NgramTree::inorderHelper(BSTNode* currNode, int& nodeCount){
+    if(currNode != NULL){
+        this->inorderHelper(currNode->leftChild);
+        nodeCount++;
+        this->inorderHelper(currNode->rightChild);
+    }
+}
 void NgramTree::postorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){
     if(givenNode != NULL){
         postorderHelper(givenNode->leftChild, visit);
@@ -366,4 +394,30 @@ BSTNode* copyNode(BSTNode* givenNode){
 int stringCompare(const string& s1, const string& s2){
     return strcmp(s1, s2);
 }
-
+//This method will be used to split a given string, representing a line, into tokens and return it as an array
+//User must pass the string line and an integer that must have value 0 before the method is called
+//After the method passed integer value will obtain returned array'S length
+//A dynamically allocated array will be returned, hence we the caller is responsible of deletion of the array
+//Delimiter is a single blank space
+static string* tokenize(string line, int& arrayLength){
+    //initially traverse the whole string so we can retrieve array length
+    int wordCount = 1;
+    for(int i = 0; i < line.size(); i++){
+        if(line.at(i) == ' '){
+            wordCount++;
+        }
+    }
+    arrayLength = wordCount;
+    string* resultArr = new string[arrayLength];
+    //traverse the string again and split into tokens
+    int prevBlankIndex = -1;
+    int arrIndex = 0;
+    //!!!!!!!! WARNING THIS LOOP MIGHT BE PROBLEMATIC DUE TO ITS INDEXING, PAY ATTENTION IF ANY PROBLEM  OCCURS !!!!!!!!!!!!!!!!!!!!!!!!!!!11
+    for(int i = 0; i < line.size(); i++){
+        if(line.at(i) == ' '){
+           string currElement = line.substr(prevBlankIndex + 1, i);
+           resultArr[arrIndex++] = currElement;
+        }
+    }
+    return resultArr;
+}
