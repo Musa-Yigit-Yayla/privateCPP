@@ -34,14 +34,15 @@ void NgramTree::addNgram( const string& ngram ){
     if(this->root == NULL){
         this->root = new BSTNode(ngram);
     }
-    else{
+    else if(ngram.size() == this->root->str.size()){
         //search for the node
-        this->addNgramHelper(this->root, ngram);
+        this->addNgramHelper(this->root, nullptr, false, ngram);
     }
 }
 //Perform binary search on the given subtree and add the ngram or increment count of the given ngram by one
 //Private modifier so as to avoid futile calls made by client
-void NgramTree::addNgramHelper(BSTNode* currNode, const string& ngram){
+//isLeftChild specified that whether our currNode is the left child of our parent node
+void NgramTree::addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const string& ngram){
     if(currNode != NULL){
         int comparisonValue = stringCompare(currNode->str, ngram);
         if(currNode->str == ngram){
@@ -49,16 +50,24 @@ void NgramTree::addNgramHelper(BSTNode* currNode, const string& ngram){
         }
         else if(comparisonValue < 0){
             //search right subtree
-            this->addNgramHelper(currNode->rightChild, ngram);
+            this->addNgramHelper(currNode->rightChild, currNode, ngram);
         }
         else{
             //ngram precedes currNode's string value lexicographically
-            this->addNgramHelper(currNode->leftChild, ngram); //search left subtree
+            this->addNgramHelper(currNode->leftChild, currNode, ngram); //search left subtree
         }
     }
     else{
         //we are at the position where our ngram should be added, instantiate a new node dynamically and add it to our bst
         currNode = new BSTNode(ngram);
+        //the node to be added cannot be the root node, so we are sure that parentNode is not nullptr, hence perform linkage
+        bool isLeftChild = parentNode->leftChild == currNode;
+        if(isLeftChild){
+            parentNode->leftChild = currNode;
+        }
+        else{
+            parentNode->rightChild = currNode;
+        }
     }
 }
 int NgramTree::getTotalNgramCount(){
@@ -163,33 +172,124 @@ void NgramTree::generateTree( const string& fileName, const int n ){
     while(!inputFile.eof()){
         string currLine;
         getline(inputFile, currLine);
-
+        int arrayLength;
+        string* currTokens = tokenize(currLine);
+        for(int i = 0; i < arrayLength; i++){
+            string token = currTokens[i];
+            if(token.size() == n){
+                this->add(token);
+            }
+        }
+        //delete the tokens of current line since it's dynamically allocated
+        delete[] currTokens;
     }
 }
+//If the root is nullptr then the tree must be empty
 bool NgramTree::isEmpty() const{
-
+    return this->root == NULL;
 }
 int NgramTree::getHeight() const{
+    //traverse the whole tree recursively to retrieve the max height
+    if(this->root == NULL){
+        return 0;
+    }
+    else{
+        int maxHeight = this->getHeightHelper(this->root, 1);
+        return maxHeight;
+    }
+}
+//private visibility modifier
+//Pass the root node and 1 to the currHeight from the caller
+int NgramTree::getHeightHelper(BSTNode* currNode, int currHeight){
+    if(currNode != NULL){
+        //traverse in preorder fashion
+        currHeight;
+        int maxHeight = this->getHeightHelper(currNode->leftChild, currHeight + 1);
+        int rightHeight = this->getHeightHelper(currNode->rightChild, currHeight + 1);
+
+        if(rightHeight > maxHeight){
+            maxHeight = rightHeight;
+        }
+        return maxHeight;
+    }
+    return -1; //return -1 when the currNode is nullptr
+}
+//string correlated with root node
+//Returns empty string if root is empty
+string NgramTree::getRootString() const{
+    if(!this->isEmpty()){
+        return this->root->str;
+    }
+    else{
+        return "";
+    }
+}
+//return the root's counter
+//return -1 if the tree is empty
+//number of occurrences that our root's string has occurred in the text file
+int NgramTree::getRootCounter() const{
+    if(!this->isEmpty()){
+        return this->root->counter;
+    }
+    else{
+        return -1;
+    }
+}
+//removes the givenData if it exists in our bst, returns whether removal is successful
+bool NgramTree::remove(string givenData){
+    //perform a search correlated with binary search
 
 }
-string NgramTree::getRootString() const{
-
-} //string correlated with root node
-int NgramTree::getRootCounter() const{
-
-}//number of occurrences that our root's string has occurred in the text file
-void NgramTree::add(string givenData){
-
-} //adds the givenData as a new node if does not exist already. If exists, increments counter of that node by 1.
-bool NgramTree::remove(string givenData){
-
-} //removes the givenData if it exists in our bst, returns whether removal is successful
+//private modifier
+bool NgramTree::removeHelper(BSTNode* currNode, BSTNode* parentNode, const string givenData){
+    if(currNode != NULL){
+        if(currNode->str == givenData){
+            this->removeHelper(currNode);
+            return true;
+        }
+    }
+}
+//Private modifier
+//Removes the given node
+//Invoke when you are sure that you are going to remove a node that is existent in our tree
+void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
+    bool isLeftChild = parentNode->leftChild == givenNode;
+    if(givenNode->leftChild == NULL && givenNode->rightChild == NULL){
+        //simply delete the given node
+        delete givenNode;
+    }
+    //Node to be removed has one and only one child
+    else if(givenNode->leftChild != NULL && givenNode->rightChild == NULL){
+        BSTNode* child = givenNode->leftChild;
+        delete givenNode;
+        if(isLeftChild){
+            parentNode->leftChild = child;
+        }
+        else{
+            parentNode->rightChild = child;
+        }
+    }
+    else if(givenNode->rightChild != NULL && givenNode->leftChild == NULL){
+        BSTNode* child = givenNode->rightChild;
+        delete givenNode;
+        if(isLeftChild){
+            parentNode->leftChild = child;
+        }
+        else{
+            parentNode->rightChild = child;
+        }
+    }
+    else{
+        //retrieve inorder successor
+    }
+}
 void NgramTree::clear(){
 
 }
+//returns the counter of a node in bst, returns -1 if node does not exist
 int NgramTree::getCounter(string givenData) const{
 
-} //returns the counter of a node in bst, returns -1 if node does not exist
+}
 bool NgramTree::nodeExists(string givenData) const{
 
 }
@@ -395,7 +495,7 @@ int stringCompare(const string& s1, const string& s2){
     return strcmp(s1, s2);
 }
 //This method will be used to split a given string, representing a line, into tokens and return it as an array
-//User must pass the string line and an integer that must have value 0 before the method is called
+//User must pass the string line and an integer that can have value 0 before the method is called
 //After the method passed integer value will obtain returned array'S length
 //A dynamically allocated array will be returned, hence we the caller is responsible of deletion of the array
 //Delimiter is a single blank space
