@@ -48,6 +48,7 @@ private:
     //void countNodes(BSTNode* currNode);
     void addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const string& ngram);
     void removeHelper(BSTNode* givenNode, BSTNode* parentNode);
+    BSTNode* getNodeHelper(BSTNode* currNode, const string& givenData) const;
 };
 #endif // NGRAMTREE_H
 

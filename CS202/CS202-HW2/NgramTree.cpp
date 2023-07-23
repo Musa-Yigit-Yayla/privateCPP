@@ -10,6 +10,7 @@ int stringCompare(string s1, string s2);
 BSTNode* copyNode(BSTNode* givenNode);
 bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
 static string* tokenize(string line, int& arrayLength);
+void deleteNode(BSTNode* givenNode); //delete a given node if it's not null, invoke only on leaf nodes without any children
 //void countNodes(BSTNode* currNode);
 
 
@@ -292,14 +293,44 @@ void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
     }
 }
 void NgramTree::clear(){
-
+    //traverse the tree in a post order fashion and invoke remove method on each node
+    if(this->root != NULL){
+        this->postorderHelper(this->root, deleteNode);
+    }
 }
 //returns the counter of a node in bst, returns -1 if node does not exist
 int NgramTree::getCounter(string givenData) const{
-
+    BSTNode* node = this->getNodeHelper(this->root, givenData);
+    int result = -1;
+    if(node != NULL){
+        result = node->counter;
+    }
+    return result;
 }
+//Private visibility
+//Performs binary search and at the end returns the node with the givenData match if it exists
+//O(logn)
+BSTNode* NgramTree::getNodeHelper(BSTNode* currNode, const string& givenData) const{
+    if(currNode == NULL){
+        return nullptr;
+    }
+    else{
+        int comparison = strcmp(givenData, currNode->str);
+        if(comparison < 0){
+            return this->getNodeHelper(currNode->leftChild, givenData);
+        }
+        else if(comparison == 0){
+            return currNode;
+        }
+        else{
+            return this->getNodeHelper(currNode->leftChild, givenData);
+        }
+    }
+}
+//searches the tree in a binary search manner and returns whether a node with the given string value exists
 bool NgramTree::nodeExists(string givenData) const{
-
+    BSTNode* node = this->getNodeHelper(this->root, givenData);
+    return node != NULL;
 }
 //Functions passed to travers
 void NgramTree::preorderTraverse(void (*function)(BSTNode*)){
@@ -408,7 +439,7 @@ void NgramTree::inorderHelper(BSTNode** levelNodes, BSTNode* currNode, int& curr
 }
 //We will invoke this function to count the overall occurrences of a node in the tree
 //We must pass the root node of this tree and pass the nodeCount as 0
-void NgramTree::inorderHelper(BSTNode* currNode, int& nodeCount){
+void NgramTree::inorderHelper(BSTNode* currNode, int& nodeCount) const{
     if(currNode != NULL){
         this->inorderHelper(currNode->leftChild);
         nodeCount++;
@@ -537,6 +568,11 @@ BSTNode* copyNode(BSTNode* givenNode){
         returnValue->counter = givenNode->counter;
     }
     return returnValue;
+}
+void deleteNode(BSTNode* givenNode){
+    if(givenNode != NULL){
+        delete givenNode;
+    }
 }
 //It returns negative value if s1 precedes s2 lexicographically
 int stringCompare(const string& s1, const string& s2){
