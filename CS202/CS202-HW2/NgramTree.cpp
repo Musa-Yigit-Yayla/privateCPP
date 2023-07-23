@@ -10,7 +10,7 @@ using namespace std;
 int stringCompare(string& s1, string& s2);
 BSTNode* copyNode(BSTNode* givenNode);
 bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
-static string* tokenize(string line, int& arrayLength);
+static string* tokenize(string line, int& arrayLength, const int n);
 void deleteNode(BSTNode* givenNode); //delete a given node if it's not null, invoke only on leaf nodes without any children
 //void countNodes(BSTNode* currNode);
 string getNonConstString(const string& s1);
@@ -178,15 +178,17 @@ void NgramTree::generateTree( const string& fileName, const int n ){
     //below loop is executed while we haven't reached the end of file
     while(getline(inputFile, currLine)){
         int arrayLength = 0;
-        string* currTokens = tokenize(currLine, arrayLength);
+        string* currTokens = tokenize(currLine, arrayLength, n);
         for(int i = 0; i < arrayLength; i++){
             string token = currTokens[i];
-            if(token.size() == n){
+            //if(token.size() == n){
                 this->addNgram(token);
-            }
+            //}
         }
         //delete the tokens of current line since it's dynamically allocated
-        delete[] currTokens;
+        if(currTokens != NULL){
+            delete[] currTokens;
+        }
     }
 }
 //If the root is nullptr then the tree must be empty
@@ -613,7 +615,7 @@ void displayNode(BSTNode* givenNode){
 //After the method passed integer value will obtain returned array'S length
 //A dynamically allocated array will be returned, hence we the caller is responsible of deletion of the array
 //Delimiter is a single blank space
-static string* tokenize(string line, int& arrayLength){
+static string* tokenize(string line, int& arrayLength, const int n){
     //initially traverse the whole string so we can retrieve array length
     int wordCount = 1;
     for(int i = 0; i < line.size(); i++){
@@ -622,7 +624,7 @@ static string* tokenize(string line, int& arrayLength){
         }
     }
     arrayLength = wordCount;
-    string* resultArr = new string[arrayLength];
+    string resultArr[arrayLength];
     //traverse the string again and split into tokens
     int prevBlankIndex = -1;
     int arrIndex = 0;
@@ -634,5 +636,26 @@ static string* tokenize(string line, int& arrayLength){
            prevBlankIndex = i;
         }
     }
-    return resultArr;
+    //after we have retrieved the array, shrink the array so that it only contains usable words
+    int newLength = 0;
+    for(int i = 0; i < arrayLength; i++){
+        if(resultArr[i].size() == n){
+            newLength++;
+        }
+    }
+    if(newLength == 0){
+        return nullptr;
+    }
+    else{
+        string* newArr = new string[newLength];
+        arrIndex = 0;
+        for(int i = 0; i < arrayLength; i++){
+            string str = resultArr[i];
+            if(str.size() == n){
+                newArr[arrIndex++] = str;
+            }
+        }
+        arrayLength = newLength;
+        return newArr;
+    }
 }
