@@ -39,6 +39,7 @@ private:
     void inorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     void inorderHelper(BSTNode** leafNodes, BSTNode* currNode, int& currIndex, const int arrSize, const int level);
     void inorderHelper(BSTNode* currNode, int& nodeCount);
+    BSTNode* getInorderSuccessor(BSTNode* currNode); //invoke when we need to retrieve inorder successor of a node with 2 children
     void postorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     int postorderHelper(BSTNode* root);
     BSTNode* postorderHelper(BSTNode* currNode, BSTNode* (*copyNode)(BSTNode* currNode)); //helper for copy constructor
@@ -46,7 +47,6 @@ private:
     int getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int currHeight); //private utility function to return a node's height if it exists in our tree
     //void countNodes(BSTNode* currNode);
     void addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const string& ngram);
-    bool removeHelper(BSTNode* currNode, bstNode* parentNode, const string& ngram);
     void removeHelper(BSTNode* givenNode, BSTNode* parentNode);
 };
 #endif // NGRAMTREE_H

@@ -238,16 +238,11 @@ int NgramTree::getRootCounter() const{
 //removes the givenData if it exists in our bst, returns whether removal is successful
 bool NgramTree::remove(string givenData){
     //perform a search correlated with binary search
-
-}
-//private modifier
-bool NgramTree::removeHelper(BSTNode* currNode, BSTNode* parentNode, const string givenData){
-    if(currNode != NULL){
-        if(currNode->str == givenData){
-            this->removeHelper(currNode);
-            return true;
-        }
+    if(this->nodeExists(givenData)){
+        //retrieve the parent node of the node with givenData and retrieve that node as well
+        return true;
     }
+    return false;
 }
 //Private modifier
 //Removes the given node
@@ -279,8 +274,20 @@ void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
             parentNode->rightChild = child;
         }
     }
-    else{
+    else{ //the node to be removed has two children
         //retrieve inorder successor
+        BSTNode* successor = nullptr;
+        successor = this->getInorderSuccessor(givenNode);
+        //retrieve the value of the successor node
+        string successorString = successor->str;
+        int successorCounter = successor->counter;
+        //remove the successor node, but before that retrieve its parent node
+        BSTNode* successorParent = this->preorderHelper(givenNode, successor, isParentNode);
+        this->removeHelper(successor, successorParent);
+        //we are guaranteed that the successor is removed successfully by invoking this helper method recursively
+        //now we have to copy successor's data to givenNode
+        givenNode->str = successorString;
+        givenNode->counter = successorCounter;
     }
 }
 void NgramTree::clear(){
@@ -344,10 +351,24 @@ bool NgramTree::preorderHelper(BSTNode* currNode, const int height){
 }
 //We want to invoke isParentNode function so we can retrieve the parent node of the searchNode if it exists
 //Returns the parent node if it exists, otherwise returns nullptr
+//O(logn) time complexity
 BSTNode* NgramTree::preorderHelper(BSTNode* currNode, BSTNode* searchNode, bool (*visit)(BSTNode*, BSTNode*)){
+    if(currNode == NULL){
+        return nullptr;
+    }
     if(visit(currNode, searchNode)){
         return currNode;
     }
+    int comparison = strcmp(searchNode->str, currNode->str);
+    if(comparison < 0){
+        //the searchNode could be located in the left subtree
+        return this->preorderHelper(currNode->leftChild, searchNode, visit);
+    }
+    else{
+        //we disregard the case when comparison == 0 is true because we would have returned the parent node way before
+        //search the parent node at the right subtree
+        return this->preorderHelper(currNode->rightChild, searchNode, visit);
+    }/* //old implementation, current one has better time complexity and efficiency
     BSTNode* result = this->preorderHelper(currNode->leftChild, searchNode, visit);
     if(result != NULL){
         return result;
@@ -357,7 +378,7 @@ BSTNode* NgramTree::preorderHelper(BSTNode* currNode, BSTNode* searchNode, bool 
         return result;
     }
     result = nullptr;
-    return result;
+    return result;*/
 }
 void NgramTree::inorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){
     if(givenNode != NULL){
@@ -392,6 +413,32 @@ void NgramTree::inorderHelper(BSTNode* currNode, int& nodeCount){
         nodeCount++;
         this->inorderHelper(currNode->rightChild);
     }
+}
+//Invoke when we need to get the inorder successor of a node
+//given string parameter is the string value of the given node which is about to be removed and certainly has 2 children
+//Currently we are not interested with nodes that have only one child or no children
+BSTNode* NgramTree::getInorderSuccessor(BSTNode* currNode){
+    static int invokeCount = 0;
+    BSTNode* returnValue = nullptr;
+    if(currNode != NULL){
+        if(invokeCount == 0){
+            invokeCount++;
+            returnValue = this->getInorderSuccessor(currNode->rightChild); //search the right subtree of the given node
+        }
+        else{
+            if(currNode->leftChild == NULL){
+                //this is the leftmost node in our right subtree hence the inorder successor
+                //set the invokeCount back to 0 so we can use this method properly later on
+                invokeCount = 0;
+                return currNode;
+            }
+            else{
+                returnValue = this->getInorderSuccessor(currNode->leftChild);
+            }
+        }
+
+    }
+    return returnValue;
 }
 void NgramTree::postorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNode)){
     if(givenNode != NULL){
