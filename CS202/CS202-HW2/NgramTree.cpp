@@ -606,7 +606,7 @@ string getNonConstString(const string& s1){
 //Displays the given node
 void displayNode(BSTNode* givenNode){
     if(givenNode != NULL){
-        cout << "\"" << givenNode->str << "\"" << " appears " << givenNode->counter << "time(s)" << endl;
+        cout << "\"" << givenNode->str << "\"" << " appears " << givenNode->counter << " time(s)" << endl;
     }
 }
 //This method will be used to split a given string, representing a line, into tokens and return it as an array
@@ -632,6 +632,7 @@ static string* tokenize(string line, int& arrayLength){
         if(line.at(i) == ' '){
            string currElement = line.substr(prevBlankIndex + 1, i);
            resultArr[arrIndex++] = currElement;
+           prevBlankIndex = i;
         }
     }
     return resultArr;
