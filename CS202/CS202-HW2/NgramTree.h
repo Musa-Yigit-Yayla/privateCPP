@@ -32,13 +32,13 @@ private:
     //private functions and overloaded operators
     friend ostream& operator<<( ostream& out, const NgramTree& tree );
     //for invoking with global functions
-    int getHeightHelper(BSTNode* currNode, int& maxHeight);
+    int getHeightHelper(BSTNode* currNode, int currHeight) const;
     void preorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode)); //perform an operation to each node in preorder traversal or display them based on visit function argument
     bool preorderHelper(BSTNode* root, const int height); //will be invoked when we are checking whether a tree is a complete tree
     BSTNode* preorderHelper(BSTNode* currNode, BSTNode* searchNode, bool (*visit)(BSTNode*, BSTNode*));
     void inorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     void inorderHelper(BSTNode** leafNodes, BSTNode* currNode, int& currIndex, const int arrSize, const int level);
-    void inorderHelper(BSTNode* currNode, int& nodeCount);
+    void inorderHelper(BSTNode* currNode, int& nodeCount) const;
     BSTNode* getInorderSuccessor(BSTNode* currNode); //invoke when we need to retrieve inorder successor of a node with 2 children
     void postorderHelper(BSTNode* root, void (*visit)(BSTNode* currNode));
     int postorderHelper(BSTNode* root);

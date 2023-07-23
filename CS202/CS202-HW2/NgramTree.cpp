@@ -9,6 +9,7 @@ using namespace std;
 int stringCompare(string s1, string s2);
 BSTNode* copyNode(BSTNode* givenNode);
 bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
+static string* tokenize(string line, int& arrayLength);
 //void countNodes(BSTNode* currNode);
 
 
@@ -36,7 +37,7 @@ void NgramTree::addNgram( const string& ngram ){
     }
     else if(ngram.size() == this->root->str.size()){
         //search for the node
-        this->addNgramHelper(this->root, nullptr, false, ngram);
+        this->addNgramHelper(this->root, nullptr, ngram);
     }
 }
 //Perform binary search on the given subtree and add the ngram or increment count of the given ngram by one
@@ -106,7 +107,7 @@ bool NgramTree::isComplete() const{
     const int searchLevel = height - 1;
     BSTNode** leafNodes = new BSTNode*[size]; //we will store the nodes at level height - 1 in this pointer array
     int leafIndex = 0;
-    copiedTree->inorderHelper(levelNodes, copiedTree->root, leafIndex, size, searchLevel); //with this function we now have desired nodes
+    copiedTree->inorderHelper(leafNodes, copiedTree->root, leafIndex, size, searchLevel); //with this function we now have desired nodes
 
     //Now we will check the children of leafNodes, notice that leafNodes stands for nodes at level height - 1
     int prevChildStatus = 0;
@@ -172,12 +173,12 @@ void NgramTree::generateTree( const string& fileName, const int n ){
     while(!inputFile.eof()){
         string currLine;
         getline(inputFile, currLine);
-        int arrayLength;
-        string* currTokens = tokenize(currLine);
+        int arrayLength = 0;
+        string* currTokens = tokenize(currLine, arrayLength);
         for(int i = 0; i < arrayLength; i++){
             string token = currTokens[i];
             if(token.size() == n){
-                this->add(token);
+                this->addNgram(token);
             }
         }
         //delete the tokens of current line since it's dynamically allocated
@@ -200,7 +201,7 @@ int NgramTree::getHeight() const{
 }
 //private visibility modifier
 //Pass the root node and 1 to the currHeight from the caller
-int NgramTree::getHeightHelper(BSTNode* currNode, int currHeight){
+int NgramTree::getHeightHelper(BSTNode* currNode, int currHeight) const{
     if(currNode != NULL){
         //traverse in preorder fashion
         currHeight;
