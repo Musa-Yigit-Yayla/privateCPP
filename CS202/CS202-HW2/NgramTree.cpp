@@ -581,11 +581,15 @@ void deleteNode(BSTNode* givenNode){
 }
 //It returns negative value if s1 precedes s2 lexicographically
 int stringCompare(string& s1, string& s2){
-    /*const string* s1Ptr = const_cast<string*>(&s1);
-    const string* s2Ptr = const_cast<string*>(&s2);
-    const char* s1Const = s1;
-    const char* s2Const = s2Ptr;*/
-    return s1.compare(s2);
+    if(s1 == s2){
+        return 0;
+    }
+    else if(s1 > s2){
+        return 1;
+    }
+    else{
+        return -1;
+    }
 }
 string getNonConstString(const string& s1){
     string s;
