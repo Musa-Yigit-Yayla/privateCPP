@@ -174,10 +174,9 @@ bool NgramTree::isFull() const{
 void NgramTree::generateTree( const string& fileName, const int n ){
     //create a file object representing current input file
     ifstream inputFile(fileName);
+    string currLine;
     //below loop is executed while we haven't reached the end of file
-    while(!inputFile.eof()){
-        string currLine;
-        getline(inputFile, currLine);
+    while(getline(inputFile, currLine)){
         int arrayLength = 0;
         string* currTokens = tokenize(currLine, arrayLength);
         for(int i = 0; i < arrayLength; i++){
