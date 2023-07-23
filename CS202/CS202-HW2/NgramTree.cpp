@@ -566,6 +566,7 @@ ostream& operator<<( ostream& out, const NgramTree& tree ){
     //traverse the tree in an inorder fashion and print each tree node
     NgramTree* constTree = const_cast<NgramTree*>(&tree);
     constTree->inorderTraverse(displayNode);
+    return out;
 }
 //Global utility functions
 

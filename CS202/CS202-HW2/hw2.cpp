@@ -4,8 +4,11 @@
 using namespace std;
 #include "NgramTree.h"
 int main( int argc, char** argv ) {
+    cout << "Start of main" << endl;
     NgramTree tree;
+    cout << "After tree instantiation" << endl;
     string fileName( argv[1] );
+    cout << "After passing argument 1 as a string" << endl;
     int n = atoi( argv[2] );
     tree.generateTree( fileName, n );
     cout << "\nTotal " << n << "-gram count: " << tree.getTotalNgramCount() << endl;
