@@ -3,6 +3,7 @@
 #include "string.h"
 #include <fstream>
 #include <cmath>
+#include <iostream>
 using namespace std;
 
 //Global utility function prototypes
@@ -13,6 +14,7 @@ static string* tokenize(string line, int& arrayLength);
 void deleteNode(BSTNode* givenNode); //delete a given node if it's not null, invoke only on leaf nodes without any children
 //void countNodes(BSTNode* currNode);
 string getNonConstString(const string& s1);
+void displayNode(BSTNode* givenNode);
 
 //NgramTree functions
 NgramTree::NgramTree(){
@@ -561,7 +563,9 @@ int NgramTree::getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int cu
 }*/
 //DON'T FORGET TO IMPLEMENT << operator given in header file
 ostream& operator<<( ostream& out, const NgramTree& tree ){
-
+    //traverse the tree in an inorder fashion and print each tree node
+    NgramTree* constTree = const_cast<NgramTree*>(&tree);
+    constTree->inorderTraverse(displayNode);
 }
 //Global utility functions
 
@@ -597,6 +601,12 @@ string getNonConstString(const string& s1){
         s += s1.at(i);
     }
     return s;
+}
+//Displays the given node
+void displayNode(BSTNode* givenNode){
+    if(givenNode != NULL){
+        cout << "\"" << givenNode->str << "\"" << " appears " << givenNode->counter << "time(s)" << endl;
+    }
 }
 //This method will be used to split a given string, representing a line, into tokens and return it as an array
 //User must pass the string line and an integer that can have value 0 before the method is called
