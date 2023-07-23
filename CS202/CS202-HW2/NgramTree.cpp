@@ -6,13 +6,13 @@
 using namespace std;
 
 //Global utility function prototypes
-int stringCompare(string s1, string s2);
+int stringCompare(string& s1, string& s2);
 BSTNode* copyNode(BSTNode* givenNode);
 bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
 static string* tokenize(string line, int& arrayLength);
 void deleteNode(BSTNode* givenNode); //delete a given node if it's not null, invoke only on leaf nodes without any children
 //void countNodes(BSTNode* currNode);
-
+string getNonConstString(const string& s1);
 
 //NgramTree functions
 NgramTree::NgramTree(){
@@ -46,7 +46,9 @@ void NgramTree::addNgram( const string& ngram ){
 //isLeftChild specified that whether our currNode is the left child of our parent node
 void NgramTree::addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const string& ngram){
     if(currNode != NULL){
-        int comparisonValue = stringCompare(currNode->str, ngram);
+        string copyStr = getNonConstString(ngram);
+
+        int comparisonValue = stringCompare(currNode->str, copyStr);
         if(currNode->str == ngram){
             currNode->counter++;
         }
@@ -315,7 +317,8 @@ BSTNode* NgramTree::getNodeHelper(BSTNode* currNode, const string& givenData) co
         return nullptr;
     }
     else{
-        int comparison = strcmp(givenData, currNode->str);
+        string copyStr = getNonConstString(givenData);
+        int comparison = stringCompare(copyStr, currNode->str);
         if(comparison < 0){
             return this->getNodeHelper(currNode->leftChild, givenData);
         }
@@ -391,7 +394,7 @@ BSTNode* NgramTree::preorderHelper(BSTNode* currNode, BSTNode* searchNode, bool 
     if(visit(currNode, searchNode)){
         return currNode;
     }
-    int comparison = strcmp(searchNode->str, currNode->str);
+    int comparison = stringCompare(searchNode->str, currNode->str);
     if(comparison < 0){
         //the searchNode could be located in the left subtree
         return this->preorderHelper(currNode->leftChild, searchNode, visit);
@@ -441,9 +444,9 @@ void NgramTree::inorderHelper(BSTNode** levelNodes, BSTNode* currNode, int& curr
 //We must pass the root node of this tree and pass the nodeCount as 0
 void NgramTree::inorderHelper(BSTNode* currNode, int& nodeCount) const{
     if(currNode != NULL){
-        this->inorderHelper(currNode->leftChild);
+        this->inorderHelper(currNode->leftChild, nodeCount);
         nodeCount++;
-        this->inorderHelper(currNode->rightChild);
+        this->inorderHelper(currNode->rightChild, nodeCount);
     }
 }
 //Invoke when we need to get the inorder successor of a node
@@ -557,7 +560,9 @@ int NgramTree::getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int cu
     }
 }*/
 //DON'T FORGET TO IMPLEMENT << operator given in header file
+ostream& operator<<( ostream& out, const NgramTree& tree ){
 
+}
 //Global utility functions
 
 //Copies the given BSTNode instance by copying its string and counter value
@@ -575,8 +580,19 @@ void deleteNode(BSTNode* givenNode){
     }
 }
 //It returns negative value if s1 precedes s2 lexicographically
-int stringCompare(const string& s1, const string& s2){
-    return strcmp(s1, s2);
+int stringCompare(string& s1, string& s2){
+    /*const string* s1Ptr = const_cast<string*>(&s1);
+    const string* s2Ptr = const_cast<string*>(&s2);
+    const char* s1Const = s1;
+    const char* s2Const = s2Ptr;*/
+    return s1.compare(s2);
+}
+string getNonConstString(const string& s1){
+    string s;
+    for(int i = 0; i < s.size(); i++){
+        s += s1.at(i);
+    }
+    return s;
 }
 //This method will be used to split a given string, representing a line, into tokens and return it as an array
 //User must pass the string line and an integer that can have value 0 before the method is called
