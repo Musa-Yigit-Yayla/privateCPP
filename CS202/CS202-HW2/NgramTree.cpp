@@ -187,12 +187,7 @@ void NgramTree::generateTree( const string& fileName, const int n ){
             else{// token size is greater than n
                 for(int j = 0; j < token.size() - n + 1; j++){
                     string currSubstr;
-                    if(j == token.size() - n){
-                        currSubstr = token.substr(j);
-                    }
-                    else{
-                        currSubstr = token.substr(j, j + n);
-                    }
+                    currSubstr = token.substr(j, n); //first argument is start index, second is length
                     this->addNgram(currSubstr);
                 }
             }
