@@ -628,22 +628,16 @@ static string* tokenize(string line, int& arrayLength, const int n){
     //traverse the string again and split into tokens
     int prevBlankIndex = -1;
     int arrIndex = 0;
+    string currElement = "";
     //!!!!!!!! WARNING THIS LOOP MIGHT BE PROBLEMATIC DUE TO ITS INDEXING, PAY ATTENTION IF ANY PROBLEM  OCCURS !!!!!!!!!!!!!!!!!!!!!!!!!!!11
     for(int i = 0; i < line.size(); i++){
         if(line.at(i) == ' '){
            //add a word
-           string currElement;
-            if(arrIndex == 0){
-                currElement = line.substr(0, i);
-            }
-            else if(arrIndex == arrayLength - 1){
-                currElement = line.substr(prevBlankIndex + 1);
-            }
-            else{
-                currElement = line.substr(prevBlankIndex + 1, i);
-            }
-           resultArr[arrIndex++] = currElement;
-           prevBlankIndex = i;
+            resultArr[arrayLength] = currElement;
+            arrayLength++;
+        }
+        else{
+            currElement += line.at(i);
         }
     }
     //after we have retrieved the array, alter the array so that it only contains usable words
