@@ -633,7 +633,6 @@ static string* tokenize(string line, int& arrayLength, const int n){
     arrayLength = wordCount;
     string resultArr[arrayLength];
     //traverse the string again and split into tokens
-    int prevBlankIndex = -1;
     int arrayIndex = 0;
     string currElement = "";
     //!!!!!!!! WARNING THIS LOOP MIGHT BE PROBLEMATIC DUE TO ITS INDEXING, PAY ATTENTION IF ANY PROBLEM  OCCURS !!!!!!!!!!!!!!!!!!!!!!!!!!!11
@@ -649,6 +648,11 @@ static string* tokenize(string line, int& arrayLength, const int n){
         else{
             currElement += line.at(i);
         }
+    }
+    //push the currElement, if it satisfies properties, once more since we have terminated without a blank space at the end
+    if(currElement.size() >= n){
+        resultArr[arrayIndex] = currElement;
+        arrayIndex++;
     }
     //after we have retrieved the array, alter the array so that it only contains usable words
     string* subArr = new string[arrayIndex];
