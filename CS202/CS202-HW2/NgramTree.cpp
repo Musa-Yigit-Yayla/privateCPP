@@ -15,6 +15,7 @@ void deleteNode(BSTNode* givenNode); //delete a given node if it's not null, inv
 //void countNodes(BSTNode* currNode);
 string getNonConstString(const string& s1);
 void displayNode(BSTNode* givenNode);
+void trimString(string& s)
 
 //NgramTree functions
 NgramTree::NgramTree(){
@@ -178,6 +179,8 @@ void NgramTree::generateTree( const string& fileName, const int n ){
     //below loop is executed while we haven't reached the end of file
     while(getline(inputFile, currLine)){
         int arrayLength = 0;
+        trimString(currLine);
+        //trim the current line before passing into tokenize function so as to obtain correct and desired results
         string* currTokens = tokenize(currLine, arrayLength, n);
         for(int i = 0; i < arrayLength; i++){
             string token = string(currTokens[i]);
@@ -700,4 +703,28 @@ static string* tokenize(string line, int& arrayLength, const int n){
         arrayLength = newLength;
         return newArr;
     }*/
+}
+//If the given string consists of only blank lines, its value is set to the empty string
+void trimString(string& s){
+    int start = -1;
+    int end = s.size();
+
+    for(int i = 0; i < s.size(); i++){
+        if(s.at(i) != ' '){
+            start = i;
+            break;
+        }
+    }
+    for(int i = s.size() - 1; i >= 0; i--){
+        if(s.at(i) != ' '){
+            end = i;
+            break;
+        }
+    }
+    if(start == -1 && end == s.size()){
+        s = "";
+    }
+    else{
+        s = s.substr(start, end - start + 1);
+    }
 }
