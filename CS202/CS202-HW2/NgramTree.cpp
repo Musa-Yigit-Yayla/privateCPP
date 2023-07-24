@@ -225,13 +225,10 @@ int NgramTree::getHeight() const{
 int NgramTree::getHeightHelper(BSTNode* currNode, int currHeight) const{
     if(currNode != NULL){
         //traverse in preorder fashion
-        currHeight;
-        int maxHeight = this->getHeightHelper(currNode->leftChild, currHeight + 1);
+        //currHeight;
+        int leftHeight = this->getHeightHelper(currNode->leftChild, currHeight + 1);
         int rightHeight = this->getHeightHelper(currNode->rightChild, currHeight + 1);
-
-        if(rightHeight > maxHeight){
-            maxHeight = rightHeight;
-        }
+        int maxHeight = max(max(leftHeight, rightHeight), currHeight);
         return maxHeight;
     }
     return -1; //return -1 when the currNode is nullptr
