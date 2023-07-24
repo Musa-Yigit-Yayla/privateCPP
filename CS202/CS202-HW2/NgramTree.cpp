@@ -15,7 +15,7 @@ void deleteNode(BSTNode* givenNode); //delete a given node if it's not null, inv
 //void countNodes(BSTNode* currNode);
 string getNonConstString(const string& s1);
 void displayNode(BSTNode* givenNode);
-void trimString(string& s)
+void trimString(string& s);
 
 //NgramTree functions
 NgramTree::NgramTree(){
@@ -68,7 +68,7 @@ void NgramTree::addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const str
         //we are at the position where our ngram should be added, instantiate a new node dynamically and add it to our bst
         currNode = new BSTNode(ngram);
         //the node to be added cannot be the root node, so we are sure that parentNode is not nullptr, hence perform linkage
-        bool isLeftChild = parentNode->leftChild == currNode;
+        bool isLeftChild = parentNode->leftChild->str == currNode->str;
         if(isLeftChild){
             parentNode->leftChild = currNode;
         }

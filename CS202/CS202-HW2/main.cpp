@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -23,4 +23,4 @@ cout << n << "-gram tree is complete: " << (tree.isComplete() ? "Yes" : "No") <<
 cout << n << "-gram tree is full: " << (tree.isFull() ? "Yes" : "No") << endl;
 return 0;
 }
-*/
+
