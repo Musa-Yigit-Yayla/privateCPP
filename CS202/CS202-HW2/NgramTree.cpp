@@ -49,9 +49,10 @@ void NgramTree::addNgram( const string& ngram ){
 //isLeftChild specified that whether our currNode is the left child of our parent node
 void NgramTree::addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const string& ngram){
     if(currNode != NULL){
-        string copyStr = getNonConstString(ngram);
-
-        int comparisonValue = stringCompare(currNode->str, copyStr);
+        //string copyStr = getNonConstString(ngram);
+        BSTNode helperNode(ngram); //we will use this node instead of const casting the ngram string
+        string currString = currNode->str;
+        int comparisonValue = stringCompare(currNode->str, helperNode.str);
         if(currNode->str == ngram){
             currNode->counter++;
         }
@@ -66,18 +67,18 @@ void NgramTree::addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const str
     }
     else{
         //we are at the position where our ngram should be added, instantiate a new node dynamically and add it to our bst
-        currNode = new BSTNode(ngram);
+        BSTNode* newNode = new BSTNode(ngram);
         //the node to be added cannot be the root node, so we are sure that parentNode is not nullptr, hence perform linkage
-        int comparisonValue = stringCompare(parentNode->str, currNode->str); //pay attention to the order of passed arguments
+        int comparisonValue = stringCompare(parentNode->str, newNode->str); //pay attention to the order of passed arguments
 
         bool isRightChild = comparisonValue < 0; //if this is true then this means that currNode is going to be the right child
         if(!isRightChild){
-            parentNode->leftChild = currNode;
-            cout << "Node with string " << currNode->str << " has been added right to the node " << parentNode->str << endl;
+            parentNode->leftChild = newNode;
+            //cout << "Node with string " << newNode->str << " has been added left to the node " << parentNode->str << endl;
         }
         else{
-            parentNode->rightChild = currNode;
-            cout << "Node with string " << currNode->str << " has been added left to the node " << parentNode->str << endl;
+            parentNode->rightChild = newNode;
+            //cout << "Node with string " << newNode->str << " has been added right to the node " << parentNode->str << endl;
         }
     }
 }
