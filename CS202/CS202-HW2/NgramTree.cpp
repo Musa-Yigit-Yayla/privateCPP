@@ -633,7 +633,9 @@ static string* tokenize(string line, int& arrayLength, const int n){
     for(int i = 0; i < line.size(); i++){
         if(line.at(i) == ' '){
            //add a word
-            resultArr[arrayLength] = currElement;
+            if(currElement.size() >= n){
+                resultArr[arrayLength] = currElement;
+            }
             arrayLength++;
         }
         else{
@@ -641,6 +643,14 @@ static string* tokenize(string line, int& arrayLength, const int n){
         }
     }
     //after we have retrieved the array, alter the array so that it only contains usable words
+    string* subArr = new string[arrayLength];
+    for(int i = 0; i < arrayLength; i++){
+        string copyStr = string(resultArr[i]);
+        subArr[i] = copyStr;
+    }
+    return subArr;
+
+    /*
     int newLength = 0;
     for(int i = 0; i < arrayLength; i++){
         if(resultArr[i].size() == n){
@@ -676,5 +686,5 @@ static string* tokenize(string line, int& arrayLength, const int n){
         }
         arrayLength = newLength;
         return newArr;
-    }
+    }*/
 }
