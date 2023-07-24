@@ -637,6 +637,7 @@ static string* tokenize(string line, int& arrayLength, const int n){
                 resultArr[arrayIndex] = currElement;
                 arrayIndex++;
             }
+            currElement = ""; //reset the current word for obtaining the next word
         }
         else{
             currElement += line.at(i);
