@@ -550,7 +550,7 @@ int NgramTree::getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int cu
     if(this->root == NULL){
         return -1;
     }
-    else{
+    else if(currNode != NULL){
         if(currNode == givenNode){
             return currHeight;
         }
