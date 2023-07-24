@@ -181,9 +181,21 @@ void NgramTree::generateTree( const string& fileName, const int n ){
         string* currTokens = tokenize(currLine, arrayLength, n);
         for(int i = 0; i < arrayLength; i++){
             string token = string(currTokens[i]);
-            //if(token.size() == n){
+            if(token.size() == n){
                 this->addNgram(token);
-            //}
+            }
+            else{// token size is greater than n
+                for(int j = 0; j < token.size() - n + 1; j++){
+                    string currSubstr;
+                    if(j == token.size() - n){
+                        currSubstr = token.substr(j);
+                    }
+                    else{
+                        currSubstr = token.substr(j, j + n);
+                    }
+                    this->addNgram(currSubstr);
+                }
+            }
         }
         //delete the tokens of current line since it's dynamically allocated
         if(currTokens != NULL){
