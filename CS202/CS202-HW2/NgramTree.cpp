@@ -631,7 +631,17 @@ static string* tokenize(string line, int& arrayLength, const int n){
     //!!!!!!!! WARNING THIS LOOP MIGHT BE PROBLEMATIC DUE TO ITS INDEXING, PAY ATTENTION IF ANY PROBLEM  OCCURS !!!!!!!!!!!!!!!!!!!!!!!!!!!11
     for(int i = 0; i < line.size(); i++){
         if(line.at(i) == ' '){
-           string currElement = line.substr(prevBlankIndex + 1, i);
+           //add a word
+           string currElement;
+            if(arrIndex == 0){
+                currElement = line.substr(0, i);
+            }
+            else if(arrIndex == arrayLength - 1){
+                currElement = line.substr(prevBlankIndex + 1);
+            }
+            else{
+                currElement = line.substr(prevBlankIndex + 1, i);
+            }
            resultArr[arrIndex++] = currElement;
            prevBlankIndex = i;
         }
