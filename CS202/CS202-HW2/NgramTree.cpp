@@ -68,12 +68,16 @@ void NgramTree::addNgramHelper(BSTNode* currNode, BSTNode* parentNode, const str
         //we are at the position where our ngram should be added, instantiate a new node dynamically and add it to our bst
         currNode = new BSTNode(ngram);
         //the node to be added cannot be the root node, so we are sure that parentNode is not nullptr, hence perform linkage
-        bool isLeftChild = parentNode->leftChild->str == currNode->str;
-        if(isLeftChild){
+        int comparisonValue = stringCompare(parentNode->str, currNode->str); //pay attention to the order of passed arguments
+
+        bool isRightChild = comparisonValue < 0; //if this is true then this means that currNode is going to be the right child
+        if(!isRightChild){
             parentNode->leftChild = currNode;
+            cout << "Node with string " << currNode->str << " has been added right to the node " << parentNode->str << endl;
         }
         else{
             parentNode->rightChild = currNode;
+            cout << "Node with string " << currNode->str << " has been added left to the node " << parentNode->str << endl;
         }
     }
 }
