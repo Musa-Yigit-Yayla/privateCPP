@@ -180,7 +180,7 @@ void NgramTree::generateTree( const string& fileName, const int n ){
         int arrayLength = 0;
         string* currTokens = tokenize(currLine, arrayLength, n);
         for(int i = 0; i < arrayLength; i++){
-            string token = currTokens[i];
+            string token = string(currTokens[i]);
             //if(token.size() == n){
                 this->addNgram(token);
             //}
@@ -664,7 +664,7 @@ static string* tokenize(string line, int& arrayLength, const int n){
         arrIndex = 0;
         for(int i = 0; i < arrayLength; i++){
             string str = resultArr[i];
-            if(str.size() == n){
+            if(str.size() >= n){
                 newArr[arrIndex++] = str;
             }
             else if(str.size() > n){
