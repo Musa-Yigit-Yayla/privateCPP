@@ -636,11 +636,14 @@ static string* tokenize(string line, int& arrayLength, const int n){
            prevBlankIndex = i;
         }
     }
-    //after we have retrieved the array, shrink the array so that it only contains usable words
+    //after we have retrieved the array, alter the array so that it only contains usable words
     int newLength = 0;
     for(int i = 0; i < arrayLength; i++){
         if(resultArr[i].size() == n){
             newLength++;
+        }
+        else if(resultArr[i].size() > n){
+            newLength += (resultArr[i].size() - n) + 1;
         }
     }
     if(newLength == 0){
@@ -653,6 +656,18 @@ static string* tokenize(string line, int& arrayLength, const int n){
             string str = resultArr[i];
             if(str.size() == n){
                 newArr[arrIndex++] = str;
+            }
+            else if(str.size() > n){
+                for(int i = 0; i < str.size() - n + 1; i++){
+                    string currSubstr;
+                    if(i != str.size() - n){
+                        currSubstr = str.substr(i, i + n);
+                    }
+                    else{
+                        currSubstr = str.substr(i);
+                    }
+                    newArr[arrIndex++] = currSubstr;
+                }
             }
         }
         arrayLength = newLength;
