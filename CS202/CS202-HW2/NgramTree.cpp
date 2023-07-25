@@ -261,16 +261,15 @@ bool NgramTree::remove(string givenData){
         return true;
     }
     //perform a search correlated with binary search
-    else if(this->nodeExists(givenData)){
+    else if(this->nodeExists(givenData)){ //!!!!!! WARNING, YOU MIGHT WANT TO REMOVE THIS LINE AS IT'S ALREADY CHECKED THAT WHETHER NODE EXISTS IN GETNODEANDPARENT!!!!!!
         //retrieve the parent node of the node with givenData and retrieve that node as well
-        int comparison = stringCompare(givenData, this->root->str);
-        if(comparison < 0){
-            this->removeHelper(this->root->leftChild, this->root);
+        BSTNode** nodes = this->getNodeAndParent(this->root, givenData);
+        if(nodes != NULL){
+            BSTNode* nodeToRemove = nodes[0];
+            BSTNode* parent = nodes[1];
+            this->removeHelper(nodeToRemove, parent);
+            return true;
         }
-        else{
-            this->removeHelper(this->root->rightChild, this->root);
-        }
-        return true;
     }
     return false;
 }
@@ -597,8 +596,39 @@ int NgramTree::getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int cu
 //Returns a dynamically allocated length 2 BSTNode* array, first element contains node and the second element contains its parent.
 //Do not invoke on root since it'S unnecessary
 //Returns nullptr if a node with given string is not found
-BSTNode** NgramTree::getNodeAndParent(string ngram){
-
+BSTNode** NgramTree::getNodeAndParent(BSTNode* currNode, string ngram){
+    if(currNode != NULL){
+        string currStr = currNode->str;
+        int comparison = stringCompare(ngram, currStr);
+        if(comparison < 0){
+            //check the left child
+            if(currNode->leftChild != NULL && currNode->leftChild->str == ngram){
+                BSTNode** returnValue = new BSTNode*[2];
+                returnValue[0] = currNode->leftChild;
+                returnValue[1] = currNode;
+                return returnValue;
+            }
+            else{
+                return this->getNodeAndParent(currNode->leftChild, ngram);
+            }
+        }
+        else if(comparison > 0){
+            //check the right child
+            //check the left child
+            if(currNode->rightChild != NULL && currNode->rightChild->str == ngram){
+                BSTNode** returnValue = new BSTNode*[2];
+                returnValue[0] = currNode->rightChild;
+                returnValue[1] = currNode;
+                return returnValue;
+            }
+            else{
+                return this->getNodeAndParent(currNode->rightChild, ngram);
+            }
+        }
+    }
+    else{
+        return nullptr;
+    }
 }
 /*private modifier
 *will be used to count the total nodes in our bst
