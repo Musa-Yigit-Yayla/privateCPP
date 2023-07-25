@@ -64,7 +64,7 @@ void test2(){
     tree.remove("rvesu");
     tree.remove("ounte");
     tree.remove("merve");
-    tree.remove("trike");
+    tree.remove("trike"); //!!! THIS IS WHERE WE FAIL TO REMIVE THE NODE
     tree.remove("oming");
     tree.remove("riend");
     cout << "\nTotal " << n << "-gram count: " << tree.getTotalNgramCount() << endl;

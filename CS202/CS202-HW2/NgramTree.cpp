@@ -345,7 +345,7 @@ void NgramTree::removeRoot(){
         BSTNode* inorderSuccessor = this->getInorderSuccessor(this->root);
         BSTNode** nodes = this->getNodeAndParent(this->root, inorderSuccessor->str);
         BSTNode* parent = nodes[1];
-        delete[] nodes; //delete the additional pointers which are futile
+        //delete[] nodes; //delete the additional pointers which are futile
 
         string isString = inorderSuccessor->str;
         int isCounter = inorderSuccessor->counter;
@@ -432,13 +432,13 @@ bool NgramTree::preorderHelper(BSTNode* currNode, const int height){
             //delete the current node as it's one of the farthest leaf nodes
             //Before deletion retrieve its parent node
             BSTNode* parent = this->preorderHelper(this->root, currNode, isParentNode);
+            delete currNode;
             if(parent->leftChild == currNode){
                 parent->leftChild = nullptr;
             }
             else{
                 parent->rightChild = nullptr; //CAREFUL, SOME ERRORS MAY OCCUR
             }
-            delete currNode;
             return true;
         }
         bool isDeleted = this->preorderHelper(currNode->leftChild, height);
@@ -524,7 +524,7 @@ BSTNode* NgramTree::getInorderSuccessor(BSTNode* currNode){
             returnValue = this->getInorderSuccessor(currNode->rightChild); //search the right subtree of the given node
         }
         else{
-            if(currNode->leftChild == NULL){
+            if(currNode->leftChild == NULL){ //!!!Problem occurs here because a removed node's address still remains and we try to dereference it
                 //this is the leftmost node in our right subtree hence the inorder successor
                 //set the invokeCount back to 0 so we can use this method properly later on
                 invokeCount = 0;
@@ -703,7 +703,9 @@ string getNonConstString(const string& s1){
 //Displays the given node
 void displayNode(BSTNode* givenNode){
     if(givenNode != NULL){
-        cout << "\"" << givenNode->str << "\"" << " appears " << givenNode->counter << " time(s)" << endl;
+        string givenStr = givenNode->str;
+        int givenCounter = givenNode->counter;
+        cout << "\"" << givenStr << "\"" << " appears " << givenCounter << " time(s)" << endl;
     }
 }
 //This method will be used to split a given string, representing a line, into tokens and return it as an array
