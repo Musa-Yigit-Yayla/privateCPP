@@ -281,11 +281,13 @@ void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
     if(givenNode->leftChild == NULL && givenNode->rightChild == NULL){
         //simply delete the given node
         delete givenNode;
+        givenNode = nullptr;
     }
     //Node to be removed has one and only one child
     else if(givenNode->leftChild != NULL && givenNode->rightChild == NULL){
         BSTNode* child = givenNode->leftChild;
         delete givenNode;
+        givenNode = nullptr;
         if(isLeftChild){
             parentNode->leftChild = child;
         }
@@ -296,6 +298,7 @@ void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
     else if(givenNode->rightChild != NULL && givenNode->leftChild == NULL){
         BSTNode* child = givenNode->rightChild;
         delete givenNode;
+        givenNode = nullptr;
         if(isLeftChild){
             parentNode->leftChild = child;
         }
@@ -338,6 +341,17 @@ void NgramTree::removeRoot(){
     }
     else{
         //root has two children, hence retrieve the inorder successor, and its parent, and delete that node by using regular approaches in the removeHelper
+        //then copy the deleted node's contents into our root
+        BSTNode* inorderSuccessor = this->getInorderSuccessor(this->root);
+        BSTNode** nodes = this->getNodeAndParent(this->root, inorderSuccessor->str);
+        BSTNode* parent = nodes[1];
+        delete[] nodes; //delete the additional pointers which are futile
+
+        string isString = inorderSuccessor->str;
+        int isCounter = inorderSuccessor->counter;
+        this->removeHelper(inorderSuccessor, parent);
+        this->root->str = isString;
+        this->root->counter = isCounter;
     }
 }
 void NgramTree::clear(){
@@ -363,7 +377,9 @@ BSTNode* NgramTree::getNodeHelper(BSTNode* currNode, const string& givenData) co
         return nullptr;
     }
     else{
-        string copyStr = getNonConstString(givenData);
+        BSTNode tempNode(givenData);
+        string copyStr = tempNode.str;
+        string currStr = currNode->str;
         int comparison = stringCompare(copyStr, currNode->str);
         if(comparison < 0){
             return this->getNodeHelper(currNode->leftChild, givenData);
