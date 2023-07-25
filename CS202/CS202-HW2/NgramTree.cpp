@@ -256,9 +256,20 @@ int NgramTree::getRootCounter() const{
 }
 //removes the givenData if it exists in our bst, returns whether removal is successful
 bool NgramTree::remove(string givenData){
+    if(this->root != NULL && this->root->str == givenData){
+        this->removeRoot();
+        return true;
+    }
     //perform a search correlated with binary search
-    if(this->nodeExists(givenData)){
+    else if(this->nodeExists(givenData)){
         //retrieve the parent node of the node with givenData and retrieve that node as well
+        int comparison = stringCompare(givenData, this->root->str);
+        if(comparison < 0){
+            this->removeHelper(this->root->leftChild, this->root);
+        }
+        else{
+            this->removeHelper(this->root->rightChild, this->root);
+        }
         return true;
     }
     return false;
@@ -307,6 +318,27 @@ void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
         //now we have to copy successor's data to givenNode
         givenNode->str = successorString;
         givenNode->counter = successorCounter;
+    }
+}
+//private visibility
+//will be invoked from the remove if the node to be removed is the root node
+void NgramTree::removeRoot(){
+    if(this->root->leftChild == NULL && this->root->rightChild == NULL){
+        delete this->root;
+        this->root = nullptr;
+    }
+    else if(this->root->leftChild != NULL && this->root->rightChild == NULL){
+        BSTNode* child = this->root->leftChild;
+        delete this->root;
+        this->root = child;
+    }
+    else if(this->root->rightChild != NULL && this->root->leftChild == NULL){
+        BSTNode* child = this->root->rightChild;
+        delete this->root;
+        this->root = child;
+    }
+    else{
+        //root has two children, hence retrieve the inorder successor, and its parent, and delete that node by using regular approaches in the removeHelper
     }
 }
 void NgramTree::clear(){
@@ -562,7 +594,12 @@ int NgramTree::getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int cu
     return currResult;
 
 }
+//Returns a dynamically allocated length 2 BSTNode* array, first element contains node and the second element contains its parent.
+//Do not invoke on root since it'S unnecessary
+//Returns nullptr if a node with given string is not found
+BSTNode** NgramTree::getNodeAndParent(string ngram){
 
+}
 /*private modifier
 *will be used to count the total nodes in our bst
 *will be passed as an argument to postorderTraverse
