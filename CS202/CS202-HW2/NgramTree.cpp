@@ -261,7 +261,7 @@ bool NgramTree::remove(string givenData){
         return true;
     }
     //perform a search correlated with binary search
-    else if(this->nodeExists(givenData)){ //!!!!!! WARNING, YOU MIGHT WANT TO REMOVE THIS LINE AS IT'S ALREADY CHECKED THAT WHETHER NODE EXISTS IN GETNODEANDPARENT!!!!!!
+    //else if(this->nodeExists(givenData)){ //!!!!!! WARNING, YOU MIGHT WANT TO REMOVE THIS LINE AS IT'S ALREADY CHECKED THAT WHETHER NODE EXISTS IN GETNODEANDPARENT!!!!!!
         //retrieve the parent node of the node with givenData and retrieve that node as well
         BSTNode** nodes = this->getNodeAndParent(this->root, givenData);
         if(nodes != NULL){
@@ -270,7 +270,7 @@ bool NgramTree::remove(string givenData){
             this->removeHelper(nodeToRemove, parent);
             return true;
         }
-    }
+    //}
     return false;
 }
 //Private modifier
@@ -371,6 +371,7 @@ int NgramTree::getCounter(string givenData) const{
 }
 //Private visibility
 //Performs binary search and at the end returns the node with the givenData match if it exists
+//!!!!!! PROBLEMATIC FUNCTION, DOES NOT FUNCTION PROPERLY ALL THE TIME
 //O(logn)
 BSTNode* NgramTree::getNodeHelper(BSTNode* currNode, const string& givenData) const{
     if(currNode == NULL){
