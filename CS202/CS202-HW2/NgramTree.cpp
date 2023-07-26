@@ -285,6 +285,12 @@ void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
         //simply delete the given node
         delete givenNode;
         givenNode = nullptr;
+        if(isLeftChild){
+            parentNode->leftChild = nullptr;
+        }
+        else{
+            parentNode->rightChild = nullptr;
+        }
     }
     //Node to be removed has one and only one child
     else if(givenNode->leftChild != NULL && givenNode->rightChild == NULL){

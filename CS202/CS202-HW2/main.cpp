@@ -59,13 +59,21 @@ void test2(){
     cout << n << "-gram tree is full: " << (tree.isFull() ? "Yes" : "No") << endl;
     //remove nodes that prohibit our tree from being complete
     tree.remove("comin");
+    cout << 1 << endl;
     tree.remove("strik"); //out
-    tree.remove("unter"); //out
-    tree.remove("rvesu"); //out
+    cout << 1 << endl;
+    tree.remove("unter");
+    cout << 1 << endl; //out
+    tree.remove("rvesu");
+    cout << 1 << endl; //out
     tree.remove("ounte");
+    cout << 1 << endl;
     tree.remove("merve");
+    cout << 1 << endl;
     tree.remove("trike"); //!!! THIS IS WHERE WE FAIL TO REMIVE THE NODE
+    cout << 1 << endl;
     tree.remove("oming");
+    cout << 1 << endl;
     tree.remove("riend");
     cout << "\nTotal " << n << "-gram count: " << tree.getTotalNgramCount() << endl;
     cout << tree << endl;
