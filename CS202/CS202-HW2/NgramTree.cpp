@@ -11,7 +11,7 @@ int stringCompare(string& s1, string& s2);
 BSTNode* copyNode(BSTNode* givenNode);
 bool isParentNode(BSTNode* givenNode, BSTNode* childNode);
 static string* tokenize(string line, int& arrayLength, const int n);
-void deleteNode(BSTNode* givenNode); //delete a given node if it's not null, invoke only on leaf nodes without any children
+void deleteNode(BSTNode* givenNode, BSTNode* root); //delete a given node if it's not null, invoke only on leaf nodes without any children
 //void countNodes(BSTNode* currNode);
 string getNonConstString(const string& s1);
 void displayNode(BSTNode* givenNode);
@@ -349,6 +349,10 @@ void NgramTree::removeRoot(){
         BSTNode* inorderSuccessor = this->getInorderSuccessor(this->root);
         BSTNode** nodes = this->getNodeAndParent(this->root, inorderSuccessor->str);
         BSTNode* parent = nodes[1];
+        int childState = -1;
+        if(parent == this->root && this->root->rightChild == inorderSuccessor && this->root->rightChild->rightChild == NULL){
+            childState = 1; //right child is the inorder successour
+        }
         //delete[] nodes; //delete the additional pointers which are futile
 
         string isString = inorderSuccessor->str;
@@ -356,12 +360,15 @@ void NgramTree::removeRoot(){
         this->removeHelper(inorderSuccessor, parent);
         this->root->str = isString;
         this->root->counter = isCounter;
+        if(childState == 1){
+            this->root->rightChild = nullptr;
+        }
     }
 }
 void NgramTree::clear(){
     //traverse the tree in a post order fashion and invoke remove method on each node
     if(this->root != NULL){
-        this->postorderHelper(this->root, deleteNode);
+        this->postorderHelper(this->root);
     }
 }
 //returns the counter of a node in bst, returns -1 if node does not exist
@@ -593,7 +600,7 @@ bool isParentNode(BSTNode* givenNode, BSTNode* childNode){
 //private modifier
 //will delete the given node regardless of whether it belongs to the NgramTree instance that our function is being invoked on
 //Given node is assumed to be a leaf node
-void NgramTree::deleteGivenNode(BSTNode* currNode){
+void deleteGivenNode(BSTNode* currNode, BSTNode* root){
     delete currNode;
 }
 
