@@ -431,6 +431,7 @@ void NgramTree::preorderHelper(BSTNode* givenNode, void (*visit)(BSTNode* currNo
 bool NgramTree::preorderHelper(BSTNode* currNode, const int height){
     //Since we will perform remove operation on farthest leaf nodes without any children, we can perform in preorder manner
     if(currNode != NULL){
+        string currNodeStr = currNode->str; //for debugging purposes
         int currNodeHeight = this->getNodeHeight(this->root, currNode, 1); //retrieve the height of currNode
         if(currNodeHeight == height){
             //delete the current node as it's one of the farthest leaf nodes
@@ -446,7 +447,8 @@ bool NgramTree::preorderHelper(BSTNode* currNode, const int height){
             return true;
         }
         bool isDeleted = this->preorderHelper(currNode->leftChild, height);
-        isDeleted = isDeleted || this->preorderHelper(currNode->rightChild, height);
+        bool isDeleted2 = this->preorderHelper(currNode->rightChild, height);
+        isDeleted = isDeleted || isDeleted2;
         return isDeleted;
     }
     return false;
@@ -609,7 +611,7 @@ int NgramTree::getNodeHeight(BSTNode* currNode, BSTNode* const givenNode, int cu
         }
         //preorder traverse here
         int h1 = this->getNodeHeight(currNode->leftChild, givenNode, currHeight + 1);
-        int h2 = this->getNodeHeight(currNode->leftChild, givenNode, currHeight + 1);
+        int h2 = this->getNodeHeight(currNode->rightChild, givenNode, currHeight + 1);
         currResult = max(h1, h2);
     }
     return currResult;
