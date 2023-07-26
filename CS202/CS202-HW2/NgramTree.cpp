@@ -95,7 +95,9 @@ bool NgramTree::isComplete() const{
     //Subsequently we will remove the nodes which are at the level of the height, namely farthest leaf nodes, from copied bst
     //Then we will check whether remaining bst is a full tree
     //If it's a full tree we will create another copy, then check whether the children of nodes at height h - 1 satisfy complete tree properties for leaf nodes
-
+    if(this->isFull()){
+        return true;
+    }
     //1-) copy our bst
     NgramTree* copiedTree = new NgramTree(*this);
     //2-)Retrieve the height
@@ -226,6 +228,7 @@ int NgramTree::getHeightHelper(BSTNode* currNode, int currHeight) const{
     if(currNode != NULL){
         //traverse in preorder fashion
         //currHeight;
+        string currString = currNode->str;
         int leftHeight = this->getHeightHelper(currNode->leftChild, currHeight + 1);
         int rightHeight = this->getHeightHelper(currNode->rightChild, currHeight + 1);
         int maxHeight = max(max(leftHeight, rightHeight), currHeight);
@@ -320,6 +323,7 @@ void NgramTree::removeHelper(BSTNode* givenNode, BSTNode* parentNode){
         //now we have to copy successor's data to givenNode
         givenNode->str = successorString;
         givenNode->counter = successorCounter;
+        //delete successor; //it's guaranteed that we have a successor logically since we have 2 child nodes
     }
 }
 //private visibility
@@ -519,6 +523,7 @@ BSTNode* NgramTree::getInorderSuccessor(BSTNode* currNode){
     static int invokeCount = 0;
     BSTNode* returnValue = nullptr;
     if(currNode != NULL){
+        string currStr = currNode->str; //for debugging purposes
         if(invokeCount == 0){
             invokeCount++;
             returnValue = this->getInorderSuccessor(currNode->rightChild); //search the right subtree of the given node
