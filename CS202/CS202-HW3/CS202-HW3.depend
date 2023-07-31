@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1690806232 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw3\heapsort.cpp
+
+1584205420 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw3\main.cpp
+	<iostream>
+
+1690808704 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw3\heap.cpp
+	<cstddef>
+	"heap.h"
+
+1690808682 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw3\heap.h
+	<iostream>
+	<cstddef>
+

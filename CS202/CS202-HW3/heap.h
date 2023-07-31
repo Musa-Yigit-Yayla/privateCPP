@@ -8,17 +8,23 @@
 */
 
 #include <iostream>
-#include "BSTNode.h"
+#include <cstddef>
 
 using namespace std;
-
+#ifndef HEAP_H
+#define HEAP_H
 class heap{
 private:
-
+    int arrayLength = 0;
+    int* arr = nullptr; //an array representation for heap elements
 
 public:
+    heap();
     void insert(const int a);
     int maximum();
     int popMaximum();
 };
+
+#endif // HEAP_H
+
 

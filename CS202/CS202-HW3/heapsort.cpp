@@ -4,5 +4,5 @@
 * ID: 22003108
 * Section: 1
 * Assignment: 3
-* Description: description of your code
+* Description: This file be used to provide the user with a heap sort function
 */
