@@ -7,7 +7,16 @@
 * Description: description of your code
 */
 #include <cstddef>
-#include "BSTNode.h"
-#include "heap.h"
+#ifndef BTNODE_H
+#define BTNODE_H
 
 using namespace std;
+class BTNode{
+public:
+    int data;
+    BTNode* left = nullptr;
+    BTNode* right = nullptr;
+
+    BTNode(int data);
+};
+#endif // BTNODE_H
