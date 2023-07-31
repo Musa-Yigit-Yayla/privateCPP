@@ -20,6 +20,7 @@ private:
 
 public:
     heap();
+    void buildHeap(int arr[], int n);
     void insert(const int a);
     int maximum();
     int popMaximum();

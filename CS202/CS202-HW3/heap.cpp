@@ -14,6 +14,11 @@ using namespace std;
 heap::heap(){
 
 }
+void heap::buildHeap(int arr[], int n){
+    for(int i = 0; i < n; i++){
+        this->insert(arr[i]);
+    }
+}
 void heap::insert(const int a){
     if(this->arr == nullptr){
         this->arrayLength = 1;
@@ -51,7 +56,7 @@ int heap::maximum(){
     }
     return -1;
 }
-
+//Once we pop the maximum, our heap is readjusted to a state where it is a heap again
 int heap::popMaximum(){
     if(this->arr != nullptr){
         int returnValue = this->arr[0];
