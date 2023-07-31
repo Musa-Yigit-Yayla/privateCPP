@@ -23,7 +23,7 @@ void heapSort(int arr[], int length){
      //we have to create a new array to store the result since our heap data structure removes elements one by one
     int leftCounter = 0;
     for(int i = length - 1; i > 0; i++){
-        int currMax = heap.popMaximum();
+        int currMax = newHeap.popMaximum();
         int temp = arr[i];
         arr[i] = currMax;
         arr[leftCounter++] = temp;
