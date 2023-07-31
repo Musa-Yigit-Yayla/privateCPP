@@ -32,7 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="BSTNode.cpp" />
+		<Unit filename="BSTNode.h" />
 		<Unit filename="heap.cpp" />
+		<Unit filename="heap.h" />
 		<Unit filename="heapsort.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
