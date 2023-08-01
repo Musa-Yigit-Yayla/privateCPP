@@ -61,7 +61,7 @@ int heap::maximum(){
     return -1;
 }
 //Once we pop the maximum, our heap is readjusted to a state where it is a heap again
-int heap::popMaximum(){
+int heap::popMaximum(int& moveCount, int& compCount){
     if(this->arrayLength != 0){
         int returnValue = this->arr[0];
         /*int* newArr = new int[this->arrayLength - 1];
@@ -73,9 +73,9 @@ int heap::popMaximum(){
         delete[] this->arr;
         this->arr = newArr;*/
         this->arr[0] = this->arr[this->arrayLength - 1];
-        this->arr[this->arrayLength - 1] = -1;
+        this->arr[this->arrayLength - 1] = -1; // no need to count this as a movecount since we assign -1 directly to it
         this->arrayLength--;
-
+        moveCount++;
         int i = 0;
         if(this->arrayLength == 1){
             return returnValue;
@@ -84,6 +84,7 @@ int heap::popMaximum(){
         bool isLocated;
         if(this->arrayLength == 2){
             isLocated = this->arr[i] > this->arr[i * 2 + 1]; //compare the only two elements of the heap
+            compCount++;
             if(!isLocated){
                 int temp = this->arr[i];
                 this->arr[i] = this->arr[i * 2 + 1];
@@ -93,6 +94,7 @@ int heap::popMaximum(){
         }
         else{
             isLocated = this->arr[i] > this->arr[i * 2 + 1] && this->arr[i] > this->arr[i * 2 + 2];
+            compCount += 2;
         }
         while(!isLocated){
             //swap the current root with its larger child if it has any
@@ -101,9 +103,11 @@ int heap::popMaximum(){
             if(i * 2 + 1 < this->arrayLength){
                 child1 = this->arr[i * 2 + 1];
             }
+            compCount++;
             if(i * 2 + 2 < this->arrayLength){
                 child2 = this->arr[i * 2 + 2];
             }
+            compCount++;
             if(child1 == -1){
                 //since first child is out of bounds, this implies that the second child is the same
                 isLocated = true;
@@ -114,7 +118,9 @@ int heap::popMaximum(){
                     int temp = this->arr[i];
                     this->arr[i] = this->arr[i * 2 + 2];
                     this->arr[i * 2 + 2] = temp;
+                    moveCount += 3;
                 }
+                compCount++;
                 isLocated = true; //true since we have compared the current item with the last child
             }
             else{
@@ -125,11 +131,13 @@ int heap::popMaximum(){
                     largerChild = child2;
                     largerIndex = 2 * i + 2;
                 }
+                compCount++;
                 if(largerChild > this->arr[i]){
                     int temp = this->arr[i];
                     this->arr[i] = largerChild;
                     this->arr[largerIndex] = temp;
                     i = largerIndex;
+                    moveCount += 3;
                 }
                 else{
                     isLocated = true; //we placed the node we have been trickling down to the correct location

@@ -21,10 +21,10 @@ private:
 
 public:
     heap(int maxArrayLength);
-    void buildHeap(int arr[], int n);
+    void buildHeap(int arr[], int n, int& moveCount, int& compCount);
     void insert(const int a);
     int maximum();
-    int popMaximum();
+    int popMaximum(int& moveCount, int& compCount);
 };
 
 #endif // HEAP_H

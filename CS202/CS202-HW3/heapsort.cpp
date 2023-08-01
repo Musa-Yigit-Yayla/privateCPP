@@ -15,13 +15,13 @@
 using namespace std;
 
 //initially create a heap
-void heapSort(int arr[], int length){
+void heapSort(int arr[], int length, int& moveCount, int& compCount){
     heap newHeap(length);
     int* newArr = new int[length];
     for(int i = 0; i < length; i++){
         newArr[i] = arr[i];
     }
-    newHeap.buildHeap(newArr, length); //create the heap from the copied array
+    newHeap.buildHeap(newArr, length, int& moveCount, int& compCount); //create the heap from the copied array
 
      //we have to create a new array to store the result since our heap data structure removes elements one by one
     int leftCounter = 0;
