@@ -136,7 +136,7 @@ void test2(){
 int main(int argc, char** argv){
     bool debugMode = true;
     if(debugMode){
-        test2();
+        test0();
         return 0;
     }
     string inputFileName = argv[1];
@@ -146,19 +146,22 @@ int main(int argc, char** argv){
     string currLine;
 
     int length = 0;
-    while(inputFile){
-        getline(inputFile, currLine);
+    int currValue;
+    while (inputFile >> currValue) {
         length++;
     }
-    //heap newHeap(length); //create a heap instance
-    int arr[length];
-    inputFile.open(inputFileName); //reopen the input file this time we will place the items in our array
+
+    // Dynamically allocate the array to hold the integers
+    int* arr = new int[length];
+
+    // Reset the file stream and read values to the array
+    inputFile.clear();
+    inputFile.seekg(0, std::ios::beg);
     int currIndex = 0;
-    while(inputFile){
-        getline(inputFile, currLine);
-        int currValue = stoi(currLine);
+    while (inputFile >> currValue) {
         arr[currIndex++] = currValue;
     }
+    inputFile.close();
     long long moveCount = 0;
     long long compCount = 0;
     //newHeap.buildHeap(arr, length, moveCount, compCount);
@@ -172,6 +175,7 @@ int main(int argc, char** argv){
         currLine = to_string(arr[i]) + "\n";
         outputFile << currLine;
     }
+    delete[] arr;
     return 0;
 }
 
