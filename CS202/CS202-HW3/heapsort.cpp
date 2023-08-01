@@ -6,11 +6,10 @@
 * Assignment: 3
 * Description: This file be used to provide the user with a heap sort function
 */
-/*#include <cstddef>
+#include <cstddef>
 #include <fstream>
 #include <string>
 #include <iostream>
-#include <random>
 #include "heap.h"
 
 using namespace std;
@@ -27,36 +26,14 @@ void heapSort(int arr[], int length, long long& moveCount, long long& compCount)
 
      //we have to create a new array to store the result since our heap data structure removes elements one by one
     int leftCounter = 0;
-    for(int i = length - 1; i > 0; i++){
-        int currMax = newHeap.popMaximum(moveCount, compCount);
-        int temp = arr[i];
-        arr[i] = currMax;
-        arr[leftCounter++] = temp;
-        moveCount += 3;
+    for(int i = length - 1; i >= 0; i--){
+        arr[i] = newHeap.popMaximum(moveCount, compCount);
     }
     /*if(newArr != NULL){
         delete[] newArr;
     }*/
-/*}
-void test0(){
-    int n = 20;
-    int arr[n];
-    for(int i = 0; i < n; i++){
-        arr[i] = rand() % 800;
-    }
-    long long moveCount = 0, compCount = 0;
-    heapSort(arr, n, moveCount, compCount);
-
-    for(int i = 0; i < n; i++){
-        cout << arr[i] << " ";
-    }
 }
 int main(int argc, char** argv){
-    bool debugMode = true;
-    if(debugMode){
-        test0();
-        return 0;
-    }
     string inputFileName = argv[1];
     string outputFileName = argv[2];
 
@@ -64,19 +41,22 @@ int main(int argc, char** argv){
     string currLine;
 
     int length = 0;
-    while(inputFile){
-        getline(inputFile, currLine);
+    int currValue;
+    while (inputFile >> currValue) {
         length++;
     }
-    //heap newHeap(length); //create a heap instance
-    int arr[length];
-    inputFile.open(inputFileName); //reopen the input file this time we will place the items in our array
+
+    // Dynamically allocate the array to hold the integers
+    int* arr = new int[length];
+
+    // Reset the file stream and read values to the array
+    inputFile.clear();
+    inputFile.seekg(0, std::ios::beg);
     int currIndex = 0;
-    while(inputFile){
-        getline(inputFile, currLine);
-        int currValue = stoi(currLine);
+    while (inputFile >> currValue) {
         arr[currIndex++] = currValue;
     }
+    inputFile.close();
     long long moveCount = 0;
     long long compCount = 0;
     //newHeap.buildHeap(arr, length, moveCount, compCount);
@@ -90,6 +70,6 @@ int main(int argc, char** argv){
         currLine = to_string(arr[i]) + "\n";
         outputFile << currLine;
     }
+    delete[] arr;
     return 0;
 }
-*/
