@@ -27,11 +27,11 @@ void heapSort(int arr[], int length, long long& moveCount, long long& compCount)
 
      //we have to create a new array to store the result since our heap data structure removes elements one by one
     int leftCounter = 0;
-    for(int i = length - 1; i > 0; i--){
+    for(int i = length - 1; i >= 0; i--){
         int currMax = newHeap.popMaximum(moveCount, compCount);
         int temp = arr[i];
         arr[i] = currMax;
-        arr[leftCounter++] = temp;
+        //arr[leftCounter++] = temp;
         moveCount += 3;
     }
     /*if(newArr != NULL){
@@ -42,8 +42,19 @@ void test0(){
     int n = 20;
     int arr[n];
     for(int i = 0; i < n; i++){
-        arr[i] = rand() % 800;
+        arr[i] = rand() % 40;
     }
+    long long moveCount = 0, compCount = 0;
+    heapSort(arr, n, moveCount, compCount);
+
+    for(int i = 0; i < n; i++){
+        cout << arr[i] << " ";
+    }
+}
+void test1(){
+    int n = 10;
+    int arr[n] = {6, 12, 4, 4, 3, 2, 8, 9, 18, 28};
+
     long long moveCount = 0, compCount = 0;
     heapSort(arr, n, moveCount, compCount);
 
