@@ -15,8 +15,9 @@
 using namespace std;
 
 //initially create a heap
-void heapSort(int arr[], int length, int& moveCount, int& compCount){
+void heapSort(int arr[], int length, long long& moveCount, long long& compCount){
     heap newHeap(length);
+    //newHeap.buildHeap(arr, length, moveCount, compCount);
     int* newArr = new int[length];
     for(int i = 0; i < length; i++){
         newArr[i] = arr[i];
@@ -48,7 +49,7 @@ int main(int argc, char** argv){
         getline(inputFile, currLine);
         length++;
     }
-    heap newHeap(length); //create a heap instance
+    //heap newHeap(length); //create a heap instance
     int arr[length];
     inputFile.open(inputFileName); //reopen the input file this time we will place the items in our array
     int currIndex = 0;
@@ -57,14 +58,14 @@ int main(int argc, char** argv){
         int currValue = stoi(currLine);
         arr[currIndex++] = currValue;
     }
-    int moveCount = 0;
-    int compCount = 0;
-    newHeap.buildHeap(arr, length);
+    long long moveCount = 0;
+    long long compCount = 0;
+    //newHeap.buildHeap(arr, length, moveCount, compCount);
     heapSort(arr, length, moveCount, compCount);
 
     //write the resulting sorted array into the provided output file
     ofstream outputFile(outputFileName);
-    currLine = "Move Count: " << to_string(moveCount) << ", Comparison Count: " << to_string(compCount);
+    currLine = "Move Count: " + to_string(moveCount) + ", Comparison Count: " + to_string(compCount) + "\n";
     outputFile << currLine;
     for(int i = 0; i < length; i++){
         currLine = to_string(arr[i]) + "\n";

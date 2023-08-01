@@ -18,7 +18,7 @@ heap::heap(int maxArrayLength){
         this->arr[i] = -1;
     }
 }
-void heap::buildHeap(int arr[], int n){
+void heap::buildHeap(int arr[], int n, long long& moveCount, long long& compCount){
     for(int i = 0; i < n; i++){
         this->insert(arr[i]);
     }
@@ -61,7 +61,7 @@ int heap::maximum(){
     return -1;
 }
 //Once we pop the maximum, our heap is readjusted to a state where it is a heap again
-int heap::popMaximum(int& moveCount, int& compCount){
+int heap::popMaximum(long long& moveCount, long long& compCount){
     if(this->arrayLength != 0){
         int returnValue = this->arr[0];
         /*int* newArr = new int[this->arrayLength - 1];
@@ -89,8 +89,9 @@ int heap::popMaximum(int& moveCount, int& compCount){
                 int temp = this->arr[i];
                 this->arr[i] = this->arr[i * 2 + 1];
                 this->arr[i * 2 + 1] = temp;
-                return returnValue;
+                moveCount += 3;
             }
+            return returnValue;
         }
         else{
             isLocated = this->arr[i] > this->arr[i * 2 + 1] && this->arr[i] > this->arr[i * 2 + 2];
@@ -144,6 +145,7 @@ int heap::popMaximum(int& moveCount, int& compCount){
                 }
             }
         }
+        return returnValue;
     }
     return -1;
 }
