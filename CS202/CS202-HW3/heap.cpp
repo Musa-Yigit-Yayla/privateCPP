@@ -61,87 +61,62 @@ int heap::maximum(){
     return -1;
 }
 //Once we pop the maximum, our heap is readjusted to a state where it is a heap again
-int heap::popMaximum(long long& moveCount, long long& compCount){
-    if(this->arrayLength != 0){
+int heap::popMaximum(long long& moveCount, long long& compCount) {
+    if (this->arrayLength != 0) {
         int returnValue = this->arr[0];
-        /*int* newArr = new int[this->arrayLength - 1];
-        for(int i = this->arrayLength - 2; i > 0; i--){
-            newArr[i] = this->arr[i];
-        }
-        newArr[0] = this->arr[this->arrayLength - 1]; //set the last element as the new root, subsequently trickle it down
-
-        delete[] this->arr;
-        this->arr = newArr;*/
         this->arr[0] = this->arr[this->arrayLength - 1];
         this->arr[this->arrayLength - 1] = -1; // no need to count this as a movecount since we assign -1 directly to it
         this->arrayLength--;
         moveCount++;
         int i = 0;
-        if(this->arrayLength == 1){
-            return returnValue;
-        }
 
-        bool isLocated;
-        if(this->arrayLength == 2){
-            isLocated = this->arr[i] > this->arr[i * 2 + 1]; //compare the only two elements of the heap
-            compCount++;
-            if(!isLocated){
-                int temp = this->arr[i];
-                this->arr[i] = this->arr[i * 2 + 1];
-                this->arr[i * 2 + 1] = temp;
-                moveCount += 3;
-            }
-            return returnValue;
-        }
-        else{
-            isLocated = this->arr[i] > this->arr[i * 2 + 1] && this->arr[i] > this->arr[i * 2 + 2];
-            compCount += 2;
-        }
-        while(!isLocated){
-            //swap the current root with its larger child if it has any
+        while (i < this->arrayLength) {
+            // Swap the current root with its larger child if it has any
             int child1 = -1;
             int child2 = -1;
-            if(i * 2 + 1 < this->arrayLength){
+            if (i * 2 + 1 < this->arrayLength) {
                 child1 = this->arr[i * 2 + 1];
             }
             compCount++;
-            if(i * 2 + 2 < this->arrayLength){
+            if (i * 2 + 2 < this->arrayLength) {
                 child2 = this->arr[i * 2 + 2];
             }
             compCount++;
-            if(child1 == -1){
-                //since first child is out of bounds, this implies that the second child is the same
-                isLocated = true;
+
+            if (child1 == -1) {
+                // Since the first child is out of bounds, this implies that the second child is also out of bounds
+                break; // Exit the while loop
             }
-            else if(child2 == -1){
-                //first child exists if it's larger swap it with the parent
-                if(child1 > this->arr[i]){
+            else if (child2 == -1) {
+                // Only the first child exists; if it's larger, swap it with the parent
+                if (child1 > this->arr[i]) {
                     int temp = this->arr[i];
-                    this->arr[i] = this->arr[i * 2 + 2];
-                    this->arr[i * 2 + 2] = temp;
+                    this->arr[i] = this->arr[i * 2 + 1];
+                    this->arr[i * 2 + 1] = temp;
                     moveCount += 3;
                 }
                 compCount++;
-                isLocated = true; //true since we have compared the current item with the last child
+                break; // Exit the while loop
             }
-            else{
-                //both children exist swap it with the higher one and update is located
+            else {
+                // Both children exist; swap with the larger one if it's greater than the parent
                 int largerChild = child1;
                 int largerIndex = 2 * i + 1;
-                if(child2 > child1){
+                if (child2 > child1 && child2 > this->arr[i]) {
                     largerChild = child2;
                     largerIndex = 2 * i + 2;
                 }
                 compCount++;
-                if(largerChild > this->arr[i]){
+
+                if (largerChild > this->arr[i]) {
                     int temp = this->arr[i];
                     this->arr[i] = largerChild;
                     this->arr[largerIndex] = temp;
-                    i = largerIndex;
+                    i = largerIndex; // Update i to the larger child's index
                     moveCount += 3;
                 }
-                else{
-                    isLocated = true; //we placed the node we have been trickling down to the correct location
+                else {
+                    break; // Exit the while loop
                 }
             }
         }
