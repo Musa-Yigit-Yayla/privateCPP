@@ -16,10 +16,11 @@ using namespace std;
 class heap{
 private:
     int arrayLength = 0;
+    int maxArrayLength;
     int* arr = nullptr; //an array representation for heap elements
 
 public:
-    heap();
+    heap(int maxArrayLength);
     void buildHeap(int arr[], int n);
     void insert(const int a);
     int maximum();

@@ -11,28 +11,32 @@
 
 using namespace std;
 
-heap::heap(){
-
+heap::heap(int maxArrayLength){
+    this->maxArrayLength = maxArrayLength;
+    this->arr = new int[this->maxArrayLength];
+    for(int i = 0; i < this->maxArrayLength; i++){
+        this->arr[i] = -1;
+    }
 }
 void heap::buildHeap(int arr[], int n){
     for(int i = 0; i < n; i++){
         this->insert(arr[i]);
     }
 }
+//User is liable of not exceeding the maximum size of the heap that they have provided
 void heap::insert(const int a){
-    if(this->arr == nullptr){
-        this->arrayLength = 1;
-        this->arr = new int[arrayLength];
+    if(this->arrayLength == 0){
         this->arr[0] = a;
+        this->arrayLength++;
     }
     else{
         //create a new array with size + 1
-        int* newArr = new int[this->arrayLength + 1];
+        /*int* newArr = new int[this->arrayLength + 1];
         for(int i = 0; i < this->arrayLength; i++){
             newArr[i] = this->arr[i];
         }
         delete[] this->arr;
-        this->arr = newArr;
+        this->arr = newArr;*/
         //insert the new element into the array
         this->arr[this->arrayLength] = a;
         // Trickle new item up to its proper position
@@ -58,16 +62,18 @@ int heap::maximum(){
 }
 //Once we pop the maximum, our heap is readjusted to a state where it is a heap again
 int heap::popMaximum(){
-    if(this->arr != nullptr){
+    if(this->arrayLength != 0){
         int returnValue = this->arr[0];
-        int* newArr = new int[this->arrayLength - 1];
+        /*int* newArr = new int[this->arrayLength - 1];
         for(int i = this->arrayLength - 2; i > 0; i--){
             newArr[i] = this->arr[i];
         }
         newArr[0] = this->arr[this->arrayLength - 1]; //set the last element as the new root, subsequently trickle it down
 
         delete[] this->arr;
-        this->arr = newArr;
+        this->arr = newArr;*/
+        this->arr[0] = this->arr[this->arrayLength - 1];
+        this->arr[this->arrayLength - 1] = -1;
         this->arrayLength--;
 
         int i = 0;

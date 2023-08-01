@@ -7,13 +7,16 @@
 * Description: This file be used to provide the user with a heap sort function
 */
 #include <cstddef>
+#include <fstream>
+#include <string>
+#include <iostream>
 #include "heap.h"
 
 using namespace std;
 
 //initially create a heap
 void heapSort(int arr[], int length){
-    heap newHeap;
+    heap newHeap(length);
     int* newArr = new int[length];
     for(int i = 0; i < length; i++){
         newArr[i] = arr[i];
@@ -31,4 +34,37 @@ void heapSort(int arr[], int length){
     if(newArr != NULL){
         delete[] newArr;
     }
+}
+int main(int argc, char** argv){
+    string inputFileName = argv[1];
+    string outputFileName = argv[2];
+
+    ifstream inputFile(inputFileName);
+    string currLine;
+
+    int length = 0;
+    while(inputFile){
+        getline(inputFile, currLine);
+        length++;
+    }
+    heap newHeap(length); //create a heap instance
+    int arr[length];
+    inputFile.open(inputFileName); //reopen the input file this time we will place the items in our array
+    int currIndex = 0;
+    while(inputFile){
+        getline(inputFile, currLine);
+        int currValue = stoi(currLine);
+        arr[currIndex++] = currValue;
+    }
+    newHeap.buildHeap(arr, length);
+    heapSort(arr, length);
+
+    //write the resulting sorted array into the provided output file
+    ofstream outputFile(outputFileName);
+
+    for(int i = 0; i < length; i++){
+        currLine = to_string(arr[i]) + "\n";
+        outputFile << currLine;
+    }
+    return 0;
 }
