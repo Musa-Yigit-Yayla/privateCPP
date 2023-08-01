@@ -34,6 +34,7 @@
 		</Compiler>
 		<Unit filename="BSTNode.cpp" />
 		<Unit filename="BSTNode.h" />
+		<Unit filename="CS202-HW3.cbp" />
 		<Unit filename="heap.cpp" />
 		<Unit filename="heap.h" />
 		<Unit filename="heapsort.cpp" />

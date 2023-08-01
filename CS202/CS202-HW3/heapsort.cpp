@@ -6,10 +6,11 @@
 * Assignment: 3
 * Description: This file be used to provide the user with a heap sort function
 */
-#include <cstddef>
+/*#include <cstddef>
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <random>
 #include "heap.h"
 
 using namespace std;
@@ -36,8 +37,26 @@ void heapSort(int arr[], int length, long long& moveCount, long long& compCount)
     /*if(newArr != NULL){
         delete[] newArr;
     }*/
+/*}
+void test0(){
+    int n = 20;
+    int arr[n];
+    for(int i = 0; i < n; i++){
+        arr[i] = rand() % 800;
+    }
+    long long moveCount = 0, compCount = 0;
+    heapSort(arr, n, moveCount, compCount);
+
+    for(int i = 0; i < n; i++){
+        cout << arr[i] << " ";
+    }
 }
 int main(int argc, char** argv){
+    bool debugMode = true;
+    if(debugMode){
+        test0();
+        return 0;
+    }
     string inputFileName = argv[1];
     string outputFileName = argv[2];
 
@@ -73,3 +92,4 @@ int main(int argc, char** argv){
     }
     return 0;
 }
+*/
