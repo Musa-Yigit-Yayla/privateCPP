@@ -20,11 +20,11 @@ heap::heap(int maxArrayLength){
 }
 void heap::buildHeap(int arr[], int n, long long& moveCount, long long& compCount){
     for(int i = 0; i < n; i++){
-        this->insert(arr[i]);
+        this->insert(arr[i], moveCount, compCount);
     }
 }
 //User is liable of not exceeding the maximum size of the heap that they have provided
-void heap::insert(const int a){
+void heap::insert(const int a, long long& moveCount, long long& compCount){
     if(this->arrayLength == 0){
         this->arr[0] = a;
         this->arrayLength++;
@@ -42,6 +42,7 @@ void heap::insert(const int a){
         // Trickle new item up to its proper position
         int place = this->arrayLength;
         int parent = (place - 1) / 2;
+        compCount++;
         while((place > 0) && (this->arr[place] > this->arr[parent])){
             int temp = this->arr[parent];
             this->arr[parent] = this->arr[place];
@@ -49,6 +50,9 @@ void heap::insert(const int a){
 
             place = parent;
             parent = (place - 1)/2;
+
+            moveCount += 3;
+            compCount++;
         }
         this->arrayLength++;
     }
