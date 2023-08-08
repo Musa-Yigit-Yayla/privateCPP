@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstddef>
 #include <string>
+#include "AVLNode.h"
 #ifndef AVLTREE_H
 #define AVLTREE_H
 
