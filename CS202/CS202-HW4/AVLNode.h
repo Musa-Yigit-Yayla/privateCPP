@@ -22,6 +22,7 @@ public:
     int counter = 0;
 
     AVLNode(string word);
+    ~AVLNode();
 };
 #endif // AVLNODE_H
 

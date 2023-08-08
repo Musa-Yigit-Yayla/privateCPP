@@ -33,7 +33,8 @@ private:
     bool isFixed();
     int getHeightHelper(BSTNode* currNode, int currHeight) const;
     void inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode)));
-    AVLNode* preorderHelper(AVLNode* currNode); // will be used to retrieve the most frequent node after traversal
+    AVLNode* postorderHelper(AVLNode* currNode); // will be used to retrieve the most frequent node after traversal
+    AVLNode* preorderHelper(AVLNode* currNode); // will be used to retrieve the least frequent node after traversal
 };
 
 #endif // AVLTREE_H

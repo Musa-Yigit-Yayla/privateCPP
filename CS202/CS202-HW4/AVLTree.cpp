@@ -18,6 +18,9 @@ using namespace std;
 bool isAlphaNumeric(char ch);
 string** tokenize(string s, int& newLength);
 void incrementCount(AVLNode* node);
+void printMostFreqHelper(AVLNode* node);
+void printLeastFreqHelper(AVLNode* node);
+double calculateStandardDeviation(int arr[], int length);
 
 void AVLTree::AVLTree(){
 
@@ -82,13 +85,27 @@ void AVLTree::printWordFrequencies() const{
     this->inorderHelper(this->root, printFreqHelper);
 }
 void AVLTree::printMostFrequent() const{
+    AVLNode* result = this->postorderHelper(this->root);
+    if(result != NULL){
 
+    }
+    else{
+
+    }
+    //ToDo
 }
 void AVLTree::printLeastFrequent() const{
+    AVLNode* result = this->preorderHelper(this->root);
+    if(result != NULL){
 
+    }
+    else{
+
+    }
+    //ToDo
 }
 void AVLTree::printStandartDeviation() const{
-
+    //retrieve the node frequencies in an int array
 }
 void AVLTree::fixtree(){
 
@@ -103,8 +120,8 @@ void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode)))
         this->inorderHelper(currNode->right);
     }
 }
-// will be used to retrieve the most frequent node after traversal
-AVLNode* AVLTree::preorderHelper(AVLNode* currNode){
+// will be used to retrieve the most or least frequent node after traversal
+AVLNode* AVLTree::postorderHelper(AVLNode* currNode){
     AVLNode* result = nullptr;
     if(currNode != NULL){
         AVLNode* leftNode = this->preorderHelper(currNode->left);
@@ -137,6 +154,49 @@ AVLNode* AVLTree::preorderHelper(AVLNode* currNode){
             int rightFreq = rightNode->counter;
 
             maxFreq = max(currFreq, max(leftFreq, rightFreq));
+            switch(maxFreq){
+                case leftFreq: result = leftNode; break;
+                case rightFreq: result = rightNode; break;
+                case currFreq: result = currNode; break;
+            }
+        }
+    }
+    return result;
+}
+//will be used to retrieve the least frequent node in the tree
+AVLNode* AVLTree::preorderHelper(AVLNode* currNode){
+    AVLNode* result = nullptr;
+    if(currNode != NULL){
+        int currFreq = currNode->counter;
+        AVLNode* leftNode = this->preorderHelper(currNode->left);
+        AVLNode* rightNode = this->preorderHelper(currNode->right);
+        int maxFreq = currFreq;
+        if(leftNode == NULL && rightNode == NULL){
+            return currNode;
+        }
+        else if(leftNode != NULL && rightNode == NULL){
+            maxFreq = min(currFreq, leftNode->counter);
+            if(maxFreq == currFreq){
+                result = currNode;
+            }
+            else{
+                result = leftNode;
+            }
+        }
+        else if(leftNode == NULL && rightNode != NULL){
+            maxFreq = min(currFreq, rightNode->counter);
+            if(maxFreq == currFreq){
+                result = currNode;
+            }
+            else{
+                result = rightNode;
+            }
+        }
+        else{
+            int leftFreq = leftNode->counter;
+            int rightFreq = rightNode->counter;
+
+            maxFreq = min(currFreq, min(leftFreq, rightFreq));
             switch(maxFreq){
                 case leftFreq: result = leftNode; break;
                 case rightFreq: result = rightNode; break;
@@ -202,8 +262,11 @@ string** tokenize(string s, int& newLength){
         return result;
     }
 }
-void printFreqHelper(AVLNode* node){
+void printMostFreqHelper(AVLNode* node){
     //ToDo
+}
+void printLeastFreqHelper(AVLNode* node){
+
 }
 //When reset is passed as true the current count of encountered words is returned and the counter is set back to 0 for later use
 //If the reset is false we keep incrementing the count on each invoke and return -1
@@ -223,6 +286,32 @@ static int wordCounter(bool reset){
 //A function which will be passed as an argument to helper functions so as to count the number of nodes in the avl tree
 void incrementCount(AVLNode* node){
     wordCounter(false);
+}
+double calculateStandardDeviation(int arr[], int length){
+    if(length <= 1){
+        return 0.0;  // If there's only one element or less, the standard deviation is 0.
+    }
+
+    double mean = 0.0;
+    double squaredSum = 0.0;
+
+    for(int i = 0; i < length; ++i){
+        mean += arr[i];
+    }
+    mean /= length;
+
+    for(int i = 0; i < length; ++i){
+        double deviation = arr[i] - mean;
+        squaredSum += deviation * deviation;
+    }
+
+    double variance = squaredSum / (length - 1);
+    double stdDev = sqrt(variance);
+
+    // Round to two decimal places
+    stdDev = round(stdDev * 100) / 100;
+
+    return stdDev;
 }
 bool isAlphaNumeric(char ch){
     switch(ch){
