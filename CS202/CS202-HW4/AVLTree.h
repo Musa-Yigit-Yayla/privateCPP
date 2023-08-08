@@ -27,11 +27,13 @@ public:
     void printMostFrequent() const;
     void printLeastFrequent() const;
     void printStandartDeviation() const;
+    static int wordCounter(bool reset); //will be used to help count words
 private:
     void fixtree(); //will be used to preserve the height property of avl
     bool isFixed();
     int getHeightHelper(BSTNode* currNode, int currHeight) const;
     void inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode)));
+    AVLNode* preorderHelper(AVLNode* currNode); // will be used to retrieve the most frequent node after traversal
 };
 
 #endif // AVLTREE_H

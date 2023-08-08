@@ -10,12 +10,14 @@
 #include <fstream>
 #include <cstddef>
 #include <string>
+#include <cmath>
 #include "AVLTree.h"
 
 using namespace std;
 
 bool isAlphaNumeric(char ch);
 string** tokenize(string s, int& newLength);
+void incrementCount(AVLNode* node);
 
 void AVLTree::AVLTree(){
 
@@ -72,10 +74,12 @@ int AVLTree::getHeightHelper(BSTNode* currNode, int currHeight) const{
 }
 //Print the number of nodes in the tree
 void AVLTree::printTotalWordCount() const{
-
+    this->inorderHelper(this->root, incrementCount);
+    int result = wordCounter(true);
+    //!!!!!! PRINT OR WRITE THE RESULT TO OUTPUT FILE !!!!!!
 }
 void AVLTree::printWordFrequencies() const{
-
+    this->inorderHelper(this->root, printFreqHelper);
 }
 void AVLTree::printMostFrequent() const{
 
@@ -93,7 +97,54 @@ bool AVLTree::isFixed(){
 
 }
 void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode))){
+    if(currNode != NULL){
+        this->inorderHelper(currNode->left);
+        visit(currNode);
+        this->inorderHelper(currNode->right);
+    }
+}
+// will be used to retrieve the most frequent node after traversal
+AVLNode* AVLTree::preorderHelper(AVLNode* currNode){
+    AVLNode* result = nullptr;
+    if(currNode != NULL){
+        AVLNode* leftNode = this->preorderHelper(currNode->left);
+        AVLNode* rightNode = this->preorderHelper(currNode->right);
+        int currFreq = currNode->counter;
+        int maxFreq = currFreq;
+        if(leftNode == NULL && rightNode == NULL){
+            return currNode;
+        }
+        else if(leftNode != NULL && rightNode == NULL){
+            maxFreq = max(currFreq, leftNode->counter);
+            if(maxFreq == currFreq){
+                result = currNode;
+            }
+            else{
+                result = leftNode;
+            }
+        }
+        else if(leftNode == NULL && rightNode != NULL){
+            maxFreq = max(currFreq, rightNode->counter);
+            if(maxFreq == currFreq){
+                result = currNode;
+            }
+            else{
+                result = rightNode;
+            }
+        }
+        else{
+            int leftFreq = leftNode->counter;
+            int rightFreq = rightNode->counter;
 
+            maxFreq = max(currFreq, max(leftFreq, rightFreq));
+            switch(maxFreq){
+                case leftFreq: result = leftNode; break;
+                case rightFreq: result = rightNode; break;
+                case currFreq: result = currNode; break;
+            }
+        }
+    }
+    return result;
 }
 //each and every character that is nonAlphaNumeric is considered to be a delimiter
 //Returns a pointer to dynamically allocated array of strings which represent input words.
@@ -150,6 +201,28 @@ string** tokenize(string s, int& newLength){
         }
         return result;
     }
+}
+void printFreqHelper(AVLNode* node){
+    //ToDo
+}
+//When reset is passed as true the current count of encountered words is returned and the counter is set back to 0 for later use
+//If the reset is false we keep incrementing the count on each invoke and return -1
+//User is responsible of properly invoking the function, and retrieving the output by setting reset to true and reseting the function for later use
+static int wordCounter(bool reset){
+    static int counter = 0;
+    if(!reset){
+        counter++;
+        return -1;
+    }
+    else{
+        int result = counter;
+        counter = 0;
+        return result;
+    }
+}
+//A function which will be passed as an argument to helper functions so as to count the number of nodes in the avl tree
+void incrementCount(AVLNode* node){
+    wordCounter(false);
 }
 bool isAlphaNumeric(char ch){
     switch(ch){
