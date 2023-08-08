@@ -25,9 +25,10 @@ void printMostFreqHelper(AVLNode* node);
 void printLeastFreqHelper(AVLNode* node);
 void printFreqHelper(AVLNode* node);
 double getStandardDeviation(int arr[], int length);
-void writeFrequencies(AVLNode* currNode, ofstream wordFreq);
+void writeFrequencies(AVLNode* currNode, ofstream& wordFreq);
 string adjustDecimal(string result);
 int stringCompare(string& s1, string& s2);
+int wordCounter(bool reset);
 
 AVLTree::AVLTree(){
 
@@ -364,16 +365,16 @@ int AVLTree::getBalanceFactor(AVLNode* givenNode){
 }
 void AVLTree::inorderHelper(AVLNode* currNode, void (*visit)(AVLNode* currNode)){
     if(currNode != NULL){
-        this->inorderHelper(currNode->left);
+        this->inorderHelper(currNode->left, visit);
         visit(currNode);
-        this->inorderHelper(currNode->right);
+        this->inorderHelper(currNode->right, visit);
     }
 }
 void AVLTree::inorderHelper(AVLNode* currNode, void (*visit)(AVLNode* currNode, ofstream& wordFreq)){
     if(currNode != NULL){
-        this->inorderHelper(currNode->left);
+        this->inorderHelper(currNode->left, visit);
         visit(currNode, this->wordFreqs);
-        this->inorderHelper(currNode->right);
+        this->inorderHelper(currNode->right, visit);
     }
 }
 // will be used to retrieve the most or least frequent node after traversal
@@ -552,7 +553,7 @@ void writeFrequencies(AVLNode* currNode, ofstream& wordFreq){
 //When reset is passed as true the current count of encountered words is returned and the counter is set back to 0 for later use
 //If the reset is false we keep incrementing the count on each invoke and return -1
 //User is responsible of properly invoking the function, and retrieving the output by setting reset to true and reseting the function for later use
-static int wordCounter(bool reset){
+int wordCounter(bool reset){
     static int counter = 0;
     if(!reset){
         counter++;

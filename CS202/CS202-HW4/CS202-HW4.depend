@@ -11,3 +11,18 @@
 	<string>
 	<cstddef>
 
+1691527699 source:c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw4\avltree.cpp
+	<iostream>
+	<fstream>
+	<cstddef>
+	<string>
+	<cmath>
+	"AVLTree.h"
+
+1691527705 c:\users\yigit\documents\netbeansprojects\stopmotioneditorgitrepository\privatecpp\cs202\cs202-hw4\avltree.h
+	<iostream>
+	<cstddef>
+	<string>
+	<fstream>
+	"AVLNode.h"
+

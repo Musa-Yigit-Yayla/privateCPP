@@ -32,7 +32,7 @@ public:
     void printLeastFrequent();
     void printStandartDeviation();
     int getBalanceFactor(AVLNode* givenNode); //will be used to retrieve the balance factor of a given node
-    static int wordCounter(bool reset); //will be used to help count words
+    //int wordCounter(bool reset); //will be used to help count words
 private:
     AVLNode* getMostFrequent();
     AVLNode* getLeastFrequent();
