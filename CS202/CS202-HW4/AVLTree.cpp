@@ -15,6 +15,9 @@
 
 using namespace std;
 
+const string wordFreqsFile = "wordfreqs";
+const string statisticsFile = "statistics";
+
 bool isAlphaNumeric(char ch);
 string** tokenize(string s, int& newLength);
 void incrementCount(AVLNode* node);
@@ -24,6 +27,7 @@ void printFreqHelper(AVLNode* node);
 double getStandardDeviation(int arr[], int length);
 void writeFrequencies(AVLNode* currNode, ofstream wordFreq);
 string adjustDecimal(string result);
+int stringCompare(string& s1, string& s2);
 
 AVLTree::AVLTree(){
 
@@ -33,7 +37,7 @@ AVLTree::~AVLTree(){
     this->wordFreqs.open(wordFreqsFile);
     //write the word frequencies
     this->inorderHelper(this->root, writeFrequencies);
-    this.statistics.open(statisticsFile);
+    this->statistics.open(statisticsFile);
     this->writeStatistics();
 
     //just deallocate the root node and the whole tree will be deleted
@@ -46,7 +50,7 @@ void AVLTree::addWord(string word){
     this->addWordHelper(this->root, nullptr, word);
     if(!this->isFixed(this->root)){
         //fix the tree
-        this->fixtree();
+        this->fixtree(word);
     }
 }
 void AVLTree::addWordHelper(AVLNode* currNode, AVLNode* parentNode, string word){
@@ -101,10 +105,10 @@ void AVLTree::generateTree(string inputFileName){
         delete[] arr;
     }
 }
-int AVLTree::printHeight() const{
+int AVLTree::printHeight(){
     //traverse the whole tree recursively to retrieve the max height
     if(this->root == NULL){
-        cout << "Tree Height: " << maxHeight << endl;
+        cout << "Tree Height: " << 0 << endl;
         return 0;
     }
     else{
@@ -116,34 +120,34 @@ int AVLTree::printHeight() const{
 }
 //private visibility modifier
 //Pass the root node and 1 to the currHeight from the caller
-int AVLTree::getHeightHelper(BSTNode* currNode, int currHeight) const{
+int AVLTree::getHeightHelper(AVLNode* currNode, int currHeight){
     if(currNode != NULL){
         //traverse in preorder fashion
         //currHeight;
-        string currString = currNode->str;
-        int leftHeight = this->getHeightHelper(currNode->leftChild, currHeight + 1);
-        int rightHeight = this->getHeightHelper(currNode->rightChild, currHeight + 1);
+        string currString = currNode->word;
+        int leftHeight = this->getHeightHelper(currNode->left, currHeight + 1);
+        int rightHeight = this->getHeightHelper(currNode->right, currHeight + 1);
         int maxHeight = max(max(leftHeight, rightHeight), currHeight);
         return maxHeight;
     }
     return 0; //return 0 when the currNode is nullptr
 }
 //Print the number of nodes in the tree
-void AVLTree::printTotalWordCount() const{
+void AVLTree::printTotalWordCount(){
     this->inorderHelper(this->root, incrementCount);
     int result = wordCounter(true);
     //!!!!!! PRINT OR WRITE THE RESULT TO OUTPUT FILE !!!!!!
     cout << "Total Word Count: " << result << endl;
 }
-int AVLTree::getTotalWordCount() const{
+int AVLTree::getTotalWordCount(){
     this->inorderHelper(this->root, incrementCount);
     int result = wordCounter(true);
     return result;
 }
-void AVLTree::printWordFrequencies() const{
+void AVLTree::printWordFrequencies(){
     this->inorderHelper(this->root, printFreqHelper);
 }
-void AVLTree::printMostFrequent() const{
+void AVLTree::printMostFrequent(){
     AVLNode* result = this->postorderHelper(this->root);
     if(result != NULL){
         cout << "Most Frequent: " << result->word << " " << result->counter << endl;
@@ -152,7 +156,7 @@ void AVLTree::printMostFrequent() const{
         cout << "Most Frequent: " << endl;
     }
 }
-void AVLTree::printLeastFrequent() const{
+void AVLTree::printLeastFrequent(){
     AVLNode* result = this->preorderHelper(this->root);
     if(result != NULL){
         cout << "Least Frequent: " << result->word << " " << result->counter << endl;
@@ -162,27 +166,21 @@ void AVLTree::printLeastFrequent() const{
     }
 
 }
-void AVLTree::printStandartDeviation() const{
+void AVLTree::printStandartDeviation(){
     //retrieve the node frequencies in an int array
-    int length = this->getTotalWordCount();
-    int arr[length];
-    int currIndex = 0;
-    this->inorderHelper(this->root, arr, currIndex);
     //after the helper has been invoked, our array is filled with tree's nodes' frequencies
-    double result = getStandardDeviation(arr, length);
-    string resultString = "" + result;
-    string resultString = adjustDecimal(resultString);
-    cout << "Standard Deviation: " << resultString << endl;
+    string result = this->getStandardDeviation2();
+    cout << "Standard Deviation: " << result << endl;
 }
-string AVLTree::getStandardDeviation(){
+string AVLTree::getStandardDeviation2(){
     int length = this->getTotalWordCount();
     int arr[length];
     int currIndex = 0;
     this->inorderHelper(this->root, arr, currIndex);
     //after the helper has been invoked, our array is filled with tree's nodes' frequencies
     double result = getStandardDeviation(arr, length);
-    string resultString = "" + result;
-    string resultString = adjustDecimal(resultString);
+    string resultString = "" + to_string(result);
+    resultString = adjustDecimal(resultString);
     return resultString;
 }
 AVLNode* AVLTree::getMostFrequent(){
@@ -200,19 +198,19 @@ void AVLTree::writeStatistics(){
     AVLNode* mostFreq = this->getMostFrequent();
     AVLNode* leastFreq = this->getLeastFrequent();
 
-    string sv = this->getStandardDeviation();
+    string sv = this->getStandardDeviation2();
 
     this->statistics << "Total Word Count: " << wordCount << endl;
     this->statistics << "Tree Height: " << treeHeight << endl;
     this->statistics << "Most Frequent: ";
     if(mostFreq != NULL){
-        this->statistics << mostFreq.word << " " << mostFreq.counter;
+        this->statistics << mostFreq->word << " " << mostFreq->counter;
     }
     this->statistics << "\n";
 
     this->statistics << "Least Frequent: ";
     if(leastFreq != NULL){
-        this->statistics << leastFreq.word << " " << leastFreq.counter;
+        this->statistics << leastFreq->word << " " << leastFreq->counter;
     }
     this->statistics << "\n";
     this->statistics << "Standard Deviation: " << sv << endl;
@@ -246,6 +244,7 @@ void AVLTree::fixtree(string addedWord){
 
     //left subtree is taller
     //Single right rotation
+    int balance = this->getBalanceFactor(currParent);
     if(balance > 1 && addedWord < currParent->left->word){
         this->rightRotate(currParent);
     }
@@ -271,7 +270,7 @@ bool AVLTree::isFixed(AVLNode* currNode){
         if(!isFixedHelper(currNode)){
             return false;
         }
-        if(!this->isFixed(currNode->left))){
+        if(!this->isFixed(currNode->left)){
             return false;
         }
         if(!this->isFixed(currNode->right)){
@@ -283,15 +282,16 @@ bool AVLTree::isFixed(AVLNode* currNode){
 //Given a node it will check whether the subtree with root currNode
 //helper function that checks whether the given node's left subtree's height differ by the right subtree's height by at most 1
 bool AVLTree::isFixedHelper(AVLNode* currNode){
-    int leftHeight = this->getHeightHelper(currNode->left);
+    /*int leftHeight = this->getHeightHelper(currNode->left);
     int rightHeight = this->getHeightHelper(currNode->right);
-    return abs(leftHeight - rightHeight) <= 1;
+    return abs(leftHeight - rightHeight) <= 1;*/
+    return abs(this->getBalanceFactor(currNode)) <= 1;
 }
 //Performs single right rotation on the subtree with given root
 //Invoke by passing the required node when a right rotation is necessary
 AVLNode* AVLTree::rightRotate(AVLNode* currRoot){
-    Node* currLeft = currRoot->left;
-    Node* clRight = currLeft->right; //right child of current left (cl)
+    AVLNode* currLeft = currRoot->left;
+    AVLNode* clRight = currLeft->right; //right child of current left (cl)
 
     currLeft->right = currRoot;
     currRoot->left = clRight;
@@ -302,8 +302,8 @@ AVLNode* AVLTree::rightRotate(AVLNode* currRoot){
 
 //Perform single left rotation and return the updated root
 AVLNode* AVLTree::leftRotate(AVLNode* currRoot){
-    Node* currRight = currRoot->right;
-    Node* crLeft = currRight->left;
+    AVLNode* currRight = currRoot->right;
+    AVLNode* crLeft = currRight->left;
 
     //perform the operation
     currRight->left = currRoot;
@@ -319,7 +319,7 @@ AVLNode* AVLTree::getImbalancedNode(AVLNode* currNode){
             return currNode;
         }
         else{
-            AVLNode* parent = this->getParent(currNode);
+            AVLNode* parent = this->getParent(currNode->word);
             return this->getImbalancedNode(parent);
         }
     }
@@ -362,17 +362,17 @@ int AVLTree::getBalanceFactor(AVLNode* givenNode){
         return this->getHeightHelper(givenNode->left, 1) - this->getHeightHelper(givenNode->right, 1);
     }
 }
-void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode))){
+void AVLTree::inorderHelper(AVLNode* currNode, void (*visit)(AVLNode* currNode)){
     if(currNode != NULL){
         this->inorderHelper(currNode->left);
         visit(currNode);
         this->inorderHelper(currNode->right);
     }
 }
-void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode, ofstream wordFreq))){
+void AVLTree::inorderHelper(AVLNode* currNode, void (*visit)(AVLNode* currNode, ofstream& wordFreq)){
     if(currNode != NULL){
         this->inorderHelper(currNode->left);
-        visit(currNode, wordFreq);
+        visit(currNode, this->wordFreqs);
         this->inorderHelper(currNode->right);
     }
 }
@@ -410,10 +410,14 @@ AVLNode* AVLTree::postorderHelper(AVLNode* currNode){
             int rightFreq = rightNode->counter;
 
             maxFreq = max(currFreq, max(leftFreq, rightFreq));
-            switch(maxFreq){
-                case leftFreq: result = leftNode; break;
-                case rightFreq: result = rightNode; break;
-                case currFreq: result = currNode; break;
+            if(maxFreq == leftFreq){
+                result = leftNode;
+            }
+            else if(maxFreq == rightFreq){
+                result = rightNode;
+            }
+            else if(maxFreq == currFreq){
+                result = currNode;
             }
         }
     }
@@ -453,10 +457,14 @@ AVLNode* AVLTree::preorderHelper(AVLNode* currNode){
             int rightFreq = rightNode->counter;
 
             maxFreq = min(currFreq, min(leftFreq, rightFreq));
-            switch(maxFreq){
-                case leftFreq: result = leftNode; break;
-                case rightFreq: result = rightNode; break;
-                case currFreq: result = currNode; break;
+            if(maxFreq == leftFreq){
+                result = leftNode;
+            }
+            else if(maxFreq == rightFreq){
+                result = rightNode;
+            }
+            else if(maxFreq == currFreq){
+                result = currNode;
             }
         }
     }
@@ -518,7 +526,7 @@ string** tokenize(string s, int& newLength){
             //below condition implies that we have in fact found a word
             else if(wordBeginIndex != -1){
                 int currLength = i - wordBeginIndex;
-                string currWord = substr(s.begin() + wordBeginIndex, currLength);
+                string currWord = s.substr(0 + wordBeginIndex, currLength);
                 result[currIndex++] = &currWord;
                 wordBeginIndex = -1;
             }
@@ -536,7 +544,7 @@ void printLeastFreqHelper(AVLNode* node){
 void printFreqHelper(AVLNode* node){
     cout << node->word << " " << node->counter << "\n";
 }
-void writeFrequencies(AVLNode* currNode, ofstream wordFreq){
+void writeFrequencies(AVLNode* currNode, ofstream& wordFreq){
     if(currNode != NULL){
         wordFreq << currNode->word + " " + to_string(currNode->counter) + "\n";
     }
@@ -563,7 +571,7 @@ string adjustDecimal(string result){
     for(int i = 0; i < result.size(); i++){
         char ch = result.at(i);
         if(ch == '.'){
-            newResult = result.substr(result.begin(), l1);
+            newResult = result.substr(0, l1);
             dotIndex = i;
             break;
         }
@@ -572,7 +580,7 @@ string adjustDecimal(string result){
         }
     }
     l2 = result.size() - dotIndex - 1;
-    newResult += result.substr(result.begin() + dotIndex + 1, l2);
+    newResult += result.substr(0 + dotIndex + 1, l2);
     return newResult;
 }
 //A function which will be passed as an argument to helper functions so as to count the number of nodes in the avl tree
