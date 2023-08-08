@@ -22,10 +22,10 @@ void printMostFreqHelper(AVLNode* node);
 void printLeastFreqHelper(AVLNode* node);
 double getStandardDeviation(int arr[], int length);
 
-void AVLTree::AVLTree(){
+AVLTree::AVLTree(){
 
 }
-void AVLTree::~AVLTree(){
+AVLTree::~AVLTree(){
     //just deallocate the root node and the whole tree will be deleted
     if(this->root != nullptr){
         delete this->root;
@@ -34,6 +34,10 @@ void AVLTree::~AVLTree(){
 }
 void AVLTree::addWord(string word){
     this->addWordHelper(this->root, nullptr, word);
+    if(!this->isFixed(this->root)){
+        //fix the tree
+        this->fixtree();
+    }
 }
 void AVLTree::addWordHelper(AVLNode* currNode, AVLNode* parentNode, string word){
     //perform search similar to bst, if the target already exists then simply increment the counter, otherwise create a new node and add it to the position
@@ -157,8 +161,31 @@ void AVLTree::printStandartDeviation() const{
     double result = getStandardDeviation(arr, length);
     //ToDo
 }
-void AVLTree::fixtree(){
-
+//User is liable of invoking by first ensuring that there is an imbalanced node certainly
+//addedWord is the string value of the recently inserted node
+void AVLTree::fixtree(string addedWord){
+    //retrieve the first node where balance factor is larger than 1
+    //To do this, we first need to retrieve the parent of the node containing the given string parameter
+    AVLNode* currParent = nullptr;
+    //AVLNode* insertedNode = this->root;
+    /*while(insertedNode != NULL){
+        int comparison = stringCompare(insertedNode->word, word);
+        if(comparison < 0){
+            //search the right subtree
+            insertedNode = insertedNode->right;
+        }
+        else if(comparison > 0){
+            //search the left subtree
+            insertedNode = insertedNode->left;
+        }
+        else{
+            break;
+        }
+    }*/
+    //if(insertedNode != NULL){
+        //currParent = this->getParent(addedWord);
+    //}
+    currParent = this->getParent(addedWord);
 }
 //Checks whether the current tree satisfies the conditions of being height balanced
 //pass the root as the parameter when you want to check the whole tree
@@ -182,6 +209,48 @@ bool AVLTree::isFixedHelper(AVLNode* currNode){
     int leftHeight = this->getHeightHelper(currNode->left);
     int rightHeight = this->getHeightHelper(currNode->right);
     return abs(leftHeight - rightHeight) <= 1;
+}
+//Pass the current node as the parent of the added node initially
+//It will go all the way up to the root until finding the imbalanced node if it exists
+AVLNode* AVLTree::getImbalancedNode(AVLNode* currNode){
+    if(currNode != NULL){
+        if(!this->isFixed(currNode)){
+            return currNode;
+        }
+        else{
+            AVLNode* parent = this->getParent(currNode);
+            return this->getImbalancedNode(parent);
+        }
+    }
+    return nullptr;
+}
+AVLNode* AVLTree::getParent(string word){
+    AVLNode* currNode = this->root;
+    if(currNode->word == word){
+        return nullptr;
+    }
+    AVLNode* result = nullptr;
+    while(currNode != NULL){
+        int comparison = stringCompare(currNode->word, word);
+        if(comparison < 0){
+            //search the right subtree
+            if(currNode->right != NULL && currNode->right->word == word){
+                return currNode;
+            }
+            else{
+                currNode = currNode->right;
+            }
+        }
+        else if(comparison > 0){
+            if(currNode->left != NULL && currNode->left->word == word){
+                return currNode;
+            }
+            else{
+                currNode = currNode->right;
+            }
+        }
+    }
+    return result;
 }
 void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode))){
     if(currNode != NULL){

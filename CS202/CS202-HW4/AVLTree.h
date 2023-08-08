@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstddef>
 #include <string>
+#include <fstream>
 #include "AVLNode.h"
 #ifndef AVLTREE_H
 #define AVLTREE_H
@@ -16,9 +17,11 @@
 class AVLTree{
 private:
     AVLNode* root = nullptr;
+    ofstream wordFreqs;
+    ofstream statistics;
 public:
-    void AVLTree(); //empty default contrsuctor
-    void ~AVLTree();
+    AVLTree(); //empty default contrsuctor
+    ~AVLTree();
     void addWord(string word);
     void generateTree(string inputFileName);
     int printHeight() const;
@@ -31,9 +34,10 @@ public:
     static int wordCounter(bool reset); //will be used to help count words
 private:
     void addWordHelper(AVLNode* currNode, AVLNode* parentNode, string word);
-    void fixtree(); //will be used to preserve the height property of avl
+    void fixtree(string addedWord); //will be used to preserve the height property of avl
     bool isFixed(AVLNode* currNode);
     bool isFixedHelper(AVLNode* currNode);
+    AVLNode* getParent(string word); //returns the parent node of the node with a given word if it exists
     int getHeightHelper(BSTNode* currNode, int currHeight) const;
     void inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode)));
     AVLNode* postorderHelper(AVLNode* currNode); // will be used to retrieve the most frequent node after traversal
