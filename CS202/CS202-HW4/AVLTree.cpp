@@ -1,3 +1,11 @@
+/*
+* Title: Balanced Search Trees
+* Author: Musa Yiğit Yayla
+* ID: 22003108
+* Section: 1
+* Assignment: 4
+* Description: This is the cpp file for our AVLTree representation
+*/
 #include <iostream>
 #include <fstream>
 #include <cstddef>
@@ -13,7 +21,11 @@ void AVLTree::AVLTree(){
 
 }
 void AVLTree::~AVLTree(){
-
+    //just deallocate the root node and the whole tree will be deleted
+    if(this->root != nullptr){
+        delete this->root;
+        this->root = nullptr;
+    }
 }
 void AVLTree::addWord(string word){
 
@@ -33,9 +45,32 @@ void AVLTree::generateTree(string inputFileName){
         delete[] arr;
     }
 }
-void AVLTree::printHeight() const{
-
+int AVLTree::printHeight() const{
+    //traverse the whole tree recursively to retrieve the max height
+    if(this->root == NULL){
+        return 0;
+    }
+    else{
+        int maxHeight = this->getHeightHelper(this->root, 1);
+        //!!!! PRINT THE HEIGHT OR WRITE IT INTO THE OUTPUT FILE !!!!
+        return maxHeight;
+    }
 }
+//private visibility modifier
+//Pass the root node and 1 to the currHeight from the caller
+int AVLTree::getHeightHelper(BSTNode* currNode, int currHeight) const{
+    if(currNode != NULL){
+        //traverse in preorder fashion
+        //currHeight;
+        string currString = currNode->str;
+        int leftHeight = this->getHeightHelper(currNode->leftChild, currHeight + 1);
+        int rightHeight = this->getHeightHelper(currNode->rightChild, currHeight + 1);
+        int maxHeight = max(max(leftHeight, rightHeight), currHeight);
+        return maxHeight;
+    }
+    return -1; //return -1 when the currNode is nullptr
+}
+//Print the number of nodes in the tree
 void AVLTree::printTotalWordCount() const{
 
 }
@@ -55,6 +90,9 @@ void AVLTree::fixtree(){
 
 }
 bool AVLTree::isFixed(){
+
+}
+void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode))){
 
 }
 //each and every character that is nonAlphaNumeric is considered to be a delimiter

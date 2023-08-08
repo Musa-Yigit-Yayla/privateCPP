@@ -1,3 +1,11 @@
+/*
+* Title: Balanced Search Trees
+* Author: Musa Yiğit Yayla
+* ID: 22003108
+* Section: 1
+* Assignment: 4
+* Description: This is the header file for our AVLTree representation
+*/
 #include <iostream>
 #include <cstddef>
 #include <string>
@@ -13,7 +21,7 @@ public:
     void ~AVLTree();
     void addWord(string word);
     void generateTree(string inputFileName);
-    void printHeight() const;
+    int printHeight() const;
     void printTotalWordCount() const;
     void printWordFrequencies() const;
     void printMostFrequent() const;
@@ -22,6 +30,8 @@ public:
 private:
     void fixtree(); //will be used to preserve the height property of avl
     bool isFixed();
+    int getHeightHelper(BSTNode* currNode, int currHeight) const;
+    void inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode)));
 };
 
 #endif // AVLTREE_H
