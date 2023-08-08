@@ -185,7 +185,28 @@ void AVLTree::fixtree(string addedWord){
     //if(insertedNode != NULL){
         //currParent = this->getParent(addedWord);
     //}
-    currParent = this->getParent(addedWord);
+    currParent = this->getParent(addedWord); //imbalanced parent
+    //retrieve the balance factor of the imbalanced parent
+
+    //left subtree is taller
+    //Single right rotation
+    if(balance > 1 && addedWord < currParent->left->word){
+        this->rightRotate(currParent);
+    }
+    //Single left rotation
+    else if(balance < -1 && addedWord > currParent->right->word){
+        this->leftRotate(currParent);
+    }
+    //Left right rotation
+    else if(balance > 1 && addedWord > currParent->left->word){
+        currParent->left = this->leftRotate(currParent->left);
+        this->rightRotate(currParent);
+    }
+    //Right left rotation
+    else if(balance < -1 && addedWord < currParent->right->word){
+        currParent->right = this->rightRotate(currParent->right);
+        this->leftRotate(currParent);
+    }
 }
 //Checks whether the current tree satisfies the conditions of being height balanced
 //pass the root as the parameter when you want to check the whole tree
@@ -209,6 +230,30 @@ bool AVLTree::isFixedHelper(AVLNode* currNode){
     int leftHeight = this->getHeightHelper(currNode->left);
     int rightHeight = this->getHeightHelper(currNode->right);
     return abs(leftHeight - rightHeight) <= 1;
+}
+//Performs single right rotation on the subtree with given root
+//Invoke by passing the required node when a right rotation is necessary
+AVLNode* AVLTree::rightRotate(AVLNode* currRoot){
+    Node* currLeft = currRoot->left;
+    Node* clRight = currLeft->right; //right child of current left (cl)
+
+    currLeft->right = currRoot;
+    currRoot->left = clRight;
+
+    //return the updated root
+    return currLeft;
+}
+
+//Perform single left rotation and return the updated root
+AVLNode* AVLTree::leftRotate(AVLNode* currRoot){
+    Node* currRight = currRoot->right;
+    Node* crLeft = currRight->left;
+
+    //perform the operation
+    currRight->left = currRoot;
+    currRoot->right = crLeft;
+
+    return currRight;
 }
 //Pass the current node as the parent of the added node initially
 //It will go all the way up to the root until finding the imbalanced node if it exists
@@ -251,6 +296,15 @@ AVLNode* AVLTree::getParent(string word){
         }
     }
     return result;
+}
+//returns the height difference between the left subtree and right subtree of a given node
+int AVLTree::getBalanceFactor(AVLNode* givenNode){
+    if(givenNode == NULL){
+        return 0;
+    }
+    else{
+        return this->getHeightHelper(givenNode->left, 1) - this->getHeightHelper(givenNode->right, 1);
+    }
 }
 void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode))){
     if(currNode != NULL){

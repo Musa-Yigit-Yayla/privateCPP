@@ -31,12 +31,15 @@ public:
     void printMostFrequent() const;
     void printLeastFrequent() const;
     void printStandartDeviation() const;
+    int getBalanceFactor(AVLNode* givenNode); //will be used to retrieve the balance factor of a given node
     static int wordCounter(bool reset); //will be used to help count words
 private:
     void addWordHelper(AVLNode* currNode, AVLNode* parentNode, string word);
     void fixtree(string addedWord); //will be used to preserve the height property of avl
     bool isFixed(AVLNode* currNode);
     bool isFixedHelper(AVLNode* currNode);
+    AVLNode* rightRotate(AVLNode* currRoot);
+    AVLNode* leftRotate(AVLNode* currRoot);
     AVLNode* getParent(string word); //returns the parent node of the node with a given word if it exists
     int getHeightHelper(BSTNode* currNode, int currHeight) const;
     void inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode)));
