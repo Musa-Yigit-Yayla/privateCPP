@@ -1,3 +1,12 @@
+/*
+* Title: Balanced Search Trees
+* Author: Musa Yiğit Yayla
+* ID: 22003108
+* Section: 1
+* Assignment: 4
+* Description: This is the header file for our AVLTree representation
+*/
+
 #include <string>
 #include <cstddef>
 #include "AVLNode.h"
