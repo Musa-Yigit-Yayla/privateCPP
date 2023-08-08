@@ -20,7 +20,7 @@ string** tokenize(string s, int& newLength);
 void incrementCount(AVLNode* node);
 void printMostFreqHelper(AVLNode* node);
 void printLeastFreqHelper(AVLNode* node);
-double calculateStandardDeviation(int arr[], int length);
+double getStandardDeviation(int arr[], int length);
 
 void AVLTree::AVLTree(){
 
@@ -73,13 +73,19 @@ int AVLTree::getHeightHelper(BSTNode* currNode, int currHeight) const{
         int maxHeight = max(max(leftHeight, rightHeight), currHeight);
         return maxHeight;
     }
-    return -1; //return -1 when the currNode is nullptr
+    return 0; //return 0 when the currNode is nullptr
 }
 //Print the number of nodes in the tree
 void AVLTree::printTotalWordCount() const{
     this->inorderHelper(this->root, incrementCount);
     int result = wordCounter(true);
     //!!!!!! PRINT OR WRITE THE RESULT TO OUTPUT FILE !!!!!!
+    //ToDo
+}
+int AVLTree::getTotalWordCount() const{
+    this->inorderHelper(this->root, incrementCount);
+    int result = wordCounter(true);
+    return result;
 }
 void AVLTree::printWordFrequencies() const{
     this->inorderHelper(this->root, printFreqHelper);
@@ -106,12 +112,39 @@ void AVLTree::printLeastFrequent() const{
 }
 void AVLTree::printStandartDeviation() const{
     //retrieve the node frequencies in an int array
+    int length = this->getTotalWordCount();
+    int arr[length];
+    int currIndex = 0;
+    this->inorderHelper(this->root, arr, currIndex);
+    //after the helper has been invoked, our array is filled with tree's nodes' frequencies
+    double result = getStandardDeviation(arr, length);
+    //ToDo
 }
 void AVLTree::fixtree(){
 
 }
-bool AVLTree::isFixed(){
-
+//Checks whether the current tree satisfies the conditions of being height balanced
+//pass the root as the parameter when you want to check the whole tree
+bool AVLTree::isFixed(AVLNode* currNode){
+    if(currNode != NULL){
+        if(!isFixedHelper(currNode)){
+            return false;
+        }
+        if(!this->isFixed(currNode->left))){
+            return false;
+        }
+        if(!this->isFixed(currNode->right)){
+            return false;
+        }
+    }
+    return true;
+}
+//Given a node it will check whether the subtree with root currNode
+//helper function that checks whether the given node's left subtree's height differ by the right subtree's height by at most 1
+bool AVLTree::isFixedHelper(AVLNode* currNode){
+    int leftHeight = this->getHeightHelper(currNode->left);
+    int rightHeight = this->getHeightHelper(currNode->right);
+    return abs(leftHeight - rightHeight) <= 1;
 }
 void AVLTree::inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode))){
     if(currNode != NULL){
@@ -206,6 +239,15 @@ AVLNode* AVLTree::preorderHelper(AVLNode* currNode){
     }
     return result;
 }
+//Invoke from the print median function
+//Pass an initial empty array which is of size of the number of nodes in our tree, the array be filled with frequencies of each word
+void AVLTree::inorderHelper(AVLNode* currNode, int* arr, int& currIndex){
+    if(currNode != NULL){
+        this->inorderHelper(currNode->left, arr, currIndex);
+        arr[currIndex++] = currNode->counter;
+        this->inorderHelper(currNode->right, arr, currIndex);
+    }
+}
 //each and every character that is nonAlphaNumeric is considered to be a delimiter
 //Returns a pointer to dynamically allocated array of strings which represent input words.
 //Also sets the given int reference to the length of the returned array.
@@ -287,7 +329,7 @@ static int wordCounter(bool reset){
 void incrementCount(AVLNode* node){
     wordCounter(false);
 }
-double calculateStandardDeviation(int arr[], int length){
+double getStandardDeviation(int arr[], int length){
     if(length <= 1){
         return 0.0;  // If there's only one element or less, the standard deviation is 0.
     }
@@ -301,6 +343,33 @@ double calculateStandardDeviation(int arr[], int length){
     mean /= length;
 
     for(int i = 0; i < length; ++i){
+        double deviation = arr[i] - mean;
+        squaredSum += deviation * deviation;
+    }
+
+    double variance = squaredSum / (length - 1);
+    double stdDev = sqrt(variance);
+
+    // Round to two decimal places
+    stdDev = round(stdDev * 100) / 100;
+
+    return stdDev;
+}
+//Function to calculate standard deviation of a given array
+double calculateStandardDeviation(int arr[], int length) {
+    if (length <= 1) {
+        return 0.0;
+    }
+
+    double mean = 0.0;
+    double squaredSum = 0.0;
+
+    for (int i = 0; i < length; ++i) {
+        mean += arr[i];
+    }
+    mean /= length;
+
+    for (int i = 0; i < length; ++i) {
         double deviation = arr[i] - mean;
         squaredSum += deviation * deviation;
     }

@@ -22,6 +22,7 @@ public:
     void addWord(string word);
     void generateTree(string inputFileName);
     int printHeight() const;
+    int getTotalWordCount() const;
     void printTotalWordCount() const;
     void printWordFrequencies() const;
     void printMostFrequent() const;
@@ -30,11 +31,13 @@ public:
     static int wordCounter(bool reset); //will be used to help count words
 private:
     void fixtree(); //will be used to preserve the height property of avl
-    bool isFixed();
+    bool isFixed(AVLNode* currNode);
+    bool isFixedHelper(AVLNode* currNode);
     int getHeightHelper(BSTNode* currNode, int currHeight) const;
     void inorderHelper(AVLNode* currNode, void (*visit(AVLNode* currNode)));
     AVLNode* postorderHelper(AVLNode* currNode); // will be used to retrieve the most frequent node after traversal
     AVLNode* preorderHelper(AVLNode* currNode); // will be used to retrieve the least frequent node after traversal
+    void inorderHelper(AVLNode* currNode, int* arr, int& currIndex);
 };
 
 #endif // AVLTREE_H
