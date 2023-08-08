@@ -30,6 +30,7 @@ public:
     void printStandartDeviation() const;
     static int wordCounter(bool reset); //will be used to help count words
 private:
+    void addWordHelper(AVLNode* currNode, AVLNode* parentNode, string word);
     void fixtree(); //will be used to preserve the height property of avl
     bool isFixed(AVLNode* currNode);
     bool isFixedHelper(AVLNode* currNode);

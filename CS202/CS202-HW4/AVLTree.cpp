@@ -33,7 +33,44 @@ void AVLTree::~AVLTree(){
     }
 }
 void AVLTree::addWord(string word){
-
+    this->addWordHelper(this->root, nullptr, word);
+}
+void AVLTree::addWordHelper(AVLNode* currNode, AVLNode* parentNode, string word){
+    //perform search similar to bst, if the target already exists then simply increment the counter, otherwise create a new node and add it to the position
+    //if a new node is inserted then preserve the height property if there is some issues regarding it
+    if(currNode != NULL){
+        int comparison = stringCompare(currNode->word, word);
+        if(comparison < 0){
+            //search right subtree
+            this->addWordHelper(currNode->right, currNode, word);
+        }
+        else if(comparison == 0){
+            //increment the counter of the current node
+            currNode->counter++;
+        }
+        else{
+            //search the leftg subtree
+            this->addWordHelper(currNode->left, currNode, word);
+        }
+    }
+    else{
+        //if the search terminates when the currNode is nullptr, then we must instantiate a new AVLNode and insert it into the tree
+        AVLNode* newNode = new AVLNode(word);
+        if(parentNode == NULL){
+            //set the curr node as root
+            this->root = newNode; // in this case no need to check for whether the tree is balanced since there is only the root node
+        }
+        else{
+            int compareWithParent = stringCompare(parentNode->word, word);
+            if(compareWithParent < 0){
+                //the new node must be inserted into the right child
+                parentNode->right = newNode;
+            }
+            else if(compareWithParent > 0){
+                parentNode->left = newNode;
+            }
+        }
+    }
 }
 void AVLTree::generateTree(string inputFileName){
     ifstream inputFile(inputFileName);
@@ -381,6 +418,18 @@ double calculateStandardDeviation(int arr[], int length) {
     stdDev = round(stdDev * 100) / 100;
 
     return stdDev;
+}
+//It returns negative value if s1 precedes s2 lexicographically
+int stringCompare(string& s1, string& s2){
+    if(s1 == s2){
+        return 0;
+    }
+    else if(s1 > s2){
+        return 1;
+    }
+    else{
+        return -1;
+    }
 }
 bool isAlphaNumeric(char ch){
     switch(ch){
